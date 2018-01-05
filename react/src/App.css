@@ -1,0 +1,72 @@
+.app {
+  margin-bottom: 31px;
+  text-align: center;
+}
+
+.app-logo {
+  animation: app-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.app-footer {
+  background-color: transparent;
+  font-size: 9pt;
+  bottom: 0px; padding: 3pt 6pt;
+  position: fixed;
+}
+
+.app-header {
+  color: white;
+  background-color: #222222;
+  height: 35px;
+  margin: 0px; padding: 2pt;
+  position: fixed;
+  text-align: left;
+  top: 1;
+}
+
+.app-main {
+  color: white;
+  background-color: transparent;
+  height: 250px;
+  padding: 20px;
+}
+
+.app-title {
+  font-size: 1.5em;
+}
+
+.app-intro {
+  color: darkred;
+  font-size: small;
+}
+
+#btn-menu {
+  height: 31px; width: 31px;
+}
+.btn-menu {
+  background-color: transparent;
+  background-image: url(./assets/icon_menu.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 0px dotted transparent;
+  cursor: pointer;
+  margin: 1px; padding: 1px;
+}
+
+@keyframes app-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body {
+  background: linear-gradient(to bottom, rgba(33,33,33,1) 21%, rgba(0,0,0,0)) 90%;
+  background-attachment: fixed;
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;         /* Generic*/;
+  -webkit-background-size: cover; /* For WebKit*/
+  -moz-background-size: cover;    /* Mozilla*/
+  -o-background-size: cover;      /* Opera*/
+  margin: 0px;
+}
