@@ -1,10 +1,12 @@
 // vuex mutations
-import * as vmt from './mutation_types'
 
+// vuex mutation types
+const USER_SIGNED_IN = 'USER_SIGNED_IN'
+
+// mutations must be synchronous transactions should not be directly called
+// but by store.commit
 const mutations = {
-  // using ES2015 computed property key/name simplifies setting
-  // object property, e.g. mutations[expression] = (state, v) => ...
-  [vmt.USER_SIGNED_IN] (state, v) {
+  [USER_SIGNED_IN] (state, v) {
     state.userSignedIn = v
   }
 }

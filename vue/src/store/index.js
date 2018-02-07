@@ -1,18 +1,19 @@
-// store/index.js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
-import * as state from './state'
+import state from './state'
 
 Vue.use(Vuex)
 
+// app vuex store
 export default new Vuex.Store({
-  strict: process.env.NODE_ENV !== 'production',
   actions,
   getters,
+  modules: {
+  },
   mutations,
   state
 })

@@ -2,6 +2,8 @@
 
 // app states in alphabic order
 const state = {
+  perspectives: [],
+  notification: {},
   userSignedIn: false
 }
 

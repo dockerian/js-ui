@@ -1,10 +1,10 @@
 // vuex getters
-import state from './state'
+//
+// for component `computed`, use mapGetters `from 'vuex'`
+//
 
+// getters are computed properties for vuex store
 const getters = {
-  userSignedIn () {
-    return state.userSignedIn
-  }
 }
 
 export default getters
