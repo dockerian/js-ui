@@ -39,7 +39,7 @@ export default {
   }
   .btn-menu {
     background-color: transparent;
-    background-image: url(../assets/icon_menu.svg);
+    background-image: url(../../assets/icon_menu.svg);
     background-repeat: no-repeat;
     background-position: center;
     border: 0px dotted transparent;

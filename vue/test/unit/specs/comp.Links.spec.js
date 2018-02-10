@@ -6,6 +6,6 @@ describe('Links.vue', () => {
     const Constructor = Vue.extend(Links)
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('h2').textContent)
-    .toEqual('Essential Links')
+      .toEqual('Essential Links')
   })
 })

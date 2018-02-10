@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"
+     preserveAspectRatio="xMidYMid meet"
+     viewBox="0 0 30 12" fill="#ccc"
+     height="12" width="30">
+ <g>
+  <title>icon_ellipsis</title>
+  <circle id="svg_1" fill="#ccc" r="4" cy="6" cx="5"/>
+  <circle id="svg_2" fill="#ccc" r="4" cy="6" cx="15"/>
+  <circle id="svg_3" fill="#ccc" r="4" cy="6" cx="25"/>
+ </g>
+</svg>

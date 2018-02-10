@@ -7,12 +7,13 @@ module.exports = {
     // default: http://localhost:8080
     // see nightwatch.conf.js
     const devServer = browser.globals.devServerURL
+    const aboutPage = `${devServer}/about`
 
     browser
-      .url(devServer)
+      .url(aboutPage)
       .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.hello')
-      .assert.containsText('h1', 'Dockerian JsUi Test Vue.js App')
+      .assert.elementPresent('#about')
+      .assert.containsText('h1', 'Dockerian JsUi Vue.js App')
       .assert.elementCount('img', 1)
       .end()
   }

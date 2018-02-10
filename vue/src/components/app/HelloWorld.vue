@@ -15,7 +15,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Dockerian JsUi Test Vue.js App'
+      msg: 'Hello Vue.js App'
     }
   }
 }

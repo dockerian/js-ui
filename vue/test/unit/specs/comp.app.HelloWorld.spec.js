@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from '@/components/app/HelloWorld'
 
 describe('HelloWorld.vue', () => {
   it('should render correct contents', () => {
     const Constructor = Vue.extend(HelloWorld)
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('.hello h1').textContent)
-    .toEqual('Dockerian JsUi Test Vue.js App')
+      .toEqual('Hello Vue.js App')
   })
 })

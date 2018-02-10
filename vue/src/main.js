@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+Vue.prototype.$log = console.log.bind(console)
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <v-header/>
-    <img src="./assets/logo.png">
-    <router-view/>
+    <transition>
+      <router-view />
+    </transition>
     <v-footer :org-name="orgName" />
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/Header'
-import VueFooter from '@/components/Footer'
+import AppHeader from '@/components/app/Header'
+import AppFooter from '@/components/app/Footer'
+import config from '@/config'
 
 const data = {
-  orgName: 'Dockerian'
+  orgName: config.settings.org || 'Dockerian'
 }
 
 export default {
@@ -20,7 +22,7 @@ export default {
   data: () => data,
   components: {
     'v-header': AppHeader,
-    'v-footer': VueFooter
+    'v-footer': AppFooter
   }
 }
 </script>
