@@ -1,5 +1,7 @@
 // vuex actions
 
+import * as _const from './_constants'
+
 // actions commit mutations, with arbitrary asynchronous operations
 // and are triggered by store.dispatch
 //
@@ -17,6 +19,9 @@
 //
 // see https://vuex.vuejs.org/en/api.html
 const actions = {
+  [_const.USER_SIGNED_IN] (store, v) {
+    store.commit(_const.USER_SIGNED_IN, v)
+  }
 }
 
 export default actions
