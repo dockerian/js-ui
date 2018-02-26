@@ -60,7 +60,7 @@ export const checkFilters = (filters, keyMap = {}, keyTypesLookup = null) => {
 
     if (keyTypesLookup instanceof Function) {
       let checker = keyTypesLookup(key)
-      if (checker) {
+      if (checker instanceof Function) {
         let value = result[key]
         let array = value instanceof Array ? value : (value ? [`${value}`] : [])
         let vList = []
@@ -70,7 +70,7 @@ export const checkFilters = (filters, keyMap = {}, keyTypesLookup = null) => {
             vList.push(val)
           }
         }
-        result[key] = vList
+        result[key] = vList.sort()
       }
     }
   }

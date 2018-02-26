@@ -19,6 +19,17 @@ describe('utils.search.addFilters', () => {
       },
       {
         filters: {
+          state: ['New']
+        },
+        adds: {
+          state: ['Suspect', 'Approved']
+        },
+        expected: {
+          state: ['Approved', 'New', 'Suspect']
+        }
+      },
+      {
+        filters: {
           a: ['a'],
           b: ['b', 'bb', 'bbb']
         },
@@ -110,7 +121,7 @@ describe('utils.search.checkFilters', () => {
       {
         filters: {
           a: ['abc'],
-          b: [0, 'b', 10, 20, 30, 'x'],
+          b: [0, 'b', 20, 10, 30, 'x'],
           d: ['a', '2018', '2018-01-01', '2017-01-16', 'invalid'],
           x: ['new', 'Approve', 'deactive', 'xyz']
         },
@@ -119,8 +130,8 @@ describe('utils.search.checkFilters', () => {
         expected: {
           adhoc: ['abc'],
           bar: [0, 10, 20, 30],
-          d: ['2018-01-01', '2017-01-16'],
-          x: ['New', 'Approved']
+          d: ['2017-01-16', '2018-01-01'],
+          x: ['Approved', 'New']
         }
       }
     ]

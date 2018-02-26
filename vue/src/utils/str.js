@@ -12,6 +12,10 @@
   // return 'Approved'
   checkLookup('approved', ['New', 'Approved', 'Rejected'])
 
+  @example <caption>Object key/value</caption>
+  // return 'warn'
+  checkLookup('warning', {info: 'Informational', warn: 'Warning'})
+
   @example <caption>Prefix lookup</caption>
   // return 'Rejected'
   checkLookup('reject', ['New', 'Approved', 'Rejected'])
@@ -20,6 +24,17 @@ export const checkLookup = (s, dictionary) => {
   if (typeof s !== 'string') return ''
   let ss = s.toLowerCase().trim()
   if (ss) {
+    if (!Array.isArray(dictionary)) {
+      for (let key in dictionary) {
+        let item = dictionary[key]
+        let k = key.toLowerCase()
+        let v = typeof item === 'string' ? item.toLowerCase() : ''
+        if (k === s || (v && v.indexOf(ss) === 0)) {
+          return key
+        }
+      }
+      return ''
+    }
     for (let item of dictionary) {
       let v = typeof item === 'string' ? item.toLowerCase() : ''
       if (v && v.indexOf(ss) === 0) {

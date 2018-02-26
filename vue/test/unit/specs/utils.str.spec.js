@@ -4,6 +4,46 @@ import * as str from '@/utils/str'
 
 describe('utils.str.checkLookup', () => {
   it('should return a matched string in dictionary', () => {
+    const msgTypes = {
+      debug: 'Log', // debugging message
+      info: 'Informational', // generic or successful message
+      warn: 'Warning', // caution or warning
+      error: 'Error', // error or failure
+      fatal: 'Fatal' // system failure
+    }
+    const tests = [
+      {
+        s: 'test',
+        expected: ''
+      },
+      {
+        s: 'info',
+        expected: 'info'
+      },
+      {
+        s: 'inform',
+        expected: 'info'
+      },
+      {
+        s: 'debug',
+        expected: 'debug'
+      },
+      {
+        s: 'log',
+        expected: 'debug'
+      },
+      {
+        s: 'Warn',
+        expected: 'warn'
+      }
+    ]
+    for (let test of tests) {
+      let result = str.checkLookup(test.s, msgTypes)
+      expect(result).toEqual(test.expected)
+    }
+  })
+
+  it('should return a matched string in array', () => {
     const dicts = ['New', 'Approved', 'Rejected', 'Suspect', 'Deactivated']
     const tests = [
       {
@@ -106,14 +146,14 @@ describe('utils.str.parseDateTime', () => {
 
     for (let test of tests) {
       let result = str.parseDateTime(test.s, test.toLocale)
-      let tzInfo = tzVal !== 0 ? (tzVal > 0 ? '-' : '+') : '0'
-      let option = `tzoffset [${tzInfo}] ${test.toLocale ? '(toLocale)' : ''}`
       let utcHrs = test.gmtFormat ? 0 : (24 + tzVal) % 24
       let locHrs = test.gmtFormat ? (24 - tzVal) % 24 : 0
       let valHrs = test.toLocale ? locHrs : utcHrs
       let padHrs = valHrs.toString().padStart(2, '0')
       let target = result ? `${test.expected} ${padHrs}:00:00` : ''
-      console.log(`--- parse: '${test.s}' -> '${target}' ${option}`)
+      // let tzInfo = tzVal !== 0 ? (tzVal > 0 ? '-' : '+') : '0'
+      // let option = `tzoffset [${tzInfo}] ${test.toLocale ? '(toLocale)' : ''}`
+      // console.log(`--- parse: '${test.s}' -> '${target}' ${option}`)
       expect(result).toEqual(target)
     }
   })
@@ -168,9 +208,11 @@ describe('utils.str.parseDate', () => {
 
     for (let test of tests) {
       let result = str.parseDate(test.s, test.toLocale)
-      let tzInfo = tzVal !== 0 ? (tzVal > 0 ? '+' : '+') : '0'
-      let option = `tzoffset [${tzInfo}] ${test.toLocale ? '(toLocale)' : ''}`
-      console.log(`--- parseDate: '${test.s}' -> '${test.expected}' ${option}`)
+      // let tzInfo = tzVal !== 0 ? (tzVal > 0 ? '+' : '+') : '0'
+      // let option = `tzoffset [${tzInfo}] ${test.toLocale ? '(toLocale)' : ''}`
+      // console.log(`--- parseDate: '${test.s}' -> '${test.expected}' ${option}`)
+      expect(tzVal).toBeLessThanOrEqual(14)
+      expect(tzVal).toBeGreaterThanOrEqual(-12)
       expect(result).toEqual(test.expected)
     }
   })
