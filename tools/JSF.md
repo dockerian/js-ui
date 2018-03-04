@@ -11,8 +11,15 @@ Developer notes on learning and using JavaScript library and frameworks.
     - [ReactJS](#install-js-react)
     - [VueJS](#install-js-vue)
   * [JavaScript Frameworks](#js-frameworks)
-  * [JavaScript Design Patterns](#js-design)
   * [JavaScript Language](#js-lang)
+    - [ES5](#es5)
+    - [ES6](#es6)
+  * [Study Notes](#study-notes)
+    - [async/await vs promise](#async)
+    - [Functional Programming](#functional-programming)
+    - [Flux](#flux)
+    - [React Patterns](#react-patterns)
+    - [Vue.js](#vuejs)
   * [Others](#others)
 
 
@@ -244,46 +251,13 @@ Developer notes on learning and using JavaScript library and frameworks.
     - https://vuejsdevelopers.com/2017/05/15/vue-js-what-is-vuex/
 
 
-<a name="js-design"><br/></a>
-## JavaScript Design Patterns
-
-  * Functional programming
-    - Immutable state
-    - Functions as first class citizens
-    - Functions with no side-effects
-    - Higher-order functions
-
-  * Flux (design pattern)
-    - pattern: action -> dispatcher -> store -> view
-      - Single Source of Truth
-      - Data is Read-Only
-      - Mutations are Synchronous
-    - Redux
-      - The state of your whole application is stored in an object tree within a single store.
-      - The only way to change the state is to emit an action, an object describing what happened.
-      - To specify how the state tree is transformed by actions, you write pure reducers.
-    - Vuex
-      - Single Source of Truth policy, where there should only be one store. - Data Tracking
-      - Data from the store is read-only on the component, and must be changed through special processes that vuex calls “mutations” - Functional Programming
-      - Finally, these mutations that are performed should be synchronous. - Ensuring Persistence.
-
-  * React Patterns
-
-|Pattern      | Usage |Example|
-|:------------|:-----:|:------|
-|createClass  |deprecated|<code>var MyComp = React.createClass({<br/>&nbsp;&nbsp;render: function(){<br/>&nbsp;&nbsp;&nbsp;return (&lt;div&gt;{this.props.name}&lt;/div&gt;);<br/>&nbsp;&nbsp;}<br/>&nbsp;});</code>
-|ES6 class    |with `this`|<code>class MyComp extends React.Component {<br/>&nbsp;&nbsp;constructor(props) {super(props);}<br/>&nbsp;&nbsp;render() {<br/>&nbsp;&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;{this.props.name}&lt;/div&gt;<br/>&nbsp;&nbsp;&nbsp;);<br/>&nbsp;&nbsp;}<br/>&nbsp;}</code>|
-|createElement|w/o JSX|<code>const MyElem = (props) => <br/>&nbsp;&nbsp;React.createElement(<br/>&nbsp;&nbsp;&nbsp;'div', null, \`{props.name}\`<br/>&nbsp;&nbsp;)<br/>&nbsp;const MyComp = React.createFactory(MyElem)</code>|
-|Stateless    |with JSX|<code>const MyComp = (props) => (<br/>&nbsp;&nbsp;&lt;div&gt;{props.name}&lt;/div&gt;<br/>&nbsp;)<br/>&nbsp;const MyComponent = (props) => {<br/>&nbsp;&nbsp;let v = props.version + ".0";<br/>&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&lt;div&gt;{props.name} {v}&lt;/div&gt;<br/>&nbsp;&nbsp;)<br/>&nbsp;)</code>|
-
-  **Note**:
-  - Always use stateless function unless you need to use react's life cycle methods, refs or state.
-
-
 <a name="js-lang"><br/></a>
 ## JavaScript Language
 
-  * ES5
+<a name="es5"><br/></a>
+### ES5
+
+  * JavaScript variable
     - both `var` and `function` definitions (declarations) will be hoisted
       so that it could be override by later assignment
     - unless `var` definition is also with assignment (rather than, e.g. just
@@ -337,8 +311,12 @@ Developer notes on learning and using JavaScript library and frameworks.
       - default binding: `undefined` in `use strict` mode; otherwise, global
       - ignoring `this` by `null` binding: e.g. `fn.apply(null, args)`
 
-  * ES2015/ES6
+<a name="es6"><br/></a>
+### ES6
+
+  * New features (ES2015/ES6)
     - map and reduce array
+    - closures and callbacks
     - new features of the object literal and template strings
     - block scopes and let/const vs var (hoisting)
     - arrow functions
@@ -369,18 +347,290 @@ Developer notes on learning and using JavaScript library and frameworks.
     - classes and inheritance (used slightly in defining component, but to be avoided otherwise)
     - class field syntax to define methods with arrow functions
     - export, export default, and import/require modules (most important of all)
-    - promise objects and how to use them with async/await
-    - callbacks and promise
-    - closures
+    - promise objects and and how to use them with async/await
 
-  * TypeScript
-    - https://stackify.com/typescript-vs-javascript-migrate/
-    - https://stackoverflow.com/questions/12694530/what-is-typescript-and-why-would-i-use-it-in-place-of-javascript
-    - playground: http://www.typescriptlang.org/Playground/
-    - alternatives:
-      - [Facebook Flow](https://flow.org/en/docs)
-      - [Google Closure](https://developers.google.com/closure/compiler/)
-      - [Scala](http://www.scala-js.org/)
+  * export/import
+
+|export (in lib.js)|import|notes|
+|:-----------------|:-----|:----|
+|`export function f1() {}`<br/>`export function f2() {}`|`import {f1, f2} from 'lib'`|multiple|
+|`export {f1, f2}`|`import {f1, f2} from 'lib'`|selective|
+|`export {f1, f2 as fn2}`|`import * from 'lib'`<br/>`import * as utils from 'lib'`|all with module name|
+|`export default utils`|`import utils from 'lib'`|default module name (recommended)|
+|`export {f1 as default, f2}`|`import {lib, f2} from 'lib'`|mixed|
+
+  See spec for
+  [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) and [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+  and [examples](http://2ality.com/2014/09/es6-modules-final.html)
+
+  * deep/shallow copy
+    - `Object.assign` only copies property values and reference if the property is an object.
+    - Use `cloneDeep` (from `lodash`) or the following function to perform deep copy.
+
+      ```
+      deepCopy = (obj) => JSON.parse(JSON.stringify(obj))
+      ```
+
+
+<a name="study-notes"><br/></a>
+## Study Notes
+
+<a name="async"><br/></a>
+### async/await vs promise
+
+  * history: callback -> promise -> generator -> async/await
+  * promise version
+
+    ```
+    var fs = require('fs')
+    var readFile = function (fileName){
+      return new Promise(function (resolve, reject){
+        fs.readFile(fileName, function(error, data){
+          if (error) reject(error)
+          else resolve(data)
+        })
+      })
+    }
+    ```
+  * generator version
+
+    ```
+    var gen = function* (){
+      var f1 = yield readFile('/etc/fstab')
+      var f2 = yield readFile('/etc/shells')
+      console.log(f1.toString())
+      console.log(f2.toString())
+    }
+    ```
+  * async/await
+
+    ```
+    var asyncReadFile = async function (){
+      var f1 = await readFile('/etc/fstab')
+      var f2 = await readFile('/etc/shells')
+      console.log(f1.toString())
+      console.log(f2.toString())
+    }
+    ```
+  * catching reject
+
+    ```
+    async function fn() {
+      try {
+        await aFuncReturnsPromise();
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    ```
+    Alternatively
+
+    ```
+    async function asyncFn() {
+      await aFuncReturnsPromise().catch(function (err){
+        console.log(err)
+      })
+    }
+    ```
+  * forEach vs for
+
+    ```
+    async function dbFuc(db) {
+      let data = [{}, {}, {}] // some data
+      // key `async` is required to use with `await`
+      data.forEach(async function (req) {
+        await db.post(req) // concurrent calls
+      })
+    }
+    ```
+    use `Promise.all` instead
+
+    ```
+    async function dbFuc(db) {
+      let data = [{}, {}, {}] // some data
+      let promises = data.map((req) => db.post(req))
+      let results = await Promise.all(promises)
+      return results
+    }
+    ```
+    Alternatively,
+
+    ```
+    async function dbFuc(db) {
+      let data = [{}, {}, {}] // some data
+      let promises = data.map((req) => db.post(req));
+      let results = []
+      promises.forEach((promise) => {
+        results.push(await promise);
+      }
+      return results
+    }
+    ```
+    Otherwise, without concurrency
+
+    ```
+    async function dbFuc(db) {
+      let data = [{}, {}, {}] // some data
+      for (let req of data) {
+        await db.post(req);
+      }
+    }
+    ```
+
+
+<a name="functional-programming"><br/></a>
+### Functional programming
+
+  - Immutable state
+  - Functions as first class citizens
+  - Functions with no side-effects
+  - Higher-order functions
+
+
+<a name="flux"><br/></a>
+### Flux (design pattern)
+
+  - pattern: action -> dispatcher -> store -> view
+    - Single Source of Truth
+    - Data is Read-Only
+    - Mutations are Synchronous
+  - Redux
+    - The state of your whole application is stored in an object tree within a single store.
+    - The only way to change the state is to emit an action, an object describing what happened.
+    - To specify how the state tree is transformed by actions, you write pure reducers.
+  - Vuex
+    - Single Source of Truth policy, where there should only be one store. - Data Tracking
+    - Data from the store is read-only on the component, and must be changed through special processes that vuex calls “mutations” - Functional Programming
+    - Finally, these mutations that are performed should be synchronous. - Ensuring Persistence.
+
+
+<a name="react-patterns"><br/></a>
+### React Patterns
+
+|Pattern      | Usage |Example|
+|:------------|:-----:|:------|
+|createClass  |deprecated|<code>var MyComp = React.createClass({<br/>&nbsp;&nbsp;render: function(){<br/>&nbsp;&nbsp;&nbsp;return (&lt;div&gt;{this.props.name}&lt;/div&gt;);<br/>&nbsp;&nbsp;}<br/>&nbsp;});</code>
+|ES6 class    |with `this`|<code>class MyComp extends React.Component {<br/>&nbsp;&nbsp;constructor(props) {super(props);}<br/>&nbsp;&nbsp;render() {<br/>&nbsp;&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;{this.props.name}&lt;/div&gt;<br/>&nbsp;&nbsp;&nbsp;);<br/>&nbsp;&nbsp;}<br/>&nbsp;}</code>|
+|createElement|w/o JSX|<code>const MyElem = (props) => <br/>&nbsp;&nbsp;React.createElement(<br/>&nbsp;&nbsp;&nbsp;'div', null, \`{props.name}\`<br/>&nbsp;&nbsp;)<br/>&nbsp;const MyComp = React.createFactory(MyElem)</code>|
+|Stateless    |with JSX|<code>const MyComp = (props) => (<br/>&nbsp;&nbsp;&lt;div&gt;{props.name}&lt;/div&gt;<br/>&nbsp;)<br/>&nbsp;const MyComponent = (props) => {<br/>&nbsp;&nbsp;let v = props.version + ".0";<br/>&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&lt;div&gt;{props.name} {v}&lt;/div&gt;<br/>&nbsp;&nbsp;)<br/>&nbsp;)</code>|
+
+  **Note**:
+  - Always use stateless function unless you need to use react's life cycle methods, refs or state.
+
+
+<a name="vuejs"><br/></a>
+### Vue.js
+
+  * directives
+    - `v-on` (`@`) events:
+      - `click` (with modifier: `stop`, `prevent`, `self`, `one`)
+      - `keyup` (with modifier: `enter`, `space`, `delete`, `esc`, `left`)
+    - `v-model` (two-way binding)
+      - syntax: `v-model="dataProp"`
+      - shorthand for `:value="dataProp" @input="dataProp = $event.target.value"`
+      - only works with `<input/>`, `<select/>`, `<textarea/>`
+    - `v-bind`(`:`) `v-bind:attribute="expression"` only for element attributes
+    - `v-if` and `v-show` (setting `display:none` on false)
+    - `v-for`
+    - `v-html`: `<span v-html="htmlStringVariable" />` rendering content as html
+    - `v-once`: one-time interpolations that do not update on data change
+
+  * class and style
+    - `:class="{ className: dataProp }"` eval to `dataProp ? 'className' : ''`
+    - `:class="o"` eval to `Object.keys(o).reduce((s, v) => o[v] ? s+' '+v : s)`
+    - `:class="[a, b]"` map to values of `a` and `b` in data properties
+    - `:style="{color: dataProp}"` eval to `style="color:dataPropValue"`
+    - `:style="[styleObj1 styleObj2]"` combines style objects
+
+  * data vs props
+    - parent component defines `propName` key in `data`
+    - child component defines `'myPropName'` in `props` list
+    - parent component template uses `v-bind:myPropName="propName"` to pass down `propName` value
+    - child component template uses `{{myPropName}}`
+    - primitive value can be passed but cannot be changed
+    - complex value cannot be reassigned but can be modified (NOT recommended)
+    -
+
+  * life-cycle
+    - beforeCreate/created
+    - beforeMount/mounted
+    - beforeUpdate/updated
+    - beforeDestroy/destroyed
+    - errorCaptured
+
+  * computed vs method vs watch:
+    - `computed` properties are cached based on the dependencies
+      and will be updated whenever the dependencies change
+    - `method` functions always run whenever re-rendering
+
+    ```
+    computed: {
+      propName: {
+        get: function() {
+          return this.propFoo + this.propBar
+        }
+        set: function(value) {
+          var [v1, v2] = value.split(' ')
+          this.propFoo = v1
+        }
+      }
+    }
+    ```
+
+  * vuex
+    - Vuex object
+
+      ```
+      {
+        Store: function Store(){},
+        mapActions: function(){}, // mapping to actions
+        mapGetters: function(){}, // mapping to getters
+        mapMutations: function(){}, mapping to mutations
+        mapState: function(){}, // mapping to state
+        install: function install(){},
+        installed: true
+      }
+      ```
+    - state:
+    - getters: for getting state, as `computed` for `data`
+    - mutations: the only way to change state, must be synchronous
+
+      ```
+      this.$store.commit('MUTATION', {amount: 10})
+      // or
+      this.$store.commit({type: 'MUTATION', amount: 10})
+      ```
+
+    - actions: to dispatch/commit mutations, can be async
+    - modules:
+    - enable `this.$store` in component by `new Vue({store, ...})`
+    - binding event:
+      1. using v-model `<input :value="message" @input="onInput">`
+
+        ```
+        computed: {
+          ...mapState(['message'])
+        },
+        methods: {
+          onInput (e) {
+            this.$store.commit('message', e.target.value)
+          }
+        ```
+      2. using getter/setter for `<input v-model="message">`
+
+        ```
+        computed: {
+          message: {
+            get () {
+              return this.$store.state.obj.message
+            },
+            set (value) {
+              this.$store.commit('updateMessage', value)
+            }
+          }
+        }
+        ```
+
 
 
 <a name="others"><br/></a>
@@ -452,6 +702,15 @@ Developer notes on learning and using JavaScript library and frameworks.
     - https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44
     - https://egghead.io/courses/building-react-applications-with-idiomatic-redux
     - https://egghead.io/courses/getting-started-with-redux
+
+  * TypeScript
+    - https://stackify.com/typescript-vs-javascript-migrate/
+    - https://stackoverflow.com/questions/12694530/what-is-typescript-and-why-would-i-use-it-in-place-of-javascript
+    - playground: http://www.typescriptlang.org/Playground/
+    - alternatives:
+      - [Facebook Flow](https://flow.org/en/docs)
+      - [Google Closure](https://developers.google.com/closure/compiler/)
+      - [Scala](http://www.scala-js.org/)
 
   * Webpack
     - https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
