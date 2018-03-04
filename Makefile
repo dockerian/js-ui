@@ -31,8 +31,22 @@ JSF ?= vue
 SYSTOOLS := awk egrep find grep jq node npm rm sort tee xargs zip
 # set to docker/host hybrid script
 MAKE_RUN := tools/run.sh
+# set coverage report
+COVERAGE := $(JSF)/test/unit/coverage
+COVERAGE_REPORT := $(JSF)/test/unit/coverage/lcov-report/index.html
 # set debug mode
 DEBUG ?= 1
+
+ifeq ("$(JSF)","vue")
+	COVERAGE := $(JSF)/test/unit/coverage
+	COVERAGE_REPORT := $(JSF)/test/unit/coverage/lcov-report/index.html
+else ifeq ("$(JSF)","react")
+	COVERAGE := $(JSF)/coverage
+	COVERAGE_REPORT := $(JSF)/coverage/lcov-report/index.html
+else ifeq ("$(JSF)","ng")
+	COVERAGE := $(JSF)/coverage
+	COVERAGE_REPORT := $(JSF)/coverage/index.html
+endif
 
 
 check-tools:
@@ -63,7 +77,8 @@ clean-cache clean:
 	find . -name \*.log -type f -delete
 	find . -name \*.out -type f -delete
 	@echo ""
-	@echo "Cleaning up cache and coverage data ..."
+	@echo "Cleaning up cache and config data ..."
+	# find . -name coverage -type d -prune -exec rm -rf {} +
 	rm -rf .cache
 	rm -rf .vscode
 	@echo ""
@@ -81,7 +96,10 @@ ifeq ("$(DOCKER_DENV)","")
 		$(shell docker images -a|grep $(DOCKER_TAGS) 2>&1|awk '{print $1}') \
 		2>/dev/null || true
 endif
-	rm -rf docker_build.tee
+	rm -rf docker_build.tee || true
+	@echo ""
+	@echo "Cleaning up test coverage data ..."
+	rm -rf $(COVERAGE)
 	@echo ""
 	@echo "Cleaning up node_modules ..."
 	find . -name node_modules -type d | xargs rm -rf
@@ -126,6 +144,19 @@ ifeq ("$(DOCKER_DENV)","")
 endif
 
 
+docker-commit commit:
+	@echo ""
+ifneq ("$(DOCKER_DENV)","")
+	@echo "Cannot commit inside the container"
+else
+	find . -name node_modules -type d -prune -exec rm -rf {} +
+	docker cp . $(DOCKER_IMAG):/src/js-ui/
+	docker commit $(DOCKER_IMAG) $(DOCKER_TAGS)
+endif
+	@echo ""
+	@echo "- DONE: $@"
+
+
 # default targets
 build:
 	@echo ""
@@ -143,6 +174,12 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
+install:
+	(cd $(JSF); npm install; npm upgrade)
+
+lint:
+	(cd $(JSF); npm run lint)
+
 start run:
 	@echo ""
 ifndef DONT_RUN_DOCKER
@@ -158,23 +195,6 @@ else
 endif
 	@echo ""
 	@echo "- DONE: $@"
-
-unit test:
-	@echo ""
-ifndef DONT_RUN_DOCKER
-	PROJECT_DIR="$(PWD)" \
-	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
-	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
-	$(MAKE_RUN) $@
-else
-	@echo "Run test ..."
-	cd "$(JSF)" && npm run $@
-endif
-	@echo ""
-	@echo "- DONE: $@"
-
 
 # run/start targets for js frameworks
 ng ng-start start-ng:
@@ -224,3 +244,39 @@ else
 endif
 	@echo ""
 	@echo "- DONE: $@"
+
+qt:
+	(cd $(JSF); npm run unit)
+
+# testing targets
+test:
+	@echo ""
+ifndef DONT_RUN_DOCKER
+	PROJECT_DIR="$(PWD)" \
+	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
+	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_PORT=$(DOCKER_PORT) \
+	$(MAKE_RUN) $@
+else
+	@echo "Run test ..."
+	cd "$(JSF)" && npm test
+endif
+	@echo ""
+	@echo "- DONE: $@"
+
+test-coverage cover:
+	@echo ""
+ifeq ("$(wildcard /.dockerenv)","")
+	@echo "--- Opening $(COVERAGE_REPORT)"
+ifeq ($(OS), Windows_NT) # Windows
+	start "$(COVERAGE_REPORT)"
+else ifeq ($(shell uname),Darwin) # Mac OS
+	open "$(COVERAGE_REPORT)"
+else
+	nohup xdg-open "$(COVERAGE_REPORT)" >/dev/null 2>&1 &
+endif
+else
+	@echo ""
+	@echo "Cannot open test coverage in the container."
+endif
