@@ -70,6 +70,23 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
 
 
 <a name="install-js"><br/></a>
+## Managing Node.js version
+
+  Upgrade Node.js -
+
+  ```
+  brew upgrade node  # Mac OS X
+
+  sudo npm cache clean -f
+  sudo npm install -g n
+  sudo n stable
+  ```
+
+  Alternatively to use Node Version Manager,
+  aka [nvm](https://github.com/creationix/nvm).
+
+
+<a name="install-js"><br/></a>
 ## Initializing a JavaScript project
 
   Dockerian JsUi project starts prototyping web UI consoles with the following

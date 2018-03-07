@@ -24,7 +24,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-loader": "^7.1.3",
+    "babel-loader": "^7.1.4",
     "eslint": "^4.18.2",
     "eslint-loader": "^2.0.0"
   }
