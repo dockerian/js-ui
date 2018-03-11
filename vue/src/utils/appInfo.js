@@ -94,13 +94,14 @@ export default class AppInfo {
       }
       if (msg.notAcknowledged) {
         if (this.countNotAck >= this.notAckLimit) {
+          // acknowledge the oldest one
           this.clearAcknowledge(true)
-        } else {
-          this.countNotAck += 1
         }
+        this.countNotAck += 1
       }
       if (msg.important) {
         if (this.countSticky >= this.stickyLimit) {
+          // no more sticky/important message can be added
           msg.important = false
         } else {
           this.countSticky += 1
@@ -117,15 +118,11 @@ export default class AppInfo {
   clear () {
     let count = 0
     let countError = 0
-    let countNotAcked = 0
     for (let i = this.count - 1; i >= 0; i--) {
       let msg = this.messages[i]
       if (msg.important || msg.notAcknowledged) {
         if (msg.type === 'error') {
           countError += 1
-        }
-        if (msg.notAcknowledged) {
-          countNotAcked += 1
         }
         count += 1
         continue
@@ -135,7 +132,6 @@ export default class AppInfo {
       this.count -= 1
     }
     this.count = count
-    this.countNotAck = countNotAcked
     this.countError = countError
   }
 
@@ -149,6 +145,7 @@ export default class AppInfo {
       let msg = this.messages[i]
       if (msg.notAcknowledged) {
         msg.notAcknowledged = false
+        --this.countNotAck
         if (oldestOnly) {
           break
         }

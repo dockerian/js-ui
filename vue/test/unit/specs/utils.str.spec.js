@@ -96,9 +96,11 @@ describe('utils.str.clock', () => {
 
 describe('utils.str.parseDateTime', () => {
   it('should return a normalized datetime string', () => {
-    const tzVal = (new Date().getTimezoneOffset()) / 60
-    const tzAdd = (new Date().getTimezoneOffset()) <= 0 // before or equal GMT
-    const tzOff = (new Date().getTimezoneOffset()) >= 0 // behind or equal GMT
+    const dtJan = new Date('1/16/2017')
+    const tzVal = (dtJan.getTimezoneOffset()) / 60
+    const tzAdd = (dtJan.getTimezoneOffset()) <= 0 // before or equal GMT
+    const tzOff = (dtJan.getTimezoneOffset()) >= 0 // behind or equal GMT
+    // all test dates are in non-DST months
     const tests = [
       {
         s: '',
