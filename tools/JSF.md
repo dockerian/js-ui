@@ -11,6 +11,10 @@ Developer notes on learning and using JavaScript library and frameworks.
     - [ReactJS](#install-js-react)
     - [VueJS](#install-js-vue)
   * [JavaScript Frameworks](#js-frameworks)
+  * [UI Component Frameworks](#ui-components)
+    - [CSS Frameworks](#cssf)
+    - [Component Frameworks](#js-cf)
+    - [Vue.js Components](#vue-cf)
   * [JavaScript Language](#js-lang)
     - [ES5](#es5)
     - [ES6](#es6)
@@ -137,73 +141,6 @@ Developer notes on learning and using JavaScript library and frameworks.
     - https://github.com/stickfigure/blog/wiki/Opinionated-Comparison-of-React%2C-Angular2%2C-and-Aurelia
     - https://www.toptal.com/front-end/angular-vs-react-for-web-development
 
-  * Component Frameworks
-    - *All*
-      - https://segmentfault.com/a/1190000012365605
-      - https://www.sitepoint.com/most-popular-frontend-frameworks-compared/
-      - https://superdevresources.com/material-design-web-ui-frameworks/
-      - https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4 (react)
-      - https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651 (react)
-      - https://hashnode.com/post/10-best-reactjs-ui-frameworks-for-rapid-prototyping-cit49tqx414z89c53equ4zc5k
-      - https://ourcodeworld.com/articles/read/497/top-10-best-ui-frameworks-for-reactjs (react)
-      - https://blog.bitsrc.io/11-vue-js-component-libraries-you-should-know-in-2018-3d35ad0ae37f (vue)
-      - https://github.com/petehouston/vue-ui-framework (vue)
-      - https://madewithvuejs.com/frameworks (vue)
-    - Chart
-      - [D3.js](https://d3js.org/)
-      - [Chart.js](http://www.chartjs.org/docs/latest/)
-      - [NG2 Chart](https://valor-software.com/ng2-charts) for Angular2
-    - Ng (Angular.js)
-      - [Anuglar Material](https://material.angular.io/)
-      - [Clarity](https://vmware.github.io/clarity/documentation)
-      - [NGX Boostrap](https://valor-software.com/ngx-bootstrap/)
-      - [Prime NG](https://www.primefaces.org/primeng)
-    - [Bootstrap](https://getbootstrap.com/docs) for
-      [Angular](https://ng-bootstrap.github.io) |
-      [React](https://react-bootstrap.github.io) |
-      [Vue](https://bootstrap-vue.js.org/docs/components)
-    - [Element UI](http://element.eleme.io/#/en-US/) -
-      [ng](https://element-angular.faas.ele.me/guide) |
-      [react](https://eleme.github.io/element-react/#/en-US/quick-start) |
-      [vue](http://element.eleme.io/#/en-US/component/quickstart)
-    - [Fabric](https://developer.microsoft.com/en-us/fabric) for
-      [ng](https://developer.microsoft.com/en-us/fabric#/angular-js) [demo](http://ngofficeuifabric.com/) |
-      [react](https://developer.microsoft.com/en-us/fabric#/components)
-    - [Onsen UI](https://onsen.io/) for
-      [ng](https://onsen.io/angular2/) |
-      [react](https://onsen.io/react/) |
-      [vue](https://onsen.io/vue/)
-    - React.js
-      - [Amaze UI](http://amazeui.org/react/components/)
-      - [Ant Design](https://ant.design/docs/react/introduce)
-      - [Blueprint](http://blueprintjs.com/docs/v2/)
-      - [Elemental UI](http://elemental-ui.com/)
-      - [Grommet](http://grommet.io/)
-      - [Material UI - React](http://www.material-ui.com/)
-      - [React Toolbox](http://react-toolbox.io/)
-      - [React UI](http://lobos.github.io/react-ui)
-      - [React Visualized](http://bvaughn.github.io/react-virtualized/#/components/List)
-      - [Ring UI](https://jetbrains.org/ring-ui/branch/ring-ui-language/index.html)
-      - [UIW](https://uiw-react.github.io/#/en/quick-start)
-      - [WeUI](https://weui.github.io/react-weui/docs)
-      - [Zan](https://www.youzanyun.com/zanui/zent/en)
-    - [Semantic UI](https://semantic-ui.com/) -
-      [ng](https://semantic-ui.com/introduction/getting-started.html)
-      [react](https://react.semantic-ui.com) |
-      [vue](https://semantic-ui-vue.github.io)
-    - Vue.js
-      - [AT UIKit](https://at-ui.github.io/at-ui/#/en)
-      - [Buefy](https://buefy.github.io)
-      - [iView](https://www.iviewui.com/)
-      - [Keen UI](https://josephuspaye.github.io/Keen-UI)
-      - [Mint UI](http://mint-ui.github.io/docs/#/en2)
-      - [Muse UI](http://www.muse-ui.org/)
-      - [N3 components](https://n3-components.github.io/N3-components/component_en.html)
-      - [Quasar](http://quasar-framework.org/guide/index.html)
-      - [Vue Material](https://vuematerial.io/)
-      - [Vuetify](https://vuetifyjs.com/vuetify/quick-start)
-      - [Weex](https://weex.apache.org/guide/)
-
   * Angular
     - https://hackernoon.com/running-karma-tests-with-headless-chrome-inside-docker-ae4aceb06ed3
 
@@ -249,6 +186,191 @@ Developer notes on learning and using JavaScript library and frameworks.
 
   * Vuex
     - https://vuejsdevelopers.com/2017/05/15/vue-js-what-is-vuex/
+
+
+<a name="ui-components"><br/></a>
+## UI Component Frameworks
+
+<a name="cssf"></a>
+### CSS Frameworks
+
+  * [Bulma](http://bulma.io/)
+  * [Bootstrap](http://getbootstrap.com/)
+  * [Foundation by Zurb](http://foundation.zurb.com/)
+  * [Materialize](http://materializecss.com/)
+  * [Pure by Yahoo](http://purecss.io/)
+  * [Semantic UI](http://semantic-ui.com/)
+  * [Surface](http://mildrenben.github.io/surface)
+  * [UIKit](https://getuikit.com/v2/)
+
+  * Flexbox
+    - Previous CSS version display: block|inline|inline-block|table;
+    - Other layout: grid (in dev), positioned, flex/float/clear, flexbox (IE10)
+    - See `display` [properties](https://www.w3schools.com/cssref/pr_class_display.asp)
+    - CSS3 display: flex; `/* to replace float */`
+    * The `flex` container properties:
+      - flex-direction: row|row-reverse|column|column-reverse|initial|inherit;
+      - flex-wrap: nowrap|wrap|wrap-reverse|initial|inherit;
+      - justify-content: flex-start|flex-end|center|space-between|space-around|initial|inherit;
+      - align-content: stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit;
+      - align-items: stretch|center|flex-start|flex-end|baseline|initial|inherit;
+    * See
+      - https://www.w3schools.com/css/css3_flexbox.asp
+      - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout
+      - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+
+<a name="js-cf"><br/></a>
+### Component Frameworks
+  * *All*
+    - https://segmentfault.com/a/1190000012365605
+    - https://www.sitepoint.com/most-popular-frontend-frameworks-compared/
+    - https://superdevresources.com/material-design-web-ui-frameworks/
+    - https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4 (react)
+    - https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651 (react)
+    - https://hashnode.com/post/10-best-reactjs-ui-frameworks-for-rapid-prototyping-cit49tqx414z89c53equ4zc5k
+    - https://ourcodeworld.com/articles/read/497/top-10-best-ui-frameworks-for-reactjs (react)
+    - https://blog.bitsrc.io/11-vue-js-component-libraries-you-should-know-in-2018-3d35ad0ae37f (vue)
+    - https://github.com/petehouston/vue-ui-framework (vue)
+    - https://madewithvuejs.com/frameworks (vue)
+  * Chart
+    - [D3.js](https://d3js.org/)
+    - [Chart.js](http://www.chartjs.org/docs/latest/)
+    - [NG2 Chart](https://valor-software.com/ng2-charts) for Angular2
+  * Ng (Angular.js)
+    - [Anuglar Material](https://material.angular.io/)
+    - [Clarity](https://vmware.github.io/clarity/documentation)
+    - [NGX Boostrap](https://valor-software.com/ngx-bootstrap/)
+    - [Prime NG](https://www.primefaces.org/primeng)
+  * [Bootstrap](https://getbootstrap.com/docs) for
+    [Angular](https://ng-bootstrap.github.io) |
+    [React](https://react-bootstrap.github.io) |
+    [vuestrap](http://kzima.github.io/vuestrap-base-components) or
+    [Vue](https://bootstrap-vue.js.org/docs/components)
+  * [Element UI](http://element.eleme.io/#/en-US/) -
+    [ng](https://element-angular.faas.ele.me/guide) |
+    [react](https://eleme.github.io/element-react/#/en-US/quick-start) |
+    [vue](http://element.eleme.io/#/en-US/component/quickstart)
+  * [Fabric](https://developer.microsoft.com/en-us/fabric) for
+    [ng](https://developer.microsoft.com/en-us/fabric#/angular-js) [demo](http://ngofficeuifabric.com/) |
+    [react](https://developer.microsoft.com/en-us/fabric#/components)
+  * [Onsen UI](https://onsen.io/) for
+    [ng](https://onsen.io/angular2/) |
+    [react](https://onsen.io/react/) |
+    [vue](https://onsen.io/vue/)
+  * React.js
+    - [Amaze UI](http://amazeui.org/react/components/)
+    - [Ant Design](https://ant.design/docs/react/introduce)
+    - [Blueprint](http://blueprintjs.com/docs/v2/)
+    - [Elemental UI](http://elemental-ui.com/)
+    - [Grommet](http://grommet.io/)
+    - [Material UI - React](http://www.material-ui.com/)
+    - [React Toolbox](http://react-toolbox.io/)
+    - [React UI](http://lobos.github.io/react-ui)
+    - [React Visualized](http://bvaughn.github.io/react-virtualized/#/components/List)
+    - [Ring UI](https://jetbrains.org/ring-ui/branch/ring-ui-language/index.html)
+    - [UIW](https://uiw-react.github.io/#/en/quick-start)
+    - [WeUI](https://weui.github.io/react-weui/docs)
+    - [Zan](https://www.youzanyun.com/zanui/zent/en)
+  * [Semantic UI](https://semantic-ui.com/) -
+    [ng](https://semantic-ui.com/introduction/getting-started.html)
+    [react](https://react.semantic-ui.com) |
+    [vue](https://semantic-ui-vue.github.io)
+  * Vue.js
+    - [AT UIKit](https://at-ui.github.io/at-ui/#/en)
+    - [Buefy](https://buefy.github.io)
+    - [iView](https://www.iviewui.com/)
+    - [Keen UI](https://josephuspaye.github.io/Keen-UI)
+    - [Mint UI](http://mint-ui.github.io/docs/#/en2)
+    - [Muse UI](http://www.muse-ui.org/)
+    - [N3 components](https://n3-components.github.io/N3-components/component_en.html)
+    - [Office UI Fabric Vue](https://aidewoode.github.io/office-ui-fabric-vue)
+    - [Quasar](http://quasar-framework.org/guide/index.html)
+    - [Vue Material](https://vuematerial.io/)
+    - [Vuetify](https://vuetifyjs.com/vuetify/quick-start)
+    - [Weex](https://weex.apache.org/guide/)
+
+
+<a name="vue-cf"><br/></a>
+### Vue.js Components
+
+Notes:
+  * The frameworks for mobile apps are not included:
+    - [Framework7-vue](https://github.com/framework7io/framework7-vue)
+    - [Mint UI](http://mint-ui.github.io/docs/#/en2)
+    - [Onsen UI for Vue](https://onsen.io/vue/)
+    - [Quasar](http://quasar-framework.org/components/)
+    - [Vulma](https://vulma.org)
+    - [VUM - Vue Mobile](http://getvum.com/)
+    - [Weex](https://weex.apache.org/references/)
+  * The frameworks based on [Material Design](https://material.io/) are not fully evaluated:
+    - [Keen UI](https://josephuspaye.github.io/Keen-UI)
+    - [Muse UI](http://www.muse-ui.org/#/layout)
+    - [Vue Material](https://vuematerial.io/components/app) (has more advanced features)
+    - [Vue MDL](https://posva.net/vue-mdl-docs)
+    - [Vuetify](https://vuetifyjs.com/en)
+  * Some good ones but on other emphasis:
+    - [Eureka](https://github.com/eteplus/eureka) - A blog framework
+    - [Eagle.js](https://github.com/zulko/eagle.js/) - A slideshow framework
+    - [Fish UI](https://myliang.github.io/fish-ui/#/components/index)
+    - [Framevuerk](http://framevuerk.com/installation=setup)
+    - [N3 components](https://n3-components.github.io/N3-components/component_en.html)
+    - [Semantic UI Vue](https://semantic-ui-vue.github.io)
+    - [Vue-Blu](https://chenz24.github.io/vue-blu/#/en)
+    - and [more](https://github.com/vuejs/awesome-vue)
+  * This side-by-side comparison mainly focus on feature-rich form-input and data-table components.
+    - A `[x]` indicates fully-implemented feature
+    - A `[-]` indicates partially-implemented feature
+    - A blank indicates the feature does not exist
+
+| Features            | AT UIKit | BV  | Buefy | Element | iView | Vuetify |
+|:--------------------|:--------:|:---:|:-----:|:-------:|:-----:|:-------:|
+| npm                 | at-ui/ui-style | bootstrap-vue | buefy | element-ui| iview | vuetify |
+| i18n                | en, zh-CN, ... | | | en, zh-CN | en, zh-CN |       |
+| environment/theme   |[Electron](http://electron.atom.io/)/[NW.js](http://nwjs.io/)|||cli|cli|[x]|
+| design/layout       | Flexbox  |     |[Bulma](https://bulma.io/documentation/layout/container/)|[x]|[x]|[MD](https://material.io/)|
+| grid system         | 24       | 12  | 12    | 24      | 24    | 12      |
+| built-in icons      |[Feather](https://at-ui.github.io/at-ui/#/en/docs/icon)||[x]|[x]||?|
+| menu/dropdown       |  [x]     | [-] |  [x]  |  [x]    |  [x]  |  [x]    |
+| collapse            |  [x]     | [x] |       |  [x]    |  [x]  |         |
+| tree/toggle levels  |          |     |       |  [x]    |  [x]  |         |
+| steps               |  [x]     |     |       |  [x]    |  [x]  |  [x]    |
+| timeline            |  [x]     |     |       |         |  [x]  |         |
+| progress bar        |  [x]     | [x] |       |  [x]    |  [x]  |  [x]    |
+| progress circle     |          |     |       |  [x]    |  [x]  |  [x]    |
+| pagination          |          | [x] |  [x]  |  [x]    |  [x]  |  [x]    |
+| dialog/modal        |  [x]     | [x] |  [x]  |  [x]    |  [x]  |  [x]    |
+| avatar              |          |     |       |         |  [x]  |  [x]    |
+| badge               |  [x]     | [-] |       |  [x]    |  [x]  |  [x]    |
+| alert/message/bubble|  [x]     | [x] |  [x]  |  [x]    |  [x]  |  [x]    |
+| transfer list       |          |     |       |  [x]    |       |         |
+| closable tag        |  [x]     |     |  [x]  |  [x]    |  [x]  | [chip](https://vuetifyjs.com/en/components/chips) |
+| switch button       |  [x]     |     |  [x]  |  [x]    |  [x]  |  [x]    |
+| slider              |  [x]     |     |       |  [x]    |  [x]  |  [x]    |
+| radio button group  |  [x]     | [x] |  [x]  |  [x]    |  [x]  |         |
+| popover             |  [x]     | [x] |       |  [x]    |  [x]  |         |
+| upload file         |          | [x] |  [x]  |  [x]    |  [x]  |         |
+| auto**complete**    |          | [x] |  [x]  |  [x]    |  [x]  |         |
+| rating (5-star)     |  [x]     |     |       |  [x]    |  [x]  |         |
+| input:icon          |  [x]     |     |  [x]  |  [x]    |       |         |
+| input:state         |  [x]     | [x] |  [x]  |         |       |         |
+| input:clearable     |          | [x] |       |  [x]    |  [x]  |         |
+| input:number        |  [x]     | [x] |       |  [x]    |       |         |
+| input:date picker   |          | [-] |  [x]  |  [x]    |  [x]  |  [x]    |
+| input:time picker   |          | [-] |  [x]  |  [x]    |  [x]  |  [x]    |
+| input:passwd reveal |          | [x] |       |         |       |  [x]    |
+| input:validation    |          | [x] |       |  [x]    |       |  [x]    |
+| textarea:resizable  |  [x]     | [x] |       |  [x]    |  [x]  |  [x]    |
+| table:pagination    |  [x]     |     |  [x]  | *slot*  |  [x]  |  [x]    |
+| table:sortabe       |  [x]     | [x] |  [x]  |  [x]    |  [x]  |  [x]    |
+| table:filter/search |          | [x] |       |  [x]    |  [x]  |  [x]    |
+| table:fixed headers |          |     |       |  [x]    |  [x]  |         |
+| table:fixed columns |          |     |       |  [x]    |  [x]  |         |
+| table:responsive    |          | [x] |  [x]  |         |       |         |
+| table:detailed row  |          | [x] |  [x]  |  [x]    |  [x]  |  [x]    |
+| table:data export   |          |     |       |         |  [x]  |         |
+| tab:badge/icon      |  [x]     |     |  [x]  |  [x]    |  [x]  |  [x]    |
+| tab:closable        |  [x]     |     |       |  [x]    |  [x]  |  &nbsp; |
 
 
 <a name="js-lang"><br/></a>
