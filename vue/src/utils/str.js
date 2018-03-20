@@ -66,6 +66,33 @@ export const clock = () => {
 }
 
 /**
+  convert a contact to HTML mailto link.
+
+  @param {String} contact - string in format of "Name <emailAddress>"
+
+  @return {String} - HTML mailto link.
+**/
+export const contactToHTML = (contact) => {
+  if (typeof contact !== 'string') {
+    return ''
+  }
+  contact = contact.trim()
+
+  let regex1 = /(.+)<(.+)>/
+  let match1 = regex1.exec(contact)
+  let regex2 = /[<]*(.+)@(.+)[>]*/
+  let match2 = regex2.exec(contact)
+
+  if (match1) {
+    return `<a href="mailto:${match1[2]}">${match1[1].trim()}</a>`
+  }
+  if (match2) {
+    return `<a href="mailto:${match2[1]}@${match2[2]}">${contact}</a>`
+  }
+  return contact
+}
+
+/**
   parseDate returns ISO or locale date in format of 'yyyy-mm-dd HH:MM:SS',
   or '' if input is not a valid date.
 

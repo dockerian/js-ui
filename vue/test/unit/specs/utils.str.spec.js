@@ -94,6 +94,34 @@ describe('utils.str.clock', () => {
   })
 })
 
+describe('utils.str.contactToHTML', () => {
+  it('should return mailto in HTML', () => {
+    let tests = [
+      {
+        contact: 'Foobar',
+        expected: 'Foobar'
+      },
+      {
+        contact: '  foobar@abc.edu',
+        expected: '<a href="mailto:foobar@abc.edu">foobar@abc.edu</a>'
+      },
+      {
+        contact: 'Foo Bar   <foobar@abc.edu>',
+        expected: '<a href="mailto:foobar@abc.edu">Foo Bar</a>'
+      },
+      {
+        contact: {},
+        expected: ''
+      }
+    ]
+
+    for (let test of tests) {
+      let result = str.contactToHTML(test.contact)
+      expect(result).toBe(test.expected)
+    }
+  })
+})
+
 describe('utils.str.parseDateTime', () => {
   it('should return a normalized datetime string', () => {
     const dtJan = new Date('1/16/2017')
