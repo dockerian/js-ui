@@ -196,6 +196,9 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
+start-dev dev:
+	cd $(JSF) && npm run dev
+
 # run/start targets for js frameworks
 ng ng-start start-ng:
 	@echo ""
@@ -246,7 +249,7 @@ endif
 	@echo "- DONE: $@"
 
 qt:
-	(cd $(JSF); npm run unit)
+	cd $(JSF) && npm run unit
 
 # testing targets
 test:
