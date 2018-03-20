@@ -1,29 +1,30 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <v-links />
+  <div id="mb">
   </div>
 </template>
 
 <script>
-import VueLinks from '@/components/Links'
-
 export default {
-  name: 'HelloWorld',
+  name: 'MessageBoard',
   components: {
-    'v-links': VueLinks
+  },
+  props: {
   },
   data () {
     return {
-      msg: 'Hello Vue.js App'
     }
+  },
+  computed: {
+  },
+  methods: {
+  },
+  mounted: function () {
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+#mb {
 }
 </style>

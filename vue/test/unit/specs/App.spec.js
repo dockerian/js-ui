@@ -1,12 +1,13 @@
 import Vue from 'vue'
+import iView from 'iview'
 import App from '@/App'
+
+Vue.use(iView)
 
 describe('App.vue', () => {
   it('should render app root', () => {
-    // TODO [jason]: testing App with router
+    // TODO [jzhu]: testing App with router
     const Constructor = Vue.extend(App)
-    const data = App.data()
-    expect(data.orgName).toBe('Dockerian')
     expect(Constructor)
   })
 })

@@ -11,12 +11,18 @@ export default {
   name: 'Notification',
   components: {
   },
+  props: {
+  },
   data () {
     return {
       message: ''
     }
   },
   computed: {
+  },
+  methods: {
+  },
+  mounted: function () {
   }
 }
 </script>
@@ -33,9 +39,10 @@ export default {
   cursor: pointer;
   display: inline-block;
   height: 8px; width: 20px;
-  margin: -1px 2px 3px 2px; padding: 0px;
+  margin: 2px 2px 3px 2px; padding: 0px;
   vertical-align: middle;
   position: relative;
+  outline: none;
 }
 .message {
   display: inline-block;

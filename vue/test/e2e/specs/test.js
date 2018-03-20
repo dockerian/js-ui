@@ -13,7 +13,7 @@ module.exports = {
       .url(aboutPage)
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('#about')
-      .assert.containsText('h1', 'Dockerian JsUi Vue.js App')
+      .assert.containsText('h1', 'Dockerian JsUi')
       .assert.elementCount('img', 1)
       .end()
   }

@@ -1,0 +1,15 @@
+import Vuex from 'vuex'
+import * as vt from 'vue-test-utils'
+import Links from '@/components/app/Links'
+import store from '@/store'
+
+const localVue = vt.createLocalVue()
+localVue.use(Vuex)
+
+describe('app/Links.vue', () => {
+  it('should render Links contents', () => {
+    const vm = vt.shallow(Links, {store, localVue})
+    expect(vm.find('#links h1').text())
+      .toMatch(/Vue\.js 2\.5\.\d+/)
+  })
+})

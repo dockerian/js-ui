@@ -1,6 +1,8 @@
 <template>
-  <v-workspace>
-  </v-workspace>
+  <div id="main">
+    <v-workspace>
+    </v-workspace>
+  </div>
 </template>
 
 <script>

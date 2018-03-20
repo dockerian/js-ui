@@ -1,33 +1,39 @@
 <template>
   <div class="header">
   <header id="header">
-    <button id="btn-menu" class="btn-menu"/>
+    <button id="btn-menu" class="btn-menu"
+      v-on:click.stop="toggleAppMenu"
+    />
   </header>
   </div>
 </template>
 
 <script>
-// using mapGetters whenever computed data not mapping directly to state
-// import { mapGetters } from 'vuex'
-import { mapState } from 'vuex'
+import * as _const from '@/store/_constants'
+import { mapGetters, mapMutations } from 'vuex'
 
-var data = {}
+var data = {
+}
 
 export default {
   name: 'Header',
+  props: {
+  },
   data () {
     return data
   },
-  computed: mapState({
-    userSignedIn: state => state.userSignedIn
-  }),
+  computed: {
+    ...mapGetters({
+      appMenuShown: _const.APP_MENU_SHOWN,
+      userSignedIn: _const.USER_SIGNED_IN
+    })
+  },
   methods: {
-    // note: adding such changing state method (or thru mapActions) could
-    // cause warning "computed property was assigned to but it has no setter"
-    // which requires computed property has both getter and setter.
-    // setUserSignedIn (ev) {
-    //   this.$store.dispatch('userSignedIn', ev.target.value)
-    // }
+    ...mapMutations({
+      toggleAppMenu: _const.APP_MENU_SHOWN
+    })
+  },
+  mounted: function () {
   }
 }
 </script>
@@ -36,15 +42,17 @@ export default {
 <style scoped>
   #btn-menu {
     height: 31px; width: 31px;
+    outline: none;
   }
   .btn-menu {
     background-color: transparent;
-    background-image: url(../../assets/icon_menu.svg);
+    background-image: url(../assets/icon_menu.svg);
     background-repeat: no-repeat;
     background-position: center;
     border: 0px dotted transparent;
     cursor: pointer;
     margin: 1px; padding: 1px;
+    z-index: 100;
   }
   .header {
     background-color: white;

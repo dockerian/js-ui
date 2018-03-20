@@ -1,20 +1,31 @@
+<!-- FederatedSearch perspective :: Search -->
 <template>
-  <div>
+  <div id="search">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Menu',
+  name: 'Search',
   components: {
+  },
+  props: {
   },
   data () {
     return {
     }
+  },
+  computed: {
+  },
+  methods: {
+  },
+  mounted: function () {
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#search {
+}
 </style>

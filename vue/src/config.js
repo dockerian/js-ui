@@ -8,6 +8,7 @@ const REST_API_COMMENTS = `${REST_API}/comments`
 const REST_API_PHOTOS = `${REST_API}/photos`
 const REST_API_POSTS = `${REST_API}/posts`
 const REST_API_USERS = `${REST_API}/users`
+const REST_VER = (env.REST_VER || '1.0')
 
 const runtime = process.env === 'production' ? 'prod' : (
   process.env === 'testing' ? 'test' : 'dev'
@@ -20,11 +21,12 @@ const settings = {
   project: {
     alias: 'jsui',
     name: 'Dockerian JsUi',
+    version: `${REST_VER}`,
     description: 'Dockerian JavaScript framework UI project',
     manager: 'Jason Zhu <jason.zhuyx@gmail.com>',
     developers: [
-      'Jason Zhu <jason.zhuyx@gmail.com>',
-      'Jason Zhu <jzhu@infoblox.com>'
+      'Dockeria USA <dockeria@gmail.com>',
+      'Jason Zhu <jason.zhuyx@gmail.com>'
     ],
     startDate: '2018-01-05',
     team: 'dockerian'

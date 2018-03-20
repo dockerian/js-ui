@@ -3,10 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import * as settings from './store/settings'
 import store from './store'
+
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$log = console.log.bind(console)
+Vue.use(iView)
+
+settings.init(store)
 
 /* eslint-disable no-new */
 new Vue({

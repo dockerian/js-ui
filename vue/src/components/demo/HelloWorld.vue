@@ -1,22 +1,21 @@
 <template>
-  <div id="about">
-    <img src="@/assets/logo.png">
+  <div id="hello">
     <h1>{{ msg }}</h1>
     <v-links />
   </div>
 </template>
 
 <script>
-import VueLinks from '@/components/Links'
+import AppLinks from '@/components/app/Links'
 
 export default {
-  name: 'About',
+  name: 'HelloWorld',
   components: {
-    'v-links': VueLinks
+    'v-links': AppLinks
   },
   data () {
     return {
-      msg: 'Dockerian JsUi Vue.js App'
+      msg: 'Hello Vue.js App'
     }
   }
 }
@@ -24,6 +23,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#hello {
+}
 h1, h2 {
   font-weight: normal;
 }
