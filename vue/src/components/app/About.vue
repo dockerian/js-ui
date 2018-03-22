@@ -41,8 +41,8 @@ import Links from '@/components/app/Links'
 import * as str from '@/utils/str'
 import config from '@/config'
 
+const {ver, ...rest} = config.settings.rest
 const project = config.settings.project
-const rest = config.settings.rest
 
 export default {
   name: 'About',
@@ -57,6 +57,7 @@ export default {
       config,
       project,
       rest,
+      restApiVersion: ver,
       vue: `Vue.js ${Vue.version}`
     }
   },

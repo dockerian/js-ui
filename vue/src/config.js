@@ -1,6 +1,7 @@
 // config.js
 
 const env = process.env
+const pkg = require('../package.json')
 
 const REST_API = (env.REST_API || 'http://localhost:8001').replace(/\/$/, '')
 const REST_API_DATA = `${REST_API}/data`
@@ -21,7 +22,7 @@ const settings = {
   project: {
     alias: 'jsui',
     name: 'Dockerian JsUi',
-    version: `${REST_VER}`,
+    version: pkg.version,
     description: 'Dockerian JavaScript framework UI project',
     manager: 'Jason Zhu <jason.zhuyx@gmail.com>',
     developers: [
@@ -33,6 +34,7 @@ const settings = {
   },
   rest: {
     api: REST_API,
+    ver: REST_VER,
     data: REST_API_DATA,
     comments: REST_API_COMMENTS,
     photos: REST_API_PHOTOS,

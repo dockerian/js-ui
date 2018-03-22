@@ -68,6 +68,14 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   npm -v   # npm --version
   ```
 
+  And update to the latest or the next version:
+
+  ```
+  npm install -g npm@latest
+  npm install -g node@latest  # or `brew upgrade node` on Mac OS
+  npm install -g node@next
+  ```
+
 
 <a name="install-js"><br/></a>
 ## Managing Node.js version

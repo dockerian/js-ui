@@ -56,6 +56,22 @@ export default {
 #links {
   overflow-y: scroll;
 }
+div#links::after {
+  content: "";
+  background-attachment: fixed;
+  background-blend-mode: lighten;
+  background-clip: content-box;
+  background-image: url('../../assets/sng.png');
+  background-origin: content-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 87%;
+  opacity: 0.05;
+  padding: 0px; margin: 0px;
+  bottom: 0; left: 0; right: 0; top: 0;
+  position: absolute;
+  z-index: -1;
+}
 h1, h2 {
   font-weight: normal;
 }

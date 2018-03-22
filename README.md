@@ -25,6 +25,8 @@ Prototype Web UI by JavaScript Frameworks
 
   Prerequisite: [Node.js with npm](tools/README.md).
 
+  **Note**: DO NOT run `npm install` on project root
+
   The `Makefile` has included `build`, `test`, `run` targets.
   For example, to build, simply change directory to the repository root and run
 
@@ -35,9 +37,10 @@ Prototype Web UI by JavaScript Frameworks
   or to run tests
 
   ```
-  DONT_RUN_DOCKER=1 make test
+  DONT_RUN_DOCKER=1 make test  # or `make qt` for quick without e2e test
 
   # or
+  # (cd $JSF; npm i; npm run unit)  # only the 1st time; and here `JSF=vue`
   make unit
   ```
 
@@ -45,6 +48,12 @@ Prototype Web UI by JavaScript Frameworks
 
   ```
   make run
+  ```
+
+  or to start the app in dev mode
+
+  ```
+  make dev
   ```
 
 

@@ -5,7 +5,7 @@
   <div v-on:click="toggleClock" class="clock">
     <span v-if="envShowClock">{{ clock }}</span>
     <span v-else v-bind:class="`vinfo v-${env}`">
-      {{ project.version }}-{{ env }}
+      {{ project.version + (env !== 'prod' ? `-${env}` : '' ) }}
     </span>
   </div>
   </footer>

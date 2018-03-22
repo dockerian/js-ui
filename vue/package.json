@@ -11,7 +11,7 @@
     "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs",
     "prod": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js",
     "prestart": "npm install",
-    "start": "npm run dev",
+    "start": "npm run prod",
     "pretest": "npm install && npm run lint",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit && npm run e2e"
