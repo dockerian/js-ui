@@ -83,6 +83,9 @@ For example, the application [config](./src/config.js) includes
   - application data (e.g. valid DDoS domain states)
 
 And the menu configuration is mapping to the route names and paths.
+  - `router` is using routes from `@/router/appRoutes`
+  - `appMenu` is building menu items inherit `name` and `query` from routes
+  - `appPerspectives` is based on `appMenu.perspectives.menuItems`
 
 Here is the project structure for config and settings.
 
@@ -101,6 +104,8 @@ Here is the project structure for config and settings.
   │   ├── config.js
   │   ├── router
   │   │   ├── appMenu.js (mapping to routes config)
+  │   │   ├── appPerspectives.js (multi-tab view config)
+  │   │   ├── appRoutes.js (routes config)
   │   │   └── index.js
   │   └── ...
   ├── .babelrc
