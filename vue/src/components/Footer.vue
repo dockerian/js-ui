@@ -44,7 +44,7 @@ export default {
     },
     // envShowClock: () => true,
     ...mapGetters({
-      envShowClock: _const.ENV_SHOW_CLOCK
+      envShowClock: _const.SHOW_CLOCK_ENV
     })
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
       this.interval = setInterval(this._tick, 1000)
     },
     toggleClock: function () {
-      this.$store.commit(_const.ENV_SHOW_CLOCK)
+      this.$store.commit(_const.SHOW_CLOCK_ENV, !this.envShowClock)
     }
   },
   mounted: function () {
@@ -72,7 +72,7 @@ export default {
     border: dotted 1px green;
     */
     height: 28px; margin-top: 0; padding: 0;
-    position: absolute; left: 190px; right: 65px; top: 0px;
+    position: absolute; left: 190px; right: 71px; top: 0px;
     vertical-align: center;
   }
   .clock {

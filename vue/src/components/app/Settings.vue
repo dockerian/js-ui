@@ -1,36 +1,21 @@
 <template>
   <div id="settings">
-    <div id="setting-header">
+    <div id="settings-header">
       <h1>Settings</h1>
     </div>
-    <div id="setting-panel">
-      <div id="color-theme">
-        <h3>Color Theme and Display</h3>
-        <div class="setting-section">
-          <Checkbox
-            v-model="darkTheme"
-            v-bind:value="darkTheme"
-            size="large">
-            &nbsp; Use dark theme for App menu
-          </Checkbox>
-          <Checkbox
-            v-model="showClock"
-            v-bind:value="showClock"
-            size="large">
-            &nbsp; Show clock at footer
-          </Checkbox>
-        </div>
-      </div>
+    <div class="settings-vue">
+      <v-settings-pane />
     </div>
   </div>
 </template>
 
 <script>
-import * as _const from '@/store/_constants'
+import SettingsPane from '@/components/app/SettingsPane'
 
 export default {
   name: 'Settings',
   components: {
+    'v-settings-pane': SettingsPane
   },
   props: {
   },
@@ -39,24 +24,6 @@ export default {
     }
   },
   computed: {
-    darkTheme: {
-      get: function () {
-        let themeName = this.$store.state.appMenuTheme
-        return themeName === 'dark'
-      },
-      set: function (value) {
-        let themeName = value ? 'dark' : 'light'
-        this.$store.commit(_const.APP_MENU_THEME, themeName)
-      }
-    },
-    showClock: {
-      get: function () {
-        return this.$store.state.envShowClock
-      },
-      set: function (value) {
-        this.$store.commit(_const.SET_SHOW_CLOCK, value)
-      }
-    }
   },
   methods: {
   },
@@ -72,7 +39,23 @@ export default {
   position: fixed; top: 33px;
   text-align: left;
 }
-#setting-header {
+div#settings::after {
+  content: "";
+  background-attachment: fixed;
+  background-blend-mode: lighten;
+  background-clip: content-box;
+  background-image: url('../../assets/p_settings.png');
+  background-origin: content-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 51%;
+  opacity: 0.05;
+  padding: 0px; margin: 0px;
+  bottom: 0; left: 0; right: 0; top: 0;
+  position: absolute;
+  z-index: -1;
+}
+#settings-header {
   color: dimgray;
   background-color: white;
   border-bottom: 2px solid lightgray;
@@ -80,19 +63,13 @@ export default {
   height: 50px; width: 100%;
   z-index: 10;
 }
-#setting-panel {
-  display: inline-block;
-  padding: 5px 5px 0px 5px;
-  margin: 0 5px 5pt 0pt; width: 99%; position: relative; top: 35px;
+.settings-vue {
+  display: inline-flex;
+  flex-flow: row wrap; /* flex-direction: row; flex-wrap: nowrap; */
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0px; padding: 0px; width: 100%;
+  position: relative; top: 37px;
   overflow-y: scroll;
 }
-.setting-section {
-  display: inline-block;
-}
-h3 {
-  color: dimgray;
-  line-height: 120%;
-  padding: 15pt 0pt 5pt 0pt;
-}
-
 </style>

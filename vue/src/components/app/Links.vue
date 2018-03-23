@@ -61,7 +61,7 @@ div#links::after {
   background-attachment: fixed;
   background-blend-mode: lighten;
   background-clip: content-box;
-  background-image: url('../../assets/sng.png');
+  background-image: url('../../assets/p_links.png');
   background-origin: content-box;
   background-position: center;
   background-repeat: no-repeat;

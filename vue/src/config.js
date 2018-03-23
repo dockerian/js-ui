@@ -30,6 +30,10 @@ const settings = {
       'Jason Zhu <jason.zhuyx@gmail.com>'
     ],
     startDate: '2018-01-05',
+    releases: {
+      'MVP': '2018-04-30',
+      '': ''
+    },
     team: 'dockerian'
   },
   rest: {
