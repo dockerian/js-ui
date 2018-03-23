@@ -3,27 +3,23 @@
 import Cookies from 'js-cookie'
 import * as _const from './_constants'
 
-// cookieKeys defines {key, mut} keys to store getter and mutation.
-// note: add prefix path if the key is for scoped store module.
+// cookieKeys defines key name of the store getter and mutation.
+// note: add prefix paths if the key is for scoped store module.
 const cookieKeys = [
-  {
-    key: _const.APP_MENU_THEME,
-    mut: _const.APP_MENU_THEME
-  },
-  {
-    key: _const.ENV_SHOW_CLOCK,
-    mut: _const.SET_SHOW_CLOCK
-  }
+  _const.ACTIVE_TAB_KEY,
+  _const.ACTIVE_TAB_ORDER,
+  _const.APP_MENU_THEME,
+  _const.NAV_NO_HISTORY,
+  _const.PROGRESS_CHART,
+  _const.SHOW_CLOCK_ENV
 ]
 
 export const init = function (store) {
-  for (const item of cookieKeys) {
-    let key = item.key
-    let mut = item.mut
-    let storedValue = getCookie(key)
-    // console.log(` stored cookie: ${key} = ${JSON.stringify(storedValue)}`)
+  for (const name of cookieKeys) {
+    let storedValue = getCookie(name)
+    // console.log(` stored cookie: ${name} = ${JSON.stringify(storedValue)}`)
     if (storedValue !== undefined && storedValue !== 'undefined') {
-      store.commit(mut, storedValue)
+      store.commit(name, storedValue)
     }
   }
 }

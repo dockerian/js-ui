@@ -1,6 +1,8 @@
 // vuex actions
 
+import _ from 'lodash'
 import * as _const from './_constants'
+import { openAppTab } from '@/router/appPerspectives'
 
 // actions commit mutations, with arbitrary asynchronous operations
 // and are triggered by store.dispatch
@@ -19,6 +21,18 @@ import * as _const from './_constants'
 //
 // see https://vuex.vuejs.org/en/api.html
 const actions = {
+  [_const.PERSPECTIVE_OPEN] (store, path) {
+    let tabs = _.cloneDeep(store.state.perspectives)
+    let activeTab = openAppTab(path, tabs)
+
+    if (activeTab) {
+      // console.log('updating store tabs:', JSON.stringify(tabs))
+      store.commit(_const.PERSPECTIVE_TABS, tabs)
+
+      // console.log('activating tab:', JSON.stringify(activeTab))
+      store.commit(_const.ACTIVE_TAB_KEY, activeTab.key)
+    }
+  },
   [_const.USER_SIGNED_IN] (store, v) {
     store.commit(_const.USER_SIGNED_IN, v)
   }
