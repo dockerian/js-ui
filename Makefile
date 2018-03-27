@@ -175,10 +175,10 @@ endif
 	@echo "- DONE: $@"
 
 install:
-	(cd $(JSF); npm install; npm upgrade)
+	( cd $(JSF) && npm install && npm upgrade )
 
 lint:
-	(cd $(JSF); npm run lint)
+	( cd $(JSF) && npm run lint )
 
 start run:
 	@echo ""
@@ -197,7 +197,7 @@ endif
 	@echo "- DONE: $@"
 
 start-dev dev:
-	cd $(JSF) && npm run dev
+	( cd $(JSF) && npm run dev )
 
 # run/start targets for js frameworks
 ng ng-start start-ng:
@@ -248,8 +248,8 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
-qt:
-	cd $(JSF) && npm run unit
+qt: lint
+	( cd $(JSF); npm run unit )
 
 # testing targets
 test:

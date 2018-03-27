@@ -15,6 +15,8 @@ Developer notes on learning and using JavaScript library and frameworks.
     - [CSS Frameworks](#cssf)
     - [Component Frameworks](#js-cf)
     - [Vue.js Components](#vue-cf)
+      - [Comparison - Frameworks](#vue-cf-comparison)
+      - [Comparison - Tables](#vue-cf-tables)
   * [JavaScript Language](#js-lang)
     - [ES5](#es5)
     - [ES6](#es6)
@@ -371,6 +373,75 @@ Notes:
 | table:data export   |          |     |       |         |  [x]  |         |
 | tab:badge/icon      |  [x]     |     |  [x]  |  [x]    |  [x]  |  [x]    |
 | tab:closable        |  [x]     |     |       |  [x]    |  [x]  |  &nbsp; |
+
+
+<a name="vue-cf-tables"><br/></a>
+#### Comparison - Table components
+
+Summary (stars/forks - by 2018-03-27)
+  * [el-table](http://element.eleme.io/#/en-US/component/table)
+  * [vue-table-2](https://github.com/ratiw/vuetable-2) (993/190)
+    - status: v1.7.3 - 2018-02-01
+    - [demo](http://jsfiddle.net/CristiJ/z11fe07p/1318/)
+    - [sample](https://github.com/ratiw/vuetable-2-with-laravel-5.4) | [tutorial](https://github.com/ratiw/vuetable-2-tutorial/wiki)
+    - features:
+      - callback [formatter](https://ratiw.github.io/vuetable-2/#/Callbacks)
+      - detail view, row identifier, pagination, etc.
+      - field options: name, sortField, title, titleClass, dataClass, callback, visible, width
+      - fields (`columns`) allow name for [nested data](https://ratiw.github.io/vuetable-2/#/Fields-Definition?id=nested-json-data): e.g. `address.city`
+      - special fields: `__checkbox`, `__component`, `__handle`, `__sequence`, `__slot`
+      - data [transform](https://ratiw.github.io/vuetable-2/#/Data-Transformation)
+      - server-side [sorting](https://ratiw.github.io/vuetable-2/#/Sorting)
+      - see [data format](https://ratiw.github.io/vuetable-2/#/Data-Format-JSON)
+    - [doc](https://ratiw.github.io/vuetable-2)
+  * [vue-tables-2](https://github.com/matfish2/vue-tables-2) (641/145)
+    - status: last commit on 2018-03-19
+    - [demo](https://jsfiddle.net/matfish2/jfa5t4sm/) | [server](https://jsfiddle.net/matfish2/js4bmdbL/)
+    - special features:
+      - [server side](https://github.com/matfish2/vue-tables-2#server-side):
+        - using `<v-server-table url=""` to get `{data, count}`
+        - custom request
+      - slots and custom slots
+      - other [options](https://github.com/matfish2/vue-tables-2#options):
+        - responsive property `columnsDisplay`
+        - multi sorting
+        - debounce
+  * [vue2-datatable-component](https://github.com/OneWayTech/vue2-datatable) (366/79)
+    - [demo](https://onewaytech.github.io/vue2-datatable/examples/dist)
+    - [doc](https://onewaytech.github.io/vue2-datatable/doc/#/en/)
+    - special features:
+      - fixed headers and scrolling columns
+  * [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/) (587/112)
+    - status: last commit on 2018-03-05
+    - [demo](http://jsfiddle.net/zpczjl/9tp3z4bn/) | [sever-end](http://jsfiddle.net/zpczjl/9tp3z4bn/)
+    - [doc](https://njleonzhang.github.io/vue-data-tables/#/?id=vue-data-tables)
+    - special features:
+      - auto/free mode for [server data](https://njleonzhang.github.io/vue-data-tables/#/serverData)
+      - table slot "append": for infinite scroll (clustering/lazy-loading)
+      - checkbox/search-box filter and custom filter function
+      - action and custom action
+  * [vue-datasource](https://github.com/coderdiaz/vue-datasource) (359/85)
+    - status: last major change on 2017-10-30
+  * [vuetiful](https://github.com/andrewcourtice/vuetiful) (348/72)
+    - status: discontinued; last commit: 2017-11-08
+    - a.k.a. Advanced Datatable Component (Vuejs editable grid)
+    - special features:
+      - filtering
+      - real-time editing
+      - multi-column grouping
+      - custom filter/formatter
+      - custom aggregation functions
+      - custom templates
+    - [demo](https://codepen.io/andrewcourtice/full/woQzpa/)
+    - [doc](https://github.com/andrewcourtice/vuetiful/tree/master/src/components/datatable)
+
+Resources:
+  - https://vuejsexamples.com/tag/table/
+  - https://www.thetechieshouse.com/best-10-vue-js-tables-and-data-grid-examples/
+  - https://vuejsfeed.com/blog/comparison-of-datatable-solutions-for-vue-js
+  - https://medium.mybridge.co/30-amazing-vue-js-open-source-projects-for-the-past-year-v-2018-d39a0d019bb7
+  - https://alligator.io/vuejs/roundup-desktop-components/
+
 
 
 <a name="js-lang"><br/></a>

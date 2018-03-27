@@ -40,7 +40,9 @@ Prototype Web UI by JavaScript Frameworks
   DONT_RUN_DOCKER=1 make test  # or `make qt` for quick without e2e test
 
   # or
-  # (cd $JSF; npm i; npm run unit)  # only the 1st time; and here `JSF=vue`
+  # make install lint unit  # to run unit tests only
+  # or
+  # (cd $JSF && npm i && npm run unit)  # only the 1st time; and here `JSF=vue`
   make unit
   ```
 
@@ -53,6 +55,7 @@ Prototype Web UI by JavaScript Frameworks
   or to start the app in dev mode
 
   ```
+  make install
   make dev
   ```
 
