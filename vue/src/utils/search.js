@@ -1,5 +1,8 @@
 // utils/search.js - search filter functions
 
+import _ from 'lodash'
+import * as str from '@/utils/str'
+
 /**
   addFilters constructs a new filters object to include specific
   key:value pairs in addingItems
@@ -31,6 +34,37 @@ export const addFilters = (filters, addingItems) => {
 }
 
 /**
+  checkFilters uses filterKeys to validate keys in filters object.
+
+  @param {Object} filters - filters object.
+  @param {Array} filterKeys - filter keys list or map.
+
+  @return {Object} filters object without invalid keys.
+**/
+export const checkFilterKeys = (filters, filterKeys) => {
+  let results = _.cloneDeep(filters)
+  let deleteKeys = []
+  let keys = filterKeys instanceof Array ? filterKeys : Object.keys(filterKeys || {})
+  for (let key in results) {
+    if (keys.indexOf(key) >= 0) continue
+
+    let camelKey = str.camelize(key)
+    if (camelKey !== key && keys.indexOf(camelKey) >= 0) {
+      let others = results[camelKey] || []
+      results[camelKey] = [
+        ...results[key],
+        ...others
+      ].sort()
+    }
+    deleteKeys.push(key)
+  }
+  for (let key of deleteKeys) {
+    delete results[key]
+  }
+  return results
+}
+
+/**
   checkFilters normalizes filter keys by keyMap and keyTypes
   @param {Object} filters - filters object
   @param {Object} keyMap - filters keys mapping
@@ -54,7 +88,11 @@ export const checkFilters = (filters, keyMap = {}, keyTypesLookup = null) => {
     let map = keyMap instanceof Object ? keyMap : {}
     let key = map[filterKey] || filterKey
     if (key && key !== filterKey) {
-      result[key] = result[filterKey]
+      let others = result[key] || []
+      result[key] = [
+        ...result[filterKey],
+        ...others
+      ].sort()
       deleteKeys.push(filterKey)
     }
 
@@ -164,6 +202,60 @@ export const deleteFilterKeys = (filters, keys) => {
     delete result[key]
   }
   return result
+}
+
+/**
+  getFilterList convert filters object to a list of filter key/value pairs.
+
+  @param {Object} filters - filters object.
+
+  @return {Array} - a list of filter key/value pairs.
+
+  @example
+  // return [
+  //  {key: 'key1', value: 'v1'},
+  //  {key: 'key1', value: 'v2'},
+  //  {key: 'key2', value: 'v3'}
+  // ]
+  getFilterList({ key1: ['v1', 'v2'], key2: 'v3' })
+**/
+export const getFilterList = (filters) => {
+  let filterList = []
+  let keys = Object.keys(filters).slice().sort()
+  for (let key of keys) {
+    let val = filters[key]
+    let set = val instanceof Array ? val : (val !== undefined ? [val] : [])
+    for (let item of set.slice().sort()) {
+      filterList.push({
+        key: key, value: item
+      })
+    }
+  }
+  return filterList
+}
+
+/**
+  getFilterString convert filters object to filter string.
+
+  @param {Object} filters - filters object.
+
+  @return {String} - filter string.
+
+  @example
+  // return `key1:"v1" key1:"v2" key2:"v3"`
+  getFilterString({ key1: ['v1', 'v2'], key2: 'v3' })
+**/
+export const getFilterString = (filters) => {
+  let filterString = ''
+  let keys = Object.keys(filters).slice().sort()
+  for (let key of keys) {
+    let val = filters[key]
+    let set = val instanceof Array ? val : (val !== undefined ? [val] : [])
+    for (let item of set.slice().sort()) {
+      filterString += `${key}:"${item}" `
+    }
+  }
+  return filterString.trim()
 }
 
 /**

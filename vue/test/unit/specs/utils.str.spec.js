@@ -2,6 +2,24 @@
 
 import * as str from '@/utils/str'
 
+describe('utils.str.camelize', () => {
+  it('should return a string in camel case format', () => {
+    let tests = [
+      { input: 'camelizeTest', expected: 'camelizeTest' },
+      { input: 'camelCaseTest', expected: 'camelCaseTest' },
+      { input: 'WhatAGame', expected: 'whatAGame' },
+      { input: ' this is a test ', expected: 'thisIsATest' },
+      { input: 'This is a test', expected: 'thisIsATest' },
+      { input: { str: 'string object' }, expected: '' },
+      { input: '', expected: '' }
+    ]
+    for (let test of tests) {
+      let result = str.camelize(test.input)
+      expect(result).toBe(test.expected)
+    }
+  })
+})
+
 describe('utils.str.checkLookup', () => {
   it('should return a matched string in dictionary', () => {
     const msgTypes = {

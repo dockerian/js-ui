@@ -1,6 +1,24 @@
 // utils/str.js
 
 /**
+  camelize converts a string to camel case format.
+
+  @param {String} input - the input string.
+
+  @return {String} - string in camel case format.
+
+  @example
+  // returns `thisIsATest`
+  camelize(' this is a test')
+**/
+export const camelize = (input) => {
+  let strim = typeof input === 'string' ? input.trim() : ''
+  let lower = strim.charAt(0).toLowerCase() + strim.slice(1)
+  let camel = lower.replace(/\W+(.)/g, (match, chr) => chr.toUpperCase())
+  return camel
+}
+
+/**
   checkLookup checks a string in a dictionary and returns matched or ''.
 
   @param {String} s - a string of word/name

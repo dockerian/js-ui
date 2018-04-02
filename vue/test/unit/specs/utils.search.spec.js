@@ -71,6 +71,27 @@ describe('utils.search.addFilters', () => {
   })
 })
 
+describe('utils.search.checkFilterKeys', () => {
+  it('should return filters without invalid keys', () => {
+    const keys1 = [ 'a', 'A', 'bb', 'Cc' ]
+    const keys2 = { a: ['a', 'aa'], c: [], do: '', key: ['foobar'] }
+    const input = {
+      a: 'a', b: 'bb', c: ['ccc'], do: ['do'], Do: ['dddd'], e: ['eeeee']
+    }
+    const tests = [
+      { filters: input, keys: keys1, expected: { a: 'a' } },
+      { filters: input, keys: keys2, expected: { a: 'a', c: ['ccc'], do: ['dddd', 'do'] } },
+      { filters: input, keys: [], expected: {} },
+      { filters: input, keys: {}, expected: {} },
+      { filters: input, expected: {} }
+    ]
+    for (let test of tests) {
+      let result = search.checkFilterKeys(test.filters, test.keys)
+      expect(result).toEqual(test.expected)
+    }
+  })
+})
+
 describe('utils.search.checkFilters', () => {
   it('should return normalized filters', () => {
     const states = Object.values({
@@ -308,6 +329,103 @@ describe('utils.search.deleteFilterKeys', () => {
       expect(result).toEqual(test.expected)
       expect(test.filters).toEqual(copy)
     }
+  })
+})
+
+describe('utils.search.getFilterList', () => {
+  it('should return convert to a list of filters', () => {
+    const tests = [
+      {
+        filters: {
+          key1: ['v1', 'v2'],
+          key2: 'v3'
+        },
+        expected: [
+          { key: 'key1', value: 'v1' },
+          { key: 'key1', value: 'v2' },
+          { key: 'key2', value: 'v3' }
+        ]
+      },
+      {
+        filters: {
+          k3: ['v3.1', 'v3.2'],
+          k1: ['v1.2', 'v1.1'],
+          k2: 'v2',
+          k4: undefined
+        },
+        expected: [
+          { key: 'k1', value: 'v1.1' },
+          { key: 'k1', value: 'v1.2' },
+          { key: 'k2', value: 'v2' },
+          { key: 'k3', value: 'v3.1' },
+          { key: 'k3', value: 'v3.2' }
+        ]
+      }
+    ]
+    for (let test of tests) {
+      let result = search.getFilterList(test.filters)
+      expect(result).toEqual(test.expected)
+    }
+  })
+
+  it('should return a filters list', () => {
+    let filters = {
+      'name': [],
+      'state': ['Deactivated', 'New', 'Reactivated'],
+      'guid': [],
+      'type': [],
+      'created': [],
+      'modified': [],
+      'notes': []
+    }
+    let result = search.getFilterList(filters)
+    expect(result).toEqual([
+      { key: 'state', value: 'Deactivated' },
+      { key: 'state', value: 'New' },
+      { key: 'state', value: 'Reactivated' }
+    ])
+  })
+})
+
+describe('utils.search.getFilterString', () => {
+  it('should return convert to a filter string', () => {
+    const tests = [
+      {
+        filters: {
+          key1: ['v1', 'v2'],
+          key2: 'v3'
+        },
+        expected: `key1:"v1" key1:"v2" key2:"v3"`
+      },
+      {
+        filters: {
+          k3: ['v3.1', 'v3.2'],
+          k1: ['v1.2', 'v1.1'],
+          k2: 'v2 test',
+          k4: undefined
+        },
+        expected: `k1:"v1.1" k1:"v1.2" k2:"v2 test" k3:"v3.1" k3:"v3.2"`
+      }
+    ]
+    for (let test of tests) {
+      let result = search.getFilterString(test.filters)
+      expect(result).toEqual(test.expected)
+    }
+  })
+
+  it('should return a filter string', () => {
+    let filters = {
+      'name': [],
+      'state': ['Deactivated', 'New', 'Reactivated'],
+      'guid': [],
+      'type': [],
+      'created': [],
+      'modified': [],
+      'notes': []
+    }
+    let result = search.getFilterString(filters)
+    let expected = `state:"Deactivated" state:"New" state:"Reactivated"`
+    expect(result).toEqual(expected)
   })
 })
 
