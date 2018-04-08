@@ -65,7 +65,7 @@ div#links::after {
   background-origin: content-box;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 87%;
+  background-size: 65%;
   opacity: 0.05;
   padding: 0px; margin: 0px;
   bottom: 0; left: 0; right: 0; top: 0;

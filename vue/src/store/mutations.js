@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import { moveBackward, moveForward } from '@/router/appPerspectives'
 import * as _const from './_constants'
+import * as browser from '@/utils/browser'
 import * as settings from './settings'
 
 // mutations must be synchronous transactions should not be directly called
@@ -36,6 +37,21 @@ const mutations = {
     settings.updateCookie(_const.APP_MENU_THEME, themeName)
   },
 
+  [_const.EL_TABLE_STYLE] (state, v) {
+    state.elTableStyle = v
+    settings.updateCookie(_const.EL_TABLE_STYLE, state.elTableStyle)
+  },
+
+  [_const.EXPORT_WITH_PAGINATION] (state, v) {
+    state.exportWithPagination = v === true || v === 'true'
+    settings.updateCookie(_const.EXPORT_WITH_PAGINATION, state.exportWithPagination)
+  },
+
+  [_const.PAGINATION_POSITION] (state, v) {
+    state.paginationPosition = v
+    settings.updateCookie(_const.PAGINATION_POSITION, state.paginationPosition)
+  },
+
   [_const.PERSPECTIVE_HIDE] (state, name) {
     // console.log('closing tab:', name)
     let i = state.perspectives.findIndex(e => e.key === name)
@@ -63,13 +79,35 @@ const mutations = {
     settings.updateCookie(_const.PROGRESS_CHART, state.showProgress)
   },
 
+  [_const.SHOW_APP_MESSAGES] (state, v) {
+    state.showMessages = v
+  },
+
   [_const.SHOW_CLOCK_ENV] (state, v) {
     state.envShowClock = v === true || v === 'true'
     settings.updateCookie(_const.SHOW_CLOCK_ENV, state.envShowClock)
   },
 
+  [_const.SHOW_FILTER_ACTIONS] (state, v) {
+    state.showFilterActions = v === true || v === 'true'
+    settings.updateCookie(_const.SHOW_FILTER_ACTIONS, state.showFilterActions)
+  },
+
+  [_const.SHOW_FILTERS_2_IN_1] (state, v) {
+    state.showFilters2in1 = v === true || v === 'true'
+    settings.updateCookie(_const.SHOW_FILTERS_2_IN_1, state.showFilters2in1)
+  },
+
+  [_const.USAGE_AND_HELP] (state, v) {
+    state.usageAndHelp = v
+  },
+
   [_const.USER_SIGNED_IN] (state, v) {
     state.userSignedIn = v
+  },
+
+  [_const.VIEW_PORT_SIZE] (state, v) {
+    state.viewPortSize = browser.checkViewPortSize(v)
   }
 }
 

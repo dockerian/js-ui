@@ -8,7 +8,15 @@ localVue.use(Vuex)
 
 describe('Main.vue', () => {
   it('should render Main contents', () => {
-    let vm = vt.mount(Main, {store, localVue})
+    let vm = vt.mount(Main, {
+      store,
+      localVue,
+      mocks: {
+        $route: {
+          $route: { query: {} },
+          path: ''
+        }
+      }})
     expect(vm).not.toBeNull()
   })
 })

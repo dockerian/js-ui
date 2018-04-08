@@ -1,14 +1,14 @@
 // router/appRoutes.js - application routes
 
-export const About = () => import('@/components/app/About')
+export const About = () => import('@/components/appInfo/About')
 export const HelloWorld = () => import('@/components/demo/HelloWorld')
-export const Links = () => import('@/components/app/Links')
+export const Links = () => import('@/components/appInfo/Links')
 export const Login = () => import('@/components/app/Login')
 export const Main = () => import('@/components/Main')
-export const MessageBoard = () => import('@/components/app/MessageBoard')
+export const MessageBoard = () => import('@/components/appInfo/MessageBoard')
 export const Search = () => import('@/components/demo/Search')
 export const Settings = () => import('@/components/app/Settings')
-export const Usage = () => import('@/components/app/Usage')
+export const Usage = () => import('@/components/appInfo/Usage')
 export const WS = () => import('@/components/app/WS')
 
 export const appRoutes = [

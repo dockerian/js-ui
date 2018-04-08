@@ -31,6 +31,8 @@ export default {
   methods: {
   },
   mounted: function () {
+    // NOTE: component within Tabs will be mounted multiple times
+    //       by the number of TabPane in the Tabs.
   }
 }
 </script>

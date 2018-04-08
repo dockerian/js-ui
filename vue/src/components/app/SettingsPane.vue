@@ -4,6 +4,7 @@
       <h3>Color Theme and Appearance</h3>
       <div class="setting-section">
         <Checkbox
+          class="setting-checkbox"
           v-model="darkTheme"
           v-bind:value="darkTheme"
           size="large">
@@ -11,6 +12,47 @@
         </Checkbox>
         <br/>
         <Checkbox
+          class="setting-checkbox"
+          v-model="expanderOnRight"
+          v-bind:value="expanderOnRight"
+          size="large">
+          &nbsp; Details expander on the right (reload required)
+        </Checkbox>
+        <br/>
+        <Checkbox
+          class="setting-checkbox"
+          v-model="paginationPosition"
+          v-bind:value="paginationPosition"
+          size="large">
+          &nbsp; Pagination position at the bottom of the data table
+        </Checkbox>
+        <br/>
+        <Checkbox
+          class="setting-checkbox"
+          v-model="exportWithPagination"
+          v-bind:value="exportWithPagination"
+          size="large">
+          &nbsp; Show Export button next to pagination
+        </Checkbox>
+        <br/>
+        <Checkbox
+          class="setting-checkbox"
+          v-model="showFilterActions"
+          v-bind:value="showFilterActions"
+          size="large">
+          &nbsp; Show both "Clear All" and "Apply" buttons next to Filters
+        </Checkbox>
+        <br/>
+        <Checkbox
+          class="setting-checkbox"
+          v-model="showFilters2in1"
+          v-bind:value="showFilters2in1"
+          size="large">
+          &nbsp; Show Filter Pane with inline Search
+        </Checkbox>
+        <br/>
+        <Checkbox
+          class="setting-checkbox"
           v-model="showClock"
           v-bind:value="showClock"
           size="large">
@@ -22,6 +64,7 @@
       <h3>User Actions</h3>
       <div class="setting-section">
         <Checkbox
+          class="setting-checkbox"
           v-model="enableActiveTabMover"
           size="large">
           &nbsp; Allow re-arranging perspective tabs
@@ -43,17 +86,22 @@
       <h3>System</h3>
       <div class="setting-section">
         <Checkbox
+          class="setting-checkbox"
           v-model="noHistory"
           size="large">
           &nbsp; SPA mode without browser history
         </Checkbox>
         <br/>
         <Checkbox
+          class="setting-checkbox"
+          v-if="env !== 'prod'"
           v-model="progressChart"
           size="large">
           &nbsp; Show next release progress
         </Checkbox>
-        <Poptip trigger="hover" placement="bottom-start">
+        <Poptip trigger="hover" placement="bottom-start"
+          v-if="env !== 'prod'"
+          >
           <Icon color="gold" type="help-circled"></Icon>
           <div slot="content">
             <p>
@@ -72,8 +120,9 @@
 <script>
 import Vue from 'vue'
 import iView from 'iview'
-import { messages } from '@/router/appMessages'
+import { messages } from '@/helper/appMessages'
 import * as _const from '@/store/_constants'
+import * as helper from '@/helper/settings'
 import config from '@/config'
 
 Vue.use(iView)
@@ -95,7 +144,7 @@ export default {
   computed: {
     darkTheme: {
       get: function () {
-        let themeName = this.$store.state.appMenuTheme
+        let themeName = this.$store.getters[_const.APP_MENU_THEME]
         return themeName === 'dark'
       },
       set: function (value) {
@@ -103,20 +152,29 @@ export default {
         this.$store.commit(_const.APP_MENU_THEME, themeName)
       }
     },
-    enableActiveTabMover: {
+    expanderOnRight: {
       get: function () {
-        return this.$store.state.arrangingTab
+        let style = this.$store.state.elTableStyle
+        return style.expandsFixed === 'right'
       },
       set: function (value) {
-        this.$store.commit(_const.ACTIVE_TAB_ORDER, value)
+        let sider = value ? 'right' : 'left'
+        let style = {
+          ...this.$store.state.elTableStyle,
+          expandsFixed: sider
+        }
+        // console.log(JSON.stringify(style, null, 2))
+        this.$store.commit(_const.EL_TABLE_STYLE, style)
       }
     },
-    noHistory: {
+    paginationPosition: {
       get: function () {
-        return this.$store.state.navNoHistory
+        let pos = this.$store.state.paginationPosition
+        return pos === 'bottom'
       },
       set: function (value) {
-        this.$store.commit(_const.NAV_NO_HISTORY, value)
+        let pos = value ? 'bottom' : 'top'
+        this.$store.commit(_const.PAGINATION_POSITION, pos)
       }
     },
     progressChart: {
@@ -126,17 +184,16 @@ export default {
       set: function (value) {
         this.$store.commit(_const.PROGRESS_CHART, value)
       }
-    },
-    showClock: {
-      get: function () {
-        return this.$store.state.envShowClock
-      },
-      set: function (value) {
-        this.$store.commit(_const.SHOW_CLOCK_ENV, value)
-      }
     }
   },
   methods: {
+  },
+  beforeCreate: function () {
+    let computed = this.$options.computed || {}
+    this.$options.computed = {
+      ...helper.mapFlags(this),
+      ...computed
+    }
   },
   mounted: function () {
   }
@@ -158,9 +215,12 @@ export default {
   margin: 10pt 5px 5pt 0pt; height: 100%; width: 99%;
   overflow-y: scroll;
 }
+.setting-checkbox {
+  padding: 2px 0px 5px 0px;
+}
 .setting-section {
   display: inline-block;
-  font-size: small;
+  font-size: small; line-height: 150%;
   padding-bottom: 7px;
 }
 .setting-subject {

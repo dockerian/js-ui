@@ -40,7 +40,7 @@ import iView from 'iview'
 import { mapGetters } from 'vuex'
 import { mixin as clickaway } from 'vue-clickaway'
 import * as _const from '@/store/_constants'
-import { appMenu, findRoute } from '@/router/appMenu'
+import { appMenu, appMenuOnSelect } from '@/router/appMenu'
 import appIconsMapper from '@/helper/appIcons'
 
 Vue.use(iView)
@@ -65,29 +65,13 @@ export default {
   mixins: [ clickaway ],
   methods: {
     closeMenu: function () {
-      if (this.appMenuShown === true) {
-        this.$store.commit(_const.APP_MENU_SHOWN, false)
-      }
+      this.$store.commit(_const.APP_MENU_SHOWN, false)
     },
     getIcon: function (name) {
       return appIconsMapper(name)
     },
     onSelect: function (name) {
-      let item = findRoute(name, this.menu)
-      if (item) {
-        this.$store.commit(_const.APP_MENU_SHOWN, false)
-        this.$store.dispatch(_const.PERSPECTIVE_OPEN, item.route)
-        let location = {
-          name: item.name,
-          path: item.route,
-          query: item.query
-        }
-        if (this.$store.state.navNoHistory) {
-          this.$router.replace(location)
-        } else {
-          this.$router.push(location)
-        }
-      }
+      appMenuOnSelect(name, this)
     }
   },
   mounted: function () {

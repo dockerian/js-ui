@@ -6,12 +6,14 @@
 </template>
 
 <script>
-import Workspace from '@/components/app/WS'
+import * as appRoutes from '@/router/appRoutes'
 
 export default {
   name: 'Main',
   components: {
-    'v-workspace': Workspace
+    'v-workspace': appRoutes.WS
+  },
+  props: {
   },
   data () {
     return {
@@ -22,4 +24,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#main {
+}
 </style>

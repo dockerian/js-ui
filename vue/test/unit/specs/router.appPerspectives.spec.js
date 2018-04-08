@@ -18,6 +18,15 @@ describe('router/appPerspectives', () => {
   it(`router/appPerspectives :: checkAppTabs`, () => {
     let result = p.checkAppTabs(store, router)
     expect(result).toBe(true)
+
+    let saved = _.cloneDeep(store.state.perspectives)
+    for (let tab of store.state.perspectives) {
+      if (tab.visible) {
+        tab.visible = false
+      }
+    }
+    result = p.checkAppTabs(store, router)
+    store.state.perspectives = saved
   })
 })
 

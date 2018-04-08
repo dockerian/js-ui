@@ -10,8 +10,18 @@ localVue.use(Vuex)
 
 describe('app/Progress.vue', () => {
   it('should render Progress contents', () => {
-    const wrapper = vt.shallow(Progress, {store, localVue})
-    const div = wrapper.find('#progress')
+    const component = vt.shallow(Progress, {store, localVue})
+    const div = component.find('#progress')
     expect(div).not.toBeNull()
+
+    component.vm.onWindowResize({
+      currentTarget: {
+        innerHeight: 600,
+        innerWidth: 800
+      }
+    })
+
+    component.vm.progressFill()
+    component.vm._begin()
   })
 })

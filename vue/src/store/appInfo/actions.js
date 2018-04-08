@@ -20,12 +20,15 @@ const actions = {
     if (Array.isArray(msg)) {
       // spread to params: message, type, notAcknowledged, successful, important
       store.state.add(...msg)
+    } else if (typeof msg === 'string' || msg instanceof String) {
+      store.state.add(msg)
     } else {
       store.state.addMessage(msg)
     }
     store.dispatch(_const.COUNTS)
   },
   [_const.CLEAR] (store) {
+    console.log('clearing all messages')
     store.state.clear()
     store.dispatch(_const.COUNTS)
   },
@@ -35,11 +38,12 @@ const actions = {
     store.commit(_const.COUNT_NOT_ACK)
   },
   [_const.DEL_MESSAGE] (store, uuid) {
+    console.log('clearing', uuid)
     store.state.remove(uuid)
     store.dispatch(_const.COUNTS)
   },
   [_const.RESET] (store) {
-    store.state.resetAndInit()
+    store.state.clearAndInit()
     store.dispatch(_const.COUNTS)
   }
 }

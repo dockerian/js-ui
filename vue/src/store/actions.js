@@ -3,6 +3,8 @@
 import _ from 'lodash'
 import * as _const from './_constants'
 import { openAppTab } from '@/router/appPerspectives'
+import docsApi from '@/api/docs'
+import config from '@/config'
 
 // actions commit mutations, with arbitrary asynchronous operations
 // and are triggered by store.dispatch
@@ -33,6 +35,13 @@ const actions = {
       store.commit(_const.ACTIVE_TAB_KEY, activeTab.key)
     }
   },
+
+  async [_const.USAGE_AND_HELP] (store, v) {
+    let content = await docsApi.getFile(config.doc)
+    store.commit(_const.USAGE_AND_HELP, content)
+    return content
+  },
+
   [_const.USER_SIGNED_IN] (store, v) {
     store.commit(_const.USER_SIGNED_IN, v)
   }

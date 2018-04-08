@@ -15,7 +15,8 @@ const getData = (store) => {
     messages: store.getters[`appInfo/${_const.GET_MESSAGES}`],
     messagesList: store.getters[`appInfo/${_const.MESSAGES}`],
     hasMessage: store.getters[`appInfo/${_const.HAS_MESSAGE}`],
-    top: store.getters[`appInfo/${_const.GET_LATEST_MESSAGE}`],
+    hasNotAckOrError: store.getters[`appInfo/${_const.HAS_NOTACK_OR_ERROR}`],
+    top: store.getters[`appInfo/${_const.LATEST_MESSAGE}`],
     x: ''
   }
 }

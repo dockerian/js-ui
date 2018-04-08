@@ -59,8 +59,8 @@ div#settings::after {
   color: dimgray;
   background-color: white;
   border-bottom: 2px solid lightgray;
-  position: fixed; top: 31px;
-  height: 50px; width: 100%;
+  position: fixed; top: 35px;
+  height: 70px; width: 100%; padding-top: 20px;
   z-index: 10;
 }
 .settings-vue {
@@ -69,7 +69,7 @@ div#settings::after {
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0px; padding: 0px; width: 100%;
-  position: relative; top: 37px;
+  position: relative; top: 57px;
   overflow-y: scroll;
 }
 </style>

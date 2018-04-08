@@ -8,7 +8,20 @@ localVue.use(Vuex)
 
 describe('app/WS.vue', () => {
   it('should render Workspace contents', () => {
-    let vm = vt.mount(WS, {store, localVue})
-    expect(vm).not.toBeNull()
+    let cmp = vt.mount(WS, {
+      store,
+      localVue,
+      mocks: {
+        $route: {
+          $route: { query: {} },
+          path: ''
+        }
+      }})
+    expect(cmp.vm).not.toBeNull()
+
+    cmp.vm.addTab()
+    cmp.vm.closeTab(0)
+    cmp.vm.moveTabBackward()
+    cmp.vm.moveTabForward()
   })
 })

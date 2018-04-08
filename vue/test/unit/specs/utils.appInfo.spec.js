@@ -124,7 +124,7 @@ describe('utils.appInfo.AppInfo', () => {
     }
     expect(appInfo.count).toBe(tests.length)
     expect(appInfo.countNotAck).toBe(2)
-    expect(appInfo.countError).toBe(3)
+    expect(appInfo.countError).toBe(4)
 
     appInfo.addMessage(new Message('new message'))
     expect(appInfo.count).toBe(tests.length) // within the limit
@@ -132,23 +132,6 @@ describe('utils.appInfo.AppInfo', () => {
     let msg = appInfo.messages[tests.length - 2] // 2nd last (notAcked)
     appInfo.remove(msg.uuid)
     expect(appInfo.countNotAck).toBe(1)
-
-    appInfo = new AppInfo(201)
-    expect(appInfo.size).toBe(200)
-    expect(appInfo.stickyLimit).toBe(20)
-    expect(appInfo.notAckLimit).toBe(100)
-
-    appInfo = new AppInfo(3)
-    expect(appInfo.size).toBe(5)
-    expect(appInfo.stickyLimit).toBe(1)
-    expect(appInfo.notAckLimit).toBe(3)
-
-    for (let n = 1; n < 9; n++) {
-      appInfo.addMessage(new Message(`sticky notAck${n}`, 'sticky', true))
-    }
-    expect(appInfo.count).toBe(5)
-    expect(appInfo.countNotAck).toBe(3)
-    expect(appInfo.countSticky).toBe(1)
   })
 
   it('should add/get/remove/shift/clear messages', () => {
@@ -164,7 +147,7 @@ describe('utils.appInfo.AppInfo', () => {
     // console.log(JSON.stringify(appInfo))
     expect(appInfo.count).toBe(tests.length)
     expect(appInfo.countNotAck).toBe(2)
-    expect(appInfo.countError).toBe(3)
+    expect(appInfo.countError).toBe(4)
 
     let countAll = appInfo.count
     // pick the 3rd message (from bottom) to remove
@@ -188,7 +171,7 @@ describe('utils.appInfo.AppInfo', () => {
     appInfo.clear()
     expect(appInfo.count).toBe(1) // important message remain
 
-    appInfo.resetAndInit()
+    appInfo.clearAndInit()
     expect(appInfo.count).toBe(0)
   })
 
@@ -201,7 +184,7 @@ describe('utils.appInfo.AppInfo', () => {
     }
     expect(appInfo.count).toBe(tests.length)
     expect(appInfo.countNotAck).toBe(2)
-    expect(appInfo.countError).toBe(3)
+    expect(appInfo.countError).toBe(4)
 
     for (let msg of appInfo.messages) {
       if (msg.type === 'error') {
@@ -210,7 +193,7 @@ describe('utils.appInfo.AppInfo', () => {
     }
     expect(appInfo.count).toBe(tests.length - 3)
     expect(appInfo.countNotAck).toBe(1) // there one notAcknowledged error
-    expect(appInfo.countError).toBe(0)
+    expect(appInfo.countError).toBe(1)
 
     for (let msg of appInfo.messages) {
       if (msg.notAcknowledged) {
@@ -219,7 +202,7 @@ describe('utils.appInfo.AppInfo', () => {
     }
     expect(appInfo.count).toBe(tests.length - 4)
     expect(appInfo.countNotAck).toBe(0)
-    expect(appInfo.countError).toBe(0)
+    expect(appInfo.countError).toBe(1)
   })
 
   it('should get the latest message', () => {
@@ -352,7 +335,7 @@ describe('utils.message.Message', () => {
       expect(matches).not.toBeNull()
       expect(matches.length).toBe(5)
       expect(Number.parseInt(matches[1], 10)).toBeGreaterThanOrEqual(1)
-      expect(Number.parseInt(matches[1], 10)).toBeLessThanOrEqual(12)
+      expect(Number.parseInt(matches[1], 10)).toBeLessThanOrEqual(23)
       expect(Number.parseInt(matches[2], 10)).toBeLessThanOrEqual(59)
       expect(Number.parseInt(matches[3], 10)).toBeLessThanOrEqual(59)
 

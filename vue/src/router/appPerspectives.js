@@ -2,7 +2,7 @@
 
 import Vue from 'vue'
 import * as _const from '@/store/_constants'
-import { appMenu, menuRoute } from './appMenu'
+import { appMenu, menuRoute } from '@/router/appMenu'
 
 /**
   appPerspectives defines all application perspectives.

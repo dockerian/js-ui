@@ -40,7 +40,8 @@ export default class Message {
   constructor (message, type, notAcknowledged = false, successful = false, important = false) {
     let dtNow = new Date()
     this.datetimeISO = dtNow.toISOString()
-    this.datetimeLocal = dateformat(dtNow, 'hh:MM:ss TT')
+    this.datetimeLocal = dateformat(dtNow, 'HH:MM:ss TT')
+    this.datetime = dateformat(dtNow, 'yyyy-mm-dd HH:MM:ss')
     this.type = str.checkLookup(type, MessageTypes) || 'info'
     this.important = typeof important === 'boolean' && important
     this.notAcknowledged = typeof notAcknowledged === 'boolean' && notAcknowledged

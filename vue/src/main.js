@@ -8,6 +8,9 @@ import store from './store'
 
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import '@/css/iViewStyle.css'
+import '@/css/elStyle.css'
+import '@/css/vue.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$log = console.log.bind(console)

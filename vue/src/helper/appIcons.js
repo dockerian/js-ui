@@ -1,4 +1,4 @@
-// components/appIcons.js
+// helper/appIcons.js
 
 // appIcons maps app key/names to iView icons
 const appIcons = {

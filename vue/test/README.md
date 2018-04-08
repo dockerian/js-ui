@@ -11,6 +11,7 @@
     - [more about axios](#axios)
   - [coverage report](#coverage)
   - [e2e testing](#e2e)
+    - [ui test plan](#e2e-test-plan)
 
 
 <a name="unit"><br/></a>
@@ -331,4 +332,54 @@
 <a name="e2e"><br/></a>
 ## End-to-end
 
-&raquo; TBD
+<a name="e2e-test-plan"></a>
+###  UI Test Plan
+
+  * Documentation
+    - Runtime environment
+    - User guide/manual instructions
+    - Grammar and spelling
+    - Formatting
+
+  * UI/UX General
+    - Compatibility
+      - browsers: chrome, ff, ie, opera, safari;
+      - browser versions, css versions;
+      - browser settings: display, cookie, add-on, etc.
+      - OS: Ubuntu, Mac OS X
+    - Color/Graphics/Fonts
+      - monitor/device/screen
+      - add-on: dark theme
+      - graphics quality
+      - fonts
+    - RWD
+      - devices (and with dev mode)
+      - orientation: portrait, landscape
+      - native browser zoom
+      - on window resize
+      - printer
+
+  * UI controls
+    - alignment (top, bottom, left, right) in 100% - 200%
+    - mouse hover: cursor position range, delay, tooltip/popover position, color/style change
+    - mouse click: indicator, pending state, action complete
+    - type inputs:
+      - on-focus, on-blur,
+      - tab, key up/down, ctrl/alt/cmd/opt modifier,
+      - ctrl+Z, ESC, and enter
+    - menu and dropdown
+    - copy/paste
+    - select all
+
+  * UI performance and stress
+    - web connection
+
+  * UI security
+    - data exposing (in console, and dev mode)
+    - query injection, or changing code in debug mode
+    - command injection
+
+  * UI l10n/i18n
+    - verify charset/encoding in page meta data
+    - verify with specific encoding
+    - verify online translation

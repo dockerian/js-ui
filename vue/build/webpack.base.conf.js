@@ -73,6 +73,16 @@ module.exports = {
         }
       },
       {
+        test: /\.md$/,
+        loader: 'vue-markdown-loader',
+        options: {
+          breaks: true,
+          preset: 'default',
+          preventExtract: true,
+          wrapper: 'section'
+        }
+      },
+      {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {

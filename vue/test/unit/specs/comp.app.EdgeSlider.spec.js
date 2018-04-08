@@ -8,13 +8,17 @@ localVue.use(Vuex)
 
 describe('app/EdgeSlider.vue', () => {
   it('should render EdgeSlider contents', () => {
-    const wrapper = vt.shallow(EdgeSlider, {
+    const component = vt.shallow(EdgeSlider, {
       store,
       localVue,
       mocks: {
         $route: {}
       }})
-    const el = wrapper.find('h1')
+    const el = component.find('h1')
     expect(el.text()).toBe('Settings')
+
+    component.vm.setTimer()
+    component.vm.hide()
+    component.vm.show()
   })
 })

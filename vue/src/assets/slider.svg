@@ -1,0 +1,9 @@
+<svg width="27" height="960" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <g>
+  <title>Slider handler (Lines Vertical)</title>
+  <line id="line_1" fill="none" stroke="#000000" stroke-width="5" x1="3"  y1="0" x2="3"  y2="960"/>
+  <line id="line_2" fill="none" stroke="#000000" stroke-width="5" x1="13" y1="0" x2="13" y2="960"/>
+  <line id="line_3" fill="none" stroke="#000000" stroke-width="5" x1="23" y1="0" x2="23" y2="960"/>
+ </g>
+</svg>

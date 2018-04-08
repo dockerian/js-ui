@@ -1,6 +1,6 @@
 <template>
   <div id="edge">
-    <div id="slider" @mouseover="openMenu">
+    <div id="slider" @mouseover="openMenu" @mouseout="clearout">
     </div>
   </div>
 </template>
@@ -16,16 +16,23 @@ export default {
   },
   data () {
     return {
+      hoverTimeout: null
     }
   },
   computed: {
   },
   methods: {
+    clearout: function () {
+      clearTimeout(this.hoverTimeout)
+    },
     openMenu: function () {
-      this.$store.commit(_const.APP_MENU_SHOWN, true)
+      this.hoverTimeout = setTimeout(() => {
+        this.$store.commit(_const.APP_MENU_SHOWN, true)
+      }, 500)
     }
   },
   mounted: function () {
+    this.clearout()
   }
 }
 </script>
@@ -39,7 +46,7 @@ export default {
   background-color: blue;
   */
   height: 100vh; width: 3px;
-  margin:0; padding: 0px 0px 31px 0px; top: 0px;
+  margin: 0; padding: 0px 0px 31px 0px; top: 0px;
   vertical-align: middle;
   position: fixed;
 }
@@ -49,7 +56,16 @@ export default {
   border: 1px dotted green;
   */
   background-color: darkgray;
-  height: 31vh; width: 3px; top: 31%;
+  background-blend-mode: overlay;
+  background-clip: content-box;
+  background-image: url('../../assets/slider.svg');
+  background-origin: padding-box;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 0px 7px 7px 0px;
+  height: 31vh; width: 7px; top: 31%;
   position: relative;
+  opacity: 0.65;
 }
 </style>

@@ -39,7 +39,7 @@
       </ButtonGroup>
       <!---->
         <Poptip v-else trigger="hover" placement="left-start" class="extra" slot="extra">
-          <Icon color="gold" type="help-circled" size="small"></Icon>
+          <Icon color="gold" type="help-circled" size="17" class="extra-icon"></Icon>
           <div class="align-right" slot="content">
             <div v-html="tabsOrderTip"></div>
             <div>See
@@ -66,23 +66,15 @@ import { mapGetters } from 'vuex'
 import iView from 'iview'
 
 import * as _const from '@/store/_constants'
+import * as appRoutes from '@/router/appRoutes'
 import * as appTab from '@/router/appPerspectives'
-import { messages } from '@/router/appMessages'
+import { messages } from '@/helper/appMessages'
 
 import appIconsMapper from '@/helper/appIcons'
 
-import Usage from '@/components/app/Usage'
-/*
-import HelloWorld from '@/components/demo/HelloWorld'
-import Search from '@/components/demo/Search'
-*/
-
-const HelloWorld = () => import('@/components/demo/HelloWorld')
-const Search = () => import('@/components/demo/Search')
-
-Vue.component('v-hello', HelloWorld)
-Vue.component('v-fsearch', Search)
-Vue.component('v-usage', Usage)
+Vue.component('v-hello', appRoutes.HelloWorld)
+Vue.component('v-fsearch', appRoutes.Search)
+Vue.component('v-usage', appRoutes.Usage)
 
 Vue.use(iView)
 
@@ -102,7 +94,9 @@ export default {
   computed: {
     allowMulti: {
       get: function () {
-        return appTab.checkMultiTab(this.selectedTab, this.$store)
+        let tab = this.appTabs.find(p => p.path === this.$route.path) || {}
+        let key = tab.key || this.$store.getters[_const.ACTIVE_TAB_KEY]
+        return key
       }
     },
     selectedTab: {
@@ -179,7 +173,11 @@ export default {
   text-align: right;
 }
 .extra {
-  margin-right: 5px;
+  margin-right: 15px;
+}
+.extra-icon {
+  margin-bottom: 1px;
+  vertical-align: middle;
 }
 
 .perspective {

@@ -19,14 +19,10 @@
     </div>
     <div id="help-div" v-else>
       <div id="help-header">
-        <h1>Quick User Guide</h1>
+        <h1>User Guide</h1>
       </div>
-      <div id="help-panel">
-        <h2>How To</h2>
-        <p>
-          Load from static HTML page ...
-        </p>
-      </div>
+      <v-usage-contents class="help-content">
+      </v-usage-contents>
     </div>
   </div>
 </template>
@@ -37,6 +33,8 @@ import iView from 'iview'
 import { mapGetters } from 'vuex'
 import * as _const from '@/store/_constants'
 import Progress from '@/components/app/Progress'
+import UsageContents from '@/components/appInfo/UsageContents'
+import VueMarkdown from 'vue-markdown'
 import config from '@/config'
 
 Vue.use(iView)
@@ -44,6 +42,8 @@ Vue.use(iView)
 export default {
   name: 'Usage',
   components: {
+    'v-usage-contents': UsageContents,
+    'v-markdown': VueMarkdown,
     'v-progress': Progress
   },
   props: {
@@ -54,6 +54,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      usageAndHelp: _const.USAGE_AND_HELP,
       showChart: _const.PROGRESS_CHART
     })
   },
@@ -64,9 +65,6 @@ export default {
     scrollTo: function (hashtag) {
       setTimeout(() => { location.href = hashtag }, 1)
     }
-  },
-  beforeDestroy: function () {
-    window.removeEventListener('resize', this.onWindowResize)
   },
   mounted: function () {
     if (this.$route.hash) {
@@ -103,22 +101,24 @@ div#help::after {
 }
 #help-div {
   margin: 0pt 5pt;
-  position: fixed; top: 33px;
+  position: fixed; top: 33px; bottom: 31px;
   text-align: left;
+  width: 100%;
 }
 #help-header {
   color: dimgray;
   background-color: white;
   border-bottom: 2px solid lightgray;
-  position: fixed; top: 31px;
+  position: fixed; top: 51px;
   height: 50px; width: 100%;
   z-index: 10;
 }
-#help-panel {
-  display: inline-block;
-  padding: 5px 5px 0px 5px;
-  margin: 10pt 5px 5pt 0pt; width: 99%; position: relative; top: 35px;
-  overflow-y: scroll;
+#help-panel, .help-content {
+  display: block;
+  height: 100%; width: 100%; position: relative; top: 55px;
+  padding: 5px 1em 150px 1.5em; margin: 11px 5px 0px -5px;
+  white-space: normal;
+  overflow-y: auto;
 }
 
 #circle {
@@ -130,18 +130,9 @@ div#help::after {
   position: relative;
 }
 #circle-closer {
-  position: absolute; top: 5pt; right: 5pt;
+  position: absolute; top: 5pt; right: 9px;
 }
 #tip {
   display: block; vertical-align: middle;
-}
-
-h2, h3 {
-  color: dimgray;
-  line-height: 120%;
-  padding: 5pt 0pt 5pt 0pt;
-}
-p {
-  text-indent: 2em;
 }
 </style>

@@ -45,6 +45,7 @@
   │       ├── HelloWorld.vue
   │       └── ...
   ├── config.js (application configuration and settings)
+  ├── helper (view model state and helper functions)
   ├── main.js
   ├── router
   │   ├── appMenu.js (application menu configuration)
@@ -72,7 +73,7 @@
   * environment [config](./config) for webpack [template](http://vuejs-templates.github.io/webpack/structure.html)
   * application [config](./src/config.js) and settings - aggregated from all sources
   * application [router](./src/router/index.js) config
-  * application [menu configuration](./src/router/appMenu.js)
+  * application [menu configuration](./src/helper/appMenu.js)
   * config for misc tools (e.g. eslint)
   * npm [package configuration](./package.json)
 
@@ -102,6 +103,7 @@ Here is the project structure for config and settings.
   │   └── test.env.js
   ├── src
   │   ├── config.js
+  │   ├── helper (bridging between models and views)
   │   ├── router
   │   │   ├── appMenu.js (mapping to routes config)
   │   │   ├── appPerspectives.js (multi-tab view config)

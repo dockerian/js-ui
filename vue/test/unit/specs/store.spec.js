@@ -17,7 +17,7 @@ describe('store/mutations', () => {
     let tests = [
       {
         stateKey: _const.ACTIVE_TAB_KEY,
-        oldValue: 'domains',
+        oldValue: 'helloWorld',
         newValue: 'search'
       },
       {
@@ -36,9 +36,24 @@ describe('store/mutations', () => {
         newValue: 'light'
       },
       {
+        stateKey: _const.EL_TABLE_STYLE,
+        oldValue: { 'columnsFixed': false, 'expandsFixed': 'right' },
+        newValue: { 'columnsFixed': false, 'expandsFixed': 'left' }
+      },
+      {
+        stateKey: _const.EXPORT_WITH_PAGINATION,
+        oldValue: true,
+        newValue: false
+      },
+      {
         stateKey: _const.NAV_NO_HISTORY,
         oldValue: true,
         newValue: false
+      },
+      {
+        stateKey: _const.PAGINATION_POSITION,
+        oldValue: 'bottom',
+        newValue: 'top'
       },
       {
         stateKey: _const.PERSPECTIVE_TABS,
@@ -54,6 +69,21 @@ describe('store/mutations', () => {
         stateKey: _const.SHOW_CLOCK_ENV,
         oldValue: true,
         newValue: false
+      },
+      {
+        stateKey: _const.SHOW_FILTER_ACTIONS,
+        oldValue: true,
+        newValue: false
+      },
+      {
+        stateKey: _const.SHOW_FILTERS_2_IN_1,
+        oldValue: true,
+        newValue: false
+      },
+      {
+        stateKey: _const.VIEW_PORT_SIZE,
+        oldValue: { height: 600, width: 600 },
+        newValue: { height: 960, width: 1200 }
       },
       {
         stateKey: _const.USER_SIGNED_IN,

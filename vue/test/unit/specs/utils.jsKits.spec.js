@@ -83,6 +83,10 @@ describe('utils.jsKits.getPropByIdentifer', () => {
         expected: undefined
       },
       {
+        set: [ 'p.pi.-1' ],
+        expected: 6
+      },
+      {
         set: [ 'p.pi.5' ],
         expected: 9
       }

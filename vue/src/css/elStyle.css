@@ -1,0 +1,70 @@
+/**
+  App style for Element UI
+**/
+
+div.filter-badge sup.el-badge__content {
+  background-color: skyblue;
+  font-family: Arial, Helvetica, Tahoma; font-size: 9px;
+  height: 17px; width: 17px;
+  padding: 0px; margin: -2px 0px 0px 0px;
+  text-align: center;
+  vertical-align: super;
+}
+
+/*
+  Element UI button styles
+*/
+.el-button--small {
+  font-size: 12.5px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle !important;
+}
+.el-dropdown {
+}
+.el-dropdown__caret-button {
+  height: 32px !important;
+  vertical-align: middle !important;
+}
+.el-select-dropdown__item {
+  text-align: right !important;
+}
+.package-button button.el-button {
+  background-color: darkorange;
+  border-color: darkorange;
+}
+
+/*
+  Element UI table styles
+*/
+.cell {
+  color: black;
+  white-space: nowrap !important;
+}
+.el-table__expanded-cell {
+  text-align: left !important;
+  padding: 0px !important;
+}
+.el-table__expand-column {
+  /*
+  border-right: 1px solid #C0C0C0 !important;
+  */
+}
+.el-table__fixed-body-wrapper {
+  border-right: 1px solid #C0C0C0 !important;
+}
+.table-col {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.table-header-cell {
+  border-top: 1px solid #C0C0C0 !important;
+  border-right: 1px solid #C0C0C0 !important;
+  background-color: #CCDDEE !important;
+  padding: 3pt 0px !important;
+}
+.table-header-row {
+  padding: 3pt 0px !important;
+}
+.table-row {
+}

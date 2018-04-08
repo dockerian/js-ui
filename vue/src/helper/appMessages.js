@@ -1,4 +1,4 @@
-// router/appMessages.js - application messages
+// helper/appMessages.js - application messages
 
 export const messages = {
   knownIssues: {

@@ -55,7 +55,7 @@ export const getPropByIdentifer = (obj, identifier, delimiter = '.', discards = 
       if (oLvl instanceof Object !== true) {
         return undefined
       }
-      oLvl = oLvl[key]
+      oLvl = oLvl instanceof Array ? oLvl.slice(key)[0] : oLvl[key]
     }
     return oLvl
   }

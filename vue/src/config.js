@@ -11,6 +11,18 @@ const REST_API_POSTS = `${REST_API}/posts`
 const REST_API_USERS = `${REST_API}/users`
 const REST_VER = (env.REST_VER || '1.0')
 
+const APP_BUILD = env.APP_BUILD || env.BUILD_NUMBER || 'a'
+const APP_VERSION = env.APP_VERSION || pkg.version
+const APP_RELEASE = `${APP_VERSION}.${APP_BUILD}`
+
+// filter limit: [5, 25], default: 20
+const FILTER_LIMIT = Math.min(25, Math.max(5, parseInt(env.FILTER_LIMIT) || 20))
+
+// page offset limit: [100, 1000000], default: 100
+const PAGE_OFFSET_LIMIT = Math.min(1000000, Math.max(100, parseInt(env.PAGE_OFFSET_LIMIT) || 100))
+// page size limit: [5, 1000], default: 500
+const PAGE_SIZE_LIMIT = Math.min(1000, Math.max(5, parseInt(env.PAGE_SIZE_LIMIT) || 500))
+
 const runtime = process.env === 'production' ? 'prod' : (
   process.env === 'testing' ? 'test' : 'dev'
 )
@@ -22,7 +34,8 @@ const settings = {
   project: {
     alias: 'jsui',
     name: 'Dockerian JsUi',
-    version: pkg.version,
+    version: `${APP_VERSION}`,
+    release: `${APP_RELEASE}`,
     description: 'Dockerian JavaScript framework UI project',
     manager: 'Jason Zhu <jason.zhuyx@gmail.com>',
     developers: [
@@ -58,6 +71,13 @@ const copyright = (orgName) => {
 const config = {
   env: {
     ...process.env // making a copy
+  },
+  doc: '/static/README.md',
+  dataTableOptions: {
+    filterLimit: FILTER_LIMIT,
+    pageOffsetLimit: PAGE_OFFSET_LIMIT,
+    pageSizeLimit: PAGE_SIZE_LIMIT,
+    pageSizes: [10, 20, 50, 100]
   },
   settings: {
     copyright: copyright(),

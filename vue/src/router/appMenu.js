@@ -1,6 +1,7 @@
 // router/appMenu.js - application menu
 
-import { appRoutes as routes } from './appRoutes'
+import * as _const from '@/store/_constants'
+import { appRoutes as routes } from '@/router/appRoutes'
 
 // p is the reference to perspectives in router routes
 const p = routes.find(e => e.path === '/p').children
@@ -84,6 +85,25 @@ export const appMenu = {
     description: 'Mostly used links',
     route: '/links',
     type: 'MenuItem'
+  }
+}
+
+// on-select event handler
+export const appMenuOnSelect = (name, vm) => {
+  let item = findRoute(name, appMenu)
+  if (item) {
+    vm.$store.commit(_const.APP_MENU_SHOWN, false)
+    vm.$store.dispatch(_const.PERSPECTIVE_OPEN, item.route)
+    let location = {
+      name: item.name,
+      path: item.route,
+      query: item.query
+    }
+    if (vm.$store.state.navNoHistory) {
+      vm.$router.replace(location)
+    } else {
+      vm.$router.push(location)
+    }
   }
 }
 

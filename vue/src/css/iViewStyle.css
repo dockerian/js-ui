@@ -1,0 +1,96 @@
+/**
+  App style for iView
+**/
+sup {
+  cursor: default;
+}
+sup.filter-badge {
+  background-color: steelblue !important;
+  font-size: 9px;
+  height: 21px; width: 21px;
+  margin: 5px 0px; padding: 0px;
+}
+sup.filter-change {
+  background-color: orange !important;
+  font-size: 11px; font-weight: bold;
+  height: 21px; width: 21px;
+  margin: 5px 0px; padding: 0px;
+}
+
+/*
+  iView styles for filter input
+*/
+.filter-inputs .ivu-input {
+  border-left-width: 0px; border-top-width: 0px;
+  padding: 0px 5px;
+  height: 25px;
+}
+
+.inline-alert .ivu-alert-icon {
+  margin-left: -10px;
+}
+
+.ivu-input {
+  background-color: transparent;
+}
+.ivu-input:hover {
+  font-weight: bold;
+}
+div.input-change > .ivu-input {
+  color: black; font-weight: bold;
+}
+
+/*
+  iView styles for Modal
+*/
+.ivu-modal-content {
+  max-height: 85vh;
+  overflow: auto;
+}
+
+/*
+  iView styles for MessageBoard
+*/
+button i.msg-copy-ico:hover {
+  color: royalblue !important;
+}
+button.msg-button-ackAll {
+  background: darkkhaki;
+  border-color: darkkhaki;
+}
+button.msg-button-clearAll {
+  background: palevioletred;
+  border-color: palevioletred;
+}
+div.msg-title-ack button i.ivu-icon {
+  color: darkgoldenrod;
+}
+div.msg-title-copy button i.ivu-icon {
+  color: lightslategray;
+}
+div.msg-title-copy button i.ivu-icon:hover {
+  color: royalblue;
+}
+
+sup.msg-count {
+  background-color: skyblue !important;
+  cursor: default;
+}
+sup.msg-count-error {
+  cursor: default;
+}
+sup.msg-count-error-pointer {
+  cursor: pointer !important;
+}
+sup.msg-count-notAck {
+  background-color: darkkhaki !important;
+  cursor: default;
+}
+sup.msg-count-notAck-pointer {
+  background-color: darkkhaki !important;
+  cursor: pointer !important;
+}
+
+.ivu-tag {
+  height: 25px;
+}

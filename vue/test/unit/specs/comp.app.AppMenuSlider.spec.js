@@ -8,8 +8,10 @@ localVue.use(Vuex)
 
 describe('app/AppMenuSlider.vue', () => {
   it('should render AppMenuSlider contents', () => {
-    const wrapper = vt.shallow(AppMenuSlider, {store, localVue})
-    const div = wrapper.find('#edge')
+    const component = vt.shallow(AppMenuSlider, {store, localVue})
+    const div = component.find('#edge')
     expect(div).not.toBeNull()
+
+    component.vm.openMenu()
   })
 })

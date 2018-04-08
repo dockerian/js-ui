@@ -1,13 +1,27 @@
-import Vue from 'vue'
+import Vuex from 'vuex'
+import * as vt from 'vue-test-utils'
 import iView from 'iview'
+import store from '@/store'
 import App from '@/App'
 
-Vue.use(iView)
+const localVue = vt.createLocalVue()
+localVue.use(iView)
+localVue.use(Vuex)
 
 describe('App.vue', () => {
-  it('should render app root', () => {
-    // TODO [jzhu]: testing App with router
-    const Constructor = Vue.extend(App)
-    expect(Constructor)
+  it('should render App contents', () => {
+    const component = vt.shallow(App, {
+      store,
+      localVue,
+      mocks: {
+        $route: {
+          path: 'foo/bar/path',
+          query: {}
+        }
+      }})
+    const div = component.find('#help')
+    expect(div).not.toBeNull()
+
+    component.destroy()
   })
 })

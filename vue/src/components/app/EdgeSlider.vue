@@ -4,13 +4,13 @@
       v-bind:class="boxClass" v-if="edgerVisible"
       v-on-clickaway="hide"
       >
-      <div id="edge-right-handler" @mouseover.stop="show">
+      <div id="edge-right-handler" @mouseout="clearout" @mouseover.stop="setTimer">
       </div>
-      <div class="settings-box" @mouseover.stop="show">
+      <div class="settings-box" @mouseout="hide" @mouseover="show">
         <div class="settings-fix">
           <h1>Settings</h1>
         </div>
-        <div class="settings-div" @mouseout="hide" >
+        <div class="settings-div">
           <v-settings-pane class="settings-vue" />
         </div>
       </div>
@@ -32,6 +32,7 @@ export default {
   },
   data () {
     return {
+      hoverTimeout: null,
       boxClass: ''
     }
   },
@@ -44,6 +45,12 @@ export default {
   },
   mixins: [ clickaway ],
   methods: {
+    clearout: function () {
+      clearTimeout(this.hoverTimeout)
+    },
+    setTimer: function () {
+      this.hoverTimeout = setTimeout(() => { this.show() }, 750)
+    },
     hide: function () {
       this.boxClass = ''
     },
@@ -52,6 +59,7 @@ export default {
     }
   },
   mounted: function () {
+    this.clearout()
   }
 }
 </script>
@@ -74,7 +82,15 @@ export default {
   border: 1px dotted gold;
   */
   background-color: skyblue;
-  height: 31vh; width: 5px; top: 31%;
+  background-blend-mode: overlay;
+  background-clip: content-box;
+  background-image: url('../../assets/slider.svg');
+  background-origin: padding-box;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 7px 0px 0px 7px;
+  height: 31vh; width: 7px; top: 31%;
   position: absolute;
 }
 #edge-right-box {
@@ -82,7 +98,7 @@ export default {
   // NOTE: DEBUG only
   border: 1px dotted green;
   */
-  height: 100%; min-width: 5px;
+  height: 100%; min-width: 7px;
   margin: 0; padding: 0; top: 0px; right: 0px;
   position: relative;
   text-align: left;
@@ -97,7 +113,7 @@ export default {
   border: 1px dotted green;
   */
   height: 100vh; top: 0px;
-  text-align: left; vertical-align: top; margin-left: 5px;
+  text-align: left; vertical-align: top; margin-left: 7px;
   position: fixed;
 }
 .settings-fix {
@@ -108,8 +124,8 @@ export default {
   color: dimgray;
   background-color: lightgray;
   border-bottom: 2px solid darkgray;
-  position: fixed; top: 21px; padding: 0px 7px;
-  height: 50px; width: 100%;
+  position: fixed; top: 0px; padding: 0px 7px;
+  height: 71px; width: 100%;
   z-index: 11;
 }
 .settings-div {
@@ -118,9 +134,17 @@ export default {
   border: 1px dotted gold;
   */
   background-color: lightgray;
+  background-color: rgba(211, 211, 211, 0.85);
   padding: 57px 9px 35px 5px; margin: 0px;
   position: fixed; top: 0px;
   height: 100vh;
+}
+.settings-btn {
+  cursor: pointer;
+  border: 1px dotted red;
+  height: 35px; width: 35px;
+  position: fixed; top: 0px; right: 0px; padding: 5px;
+  z-index: 100;
 }
 .settings-vue {
   overflow-y: scroll;

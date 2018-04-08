@@ -9,8 +9,13 @@ const cookieKeys = [
   _const.ACTIVE_TAB_KEY,
   _const.ACTIVE_TAB_ORDER,
   _const.APP_MENU_THEME,
+  _const.EL_TABLE_STYLE,
+  _const.EXPORT_WITH_PAGINATION,
+  _const.PAGINATION_POSITION,
   _const.NAV_NO_HISTORY,
   _const.PROGRESS_CHART,
+  _const.SHOW_FILTER_ACTIONS,
+  _const.SHOW_FILTERS_2_IN_1,
   _const.SHOW_CLOCK_ENV
 ]
 
@@ -25,8 +30,11 @@ export const init = function (store) {
 }
 
 export const getCookie = function (key) {
-  const value = Cookies.get(key)
+  let value = Cookies.get(key)
   // console.log(`current cookie: ${key} = ${JSON.stringify(value)}`)
+  if (typeof value === 'string' && String(value).startsWith(`{`)) {
+    value = JSON.parse(value)
+  }
   return value
 }
 

@@ -1,19 +1,22 @@
 <template>
   <footer v-bind:class="`footer env-${env}`">
-  <div id="footer" v-html="copyright" v-bind:title="copyrightInfo" />
-  <v-notification class="center"></v-notification>
-  <div v-on:click="toggleClock" class="clock">
-    <span v-if="envShowClock">{{ clock }}</span>
-    <span v-else v-bind:class="`vinfo v-${env}`">
-      {{ project.version + (env !== 'prod' ? `-${env}` : '' ) }}
-    </span>
-  </div>
+    <div id="footer" v-html="copyright" v-bind:title="copyrightInfo" />
+
+    <v-notification class="center" position="footer">
+    </v-notification>
+
+    <div v-on:click="toggleClock" class="clock">
+      <span v-if="envShowClock">{{ clock }}</span>
+      <span v-else v-bind:class="`vinfo v-${env}`">
+        {{ project.version + (env !== 'prod' ? `-${env}` : '' ) }}
+      </span>
+    </div>
   </footer>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Notification from '@/components/app/Notification'
+import Notification from '@/components/appInfo/Notification'
 import * as _const from '@/store/_constants'
 import * as str from '@/utils/str'
 import config from '@/config'
