@@ -5,12 +5,13 @@
 
 > Dockerian JsUi Vue.js - designer's notes
 
+See [User Guide](../static/README.md)
 
 <br/><a name="contents"></a>
 ## Contents
 
   * [Layout](#ui)
-    - [Directory structure](#domains-p)
+    - [Directory structure](#tree)
     - [Configuration and settings](#config)
     - [Components structures](#ui-layout)
   * [Components](#components)
@@ -30,7 +31,7 @@
   vue/src
   ├── App.vue
   ├── api
-  │   └── domains.js
+  │   └── docs.js
   ├── assets
   │   └── logo.png
   ├── components
@@ -73,7 +74,7 @@
   * environment [config](./config) for webpack [template](http://vuejs-templates.github.io/webpack/structure.html)
   * application [config](./src/config.js) and settings - aggregated from all sources
   * application [router](./src/router/index.js) config
-  * application [menu configuration](./src/helper/appMenu.js)
+  * application [menu configuration](./src/router/appMenu.js)
   * config for misc tools (e.g. eslint)
   * npm [package configuration](./package.json)
 
@@ -81,7 +82,7 @@ For example, the application [config](./src/config.js) includes
   - aggregated build and env settings
   - basic project version and description (from [package.json](./package.json))
   - project information (name, manager, api, and etc.)
-  - application data (e.g. valid DDoS domain states)
+  - application data (e.g. valid state constants)
 
 And the menu configuration is mapping to the route names and paths.
   - `router` is using routes from `@/router/appRoutes`

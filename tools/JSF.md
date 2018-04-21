@@ -35,6 +35,28 @@ Developer notes on learning and using JavaScript library and frameworks.
 
   Prerequisite: [Node.js](https://nodejs.org)
 
+  * Using [Node Version Manager](https://github.com/creationix/nvm)
+
+    ```
+    sudo apt-get update
+    sudo apt-get install build-essential checkinstall libssl-dev
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+    # close and re-open the terminal
+    command -v nvm  # verify a successful installation
+    nvm ls  # or nvm ls-remote
+    nvm install #.#.#  # install specified version
+    nvm alias default node
+    ```
+  * Using [Node Package Manager](https://docs.npmjs.com/)
+
+  * Using [Binary Packages](https://nodejs.org/en/download/)
+
+  * Using [Homebrew](https://brew.sh/)
+
+    ```
+    brew install node
+    ```
+
 <a name="install-js-ng"></a>
 ### Angular CLI
 

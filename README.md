@@ -3,6 +3,10 @@
 Prototype Web UI by JavaScript Frameworks
 
 
+[![Code Coverage](https://codecov.io/gh/dockerian/js-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/dockerian/js-ui)
+[![Build Status](https://travis-ci.org/dockerian/js-ui.svg?branch=master)](https://travis-ci.org/dockerian/js-ui)
+
+
 <br/><a name="contents"></a>
 ## Contents
 

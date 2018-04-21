@@ -174,8 +174,11 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
+cloc:
+	( cd $(JSF); cloc --exclude-dir=reports,node_modules,dist,coverage * )
+
 install:
-	( cd $(JSF) && npm install && npm upgrade )
+	( cd $(JSF) && npm install && npm update )
 
 lint:
 	( cd $(JSF) && npm run lint )
@@ -283,3 +286,7 @@ else
 	@echo ""
 	@echo "Cannot open test coverage in the container."
 endif
+
+codecov: SHELL := /bin/bash
+codecov:
+	bash <(curl -s https://codecov.io/bash) -t 3c3b0812-0def-4cfb-8c84-208057b84815

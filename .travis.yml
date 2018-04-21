@@ -1,0 +1,13 @@
+language:
+  node_js
+node_js:
+  - "node"
+  - "10"
+env:
+  - JSF=vue
+before_install:
+  - npm i -g npm@latest
+install:
+  - npm install -g codecov
+script:
+  - cd vue && npm install && npm run unit
