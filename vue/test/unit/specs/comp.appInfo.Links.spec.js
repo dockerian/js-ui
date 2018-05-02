@@ -1,9 +1,11 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
 import * as vt from 'vue-test-utils'
 import Links from '@/components/appInfo/Links'
 import store from '@/store'
 
 const localVue = vt.createLocalVue()
+localVue.prototype.$eventBus = new Vue() // Global event bus
 localVue.use(Vuex)
 
 describe('appInfo/Links.vue', () => {

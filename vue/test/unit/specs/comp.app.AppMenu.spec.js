@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import iView from 'iview'
@@ -6,6 +7,7 @@ import AppMenu from '@/components/app/AppMenu'
 import store from '@/store'
 
 const localVue = vt.createLocalVue()
+localVue.prototype.$eventBus = new Vue() // Global event bus
 localVue.use(Vuex)
 localVue.use(VueRouter)
 localVue.use(iView)

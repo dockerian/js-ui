@@ -18,6 +18,7 @@ See [User Guide](../static/README.md)
     - [Header component](#header)
     - [AppInfo component](#appInfo)
     - [Demo tabs](#tab)
+  * [Event mechanism](#events)
   * [Store](#store)
 
 
@@ -99,9 +100,9 @@ Here is the project structure for config and settings.
   │   └── webpack.dev.conf.js
   ├── config
   │   ├── index.js
-  │   ├── dev.env.js
+  │   ├── dev.env.js (requiring on 'config/prod.env.js')
   │   ├── prod.env.js
-  │   └── test.env.js
+  │   └── test.env.js (requiring on 'config/dev.env.js')
   ├── src
   │   ├── config.js
   │   ├── helper (bridging between models and views)
@@ -207,6 +208,66 @@ Here is the project structure for config and settings.
   * methods:
     - closeTab
 
+
+
+
+<a name="events"><br/></a>
+## Vue event mechanism
+
+  Vue provides a few ways for communication among components.
+
+  * Global Event Bus
+    - register event bus in `main.js`
+
+      ```
+      Vue.prototype.$eventBus = new Vue() // Global event bus
+      ```
+      so that any component can emit or receive events.
+
+    - optionally, register event bus in a helper module, e.g. `helper/vm.js`
+
+      ```
+      export const EventBus = new Vue() // need to import from each individual component
+      ```
+
+    - export event names. For example, in `helper/vm.js`:
+
+      ```
+      export const EVENT_DATA_SYNC = 'dataSync'
+      ```
+    - emit the event in component: `this.$eventBus.$emit(EVENT_DATA_SYNC)`
+    - subscribe event any component:
+
+      ```
+      methods: {
+        onUpdateAll: function () {
+          // updating on data sync event
+        }
+      },
+      unmounted: function () {
+        this.$eventBus.$off(EVENT_DATA_SYNC, this.onUpdateAll)
+      },
+      mounted: function () {
+        this.$eventBus.$on(EVENT_DATA_SYNC, this.onUpdateAll)
+      }
+      ```
+
+  * Passing (read-only) `props` to child components.
+
+  * Passing event to child component(s) so that the child component can emit
+    parent's event handler.
+
+    ```
+    <!-- in parent component template -->
+    <v-child-component v-on:passing-event="eventHandler" />
+    ```
+    and in child component method:
+
+    ```
+    this.$emit('passingEvent', params)
+    ```
+
+  * Using Vuex store.
 
 
 <a name="store"><br/></a>

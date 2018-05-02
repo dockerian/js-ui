@@ -13,6 +13,7 @@ import '@/css/elStyle.css'
 import '@/css/vue.css'
 
 Vue.config.productionTip = false
+Vue.prototype.$eventBus = new Vue() // Global event bus
 Vue.prototype.$log = console.log.bind(console)
 Vue.use(iView)
 
