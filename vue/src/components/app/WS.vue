@@ -54,9 +54,7 @@
     <!--
     <router-view />
     -->
-</v-tabs>
 
-<router-view />
   </div>
 </template>
 
