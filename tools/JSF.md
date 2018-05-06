@@ -22,6 +22,7 @@ Developer notes on learning and using JavaScript library and frameworks.
     - [ES6](#es6)
   * [Study Notes](#study-notes)
     - [async/await vs promise](#async)
+    - [debugging](#debug)
     - [Functional Programming](#functional-programming)
     - [Flux](#flux)
     - [React Patterns](#react-patterns)
@@ -691,6 +692,12 @@ Resources:
       }
     }
     ```
+
+<a name="debug"><br/></a>
+### debugging
+
+  - new [debugger](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger) statement
+  - debugging [tips](https://raygun.com/javascript-debugging-tips)
 
 
 <a name="functional-programming"><br/></a>

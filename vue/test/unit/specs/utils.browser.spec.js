@@ -54,6 +54,24 @@ describe('utils.browser.checkViewPortSize', () => {
   })
 })
 
+describe('utils.browser.enableConsoleExtensions', () => {
+  it('should extend console functions', () => {
+    browser.enableConsoleExtensions()
+    expect(console.debug).not.toBeUndefined()
+    expect(console.error).not.toBeUndefined()
+    expect(console.warn).not.toBeUndefined()
+    console.debug()
+    console.debug('DEBUG:', 'this is to test console.debug', 'parameters')
+    console.error()
+    console.error('ERROR:', 'this', 'is', 'to', 'test', 'console.error', {a: 'a', b: 'b'})
+    console.warn()
+    console.warn('WARN:', 'this', 'is to test', 'console.warn', JSON.stringify({
+      test: 'console.warn',
+      type: 'function'
+    }))
+  })
+})
+
 describe('utils.browser.downloadFile', () => {
   it('should download a file in browser', () => {
     let clicked = false

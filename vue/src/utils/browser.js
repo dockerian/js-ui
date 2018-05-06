@@ -54,6 +54,27 @@ export const downloadFile = function (params) {
   document.body.removeChild(link)
 }
 
+export const enableConsoleExtensions = () => {
+  console.debug = (...messages) => {
+    if (messages.length > 0) {
+      let fmt = '%s '.repeat(messages.length).trim()
+      console.log(`%c${fmt}`, 'color:darkblue;background-color:lightgray;', ...messages)
+    }
+  }
+  console.error = (...messages) => {
+    if (messages.length > 0) {
+      let fmt = '%s '.repeat(messages.length).trim()
+      console.log(`%c${fmt}`, 'color:red;background-color:lightgray;', ...messages)
+    }
+  }
+  console.warn = (...messages) => {
+    if (messages.length > 0) {
+      let fmt = '%s '.repeat(messages.length).trim()
+      console.log(`%c${fmt}`, 'color:yellow;background-color:black;', ...messages)
+    }
+  }
+}
+
 /**
   Export data to a file to be formatted and downloaded in the browser.
 
