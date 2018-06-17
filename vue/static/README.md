@@ -28,6 +28,14 @@
 
   * Browser support: Chrome, FireFox, Opera, Vivaldi (decktop)
   * Browser window size: 1024 x 768 (minimum 800 x 600)
+  * UI dark theme options
+    - [Dark Mode](https://mybrowseraddon.com/dark-mode.html): Chrome, FireFox, Opera
+    - [Dark Mode Service for Mac OS X](https://medium.com/@guilhermerambo/how-to-enable-real-dark-mode-on-os-x-macos-14966f9f7d24)
+    - [Care your Eyes](https://chrome.google.com/webstore/detail/care-your-eyes/fidmpnedniahpnkeomejhnepmbdamlhl)
+    - Dark Reader:
+      [Chrome](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh) |
+      [Firefox](https://addons.mozilla.org/en-US/firefox/addon/darkreader/)
+    - [f.lux](https://justgetflux.com)
 
 
 <a name="start"><br/></a>
