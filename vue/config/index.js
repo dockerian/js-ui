@@ -2,7 +2,25 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
+const devEnv = require('./dev.env')
 const path = require('path')
+const url = require('url')
+
+const oURL = url.parse(JSON.parse(devEnv.REST_API))
+const apiHost = oURL.protocol + '//' + oURL.host
+const apiPath = oURL.pathname
+const proxyTable = {
+  // proxy all requests starting with /api to REST api
+  '/api': {
+    target: apiHost,
+    changeOrigin: true,
+    logLevel: 'debug',
+    pathRewrite: {
+      '^/api': apiPath
+    },
+    secure: false
+  }
+}
 
 module.exports = {
   dev: {
@@ -10,7 +28,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: proxyTable, // or `{}` to disable proxy
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

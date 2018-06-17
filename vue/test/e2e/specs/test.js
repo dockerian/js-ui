@@ -14,7 +14,7 @@ module.exports = {
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('#about')
       .assert.containsText('h1', 'Dockerian JsUi')
-      .assert.elementCount('img', 1)
+      .assert.elementCount('img', 5)
       .end()
   }
 }

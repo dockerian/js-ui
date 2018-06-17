@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "e2e": "node test/e2e/runner.js",
+    "e2e": "BABEL_ENV=test node test/e2e/runner.js",
     "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs",
     "prod": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js --host 0.0.0.0",
     "prestart": "npm install",

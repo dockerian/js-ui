@@ -79,6 +79,7 @@ const config = {
     pageSizeLimit: PAGE_SIZE_LIMIT,
     pageSizes: [10, 20, 50, 100]
   },
+  restApiUrl: runtime === 'dev' ? '/api' : REST_API, // see proxyTable in config/index.js
   settings: {
     copyright: copyright(),
     copyrightInfo: `(c) ${copyright()} - All rights reserved.`,
