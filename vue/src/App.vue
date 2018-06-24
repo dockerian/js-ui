@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <v-header/>
-
     <transition>
       <router-view class="main" />
     </transition>
+
+    <v-header/>
 
     <Affix v-bind:offset-top="25" v-show="appMenuShown" class="nav_menu">
       <v-menu></v-menu>

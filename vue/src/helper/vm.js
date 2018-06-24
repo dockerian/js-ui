@@ -11,8 +11,8 @@ import Message from '@/utils/message'
 export const addLoginMessage = (vm) => {
   let action = `appInfo/${_const.ADD_MESSAGE}`
   let user = 'anonymous'
-  let message = new Message(`Logged in as [${user}]`, 'info', false, true, true)
-  // adding an important (sticky) successful info (without acknowledgeable flag)
+  let message = new Message(`Logged in as [${user}]`, 'sticky')
+  // adding a sticky info (without acknowledgeable flag)
   vm.$store.dispatch(action, message)
 }
 

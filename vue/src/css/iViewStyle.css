@@ -41,6 +41,14 @@ div.input-change > .ivu-input {
 }
 
 /*
+  iView styles for Poptip
+*/
+#avatar div.ivu-poptip-inner {
+  background-clip: padding-box;
+  background-color: #F8F8F8;
+}
+
+/*
   iView styles for Modal
 */
 .ivu-modal-content {

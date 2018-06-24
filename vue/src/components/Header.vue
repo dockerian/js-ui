@@ -12,12 +12,14 @@
       JsUi Demo
     </div>
     <div class="logo_user">
+      <v-avatar />
     </div>
   </header>
   </div>
 </template>
 
 <script>
+import Avatar from '@/components/user/Avatar'
 import Notification from '@/components/appInfo/Notification'
 import * as _const from '@/store/_constants'
 import { mapGetters } from 'vuex'
@@ -26,6 +28,7 @@ import config from '@/config'
 export default {
   name: 'Header',
   components: {
+    'v-avatar': Avatar,
     'v-notification': Notification
   },
   props: {
@@ -71,15 +74,15 @@ export default {
   }
   .btn-messages {
     display: inline;
-    position: fixed; right: 125px;
+    position: fixed; right: 175px;
   }
   .btn-title {
     cursor: default;
     display: inline-block;
-    height: 35px; font-size: 20px; text-align: left; vertical-align: top;
+    height: 35px; font-size: 20px; text-align: right; vertical-align: top;
     margin: 3px 0px 3px 125px; padding: 1px; width: 121px;
     outline: none; user-select: none;
-    position: fixed; top: 0px; right: 39px;
+    position: fixed; top: 0px; right: 51px;
   }
   .env-dev {
     background-color: lavender;
@@ -118,7 +121,7 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 90%;
-    position: fixed; top: 3px; right: 7px;
+    position: fixed; top: 2px; right: 7px;
     height: 33px; width: 35px;
   }
 </style>

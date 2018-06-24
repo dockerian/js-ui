@@ -2,10 +2,12 @@
 
 import Cookies from 'js-cookie'
 import * as _const from './_constants'
+import * as _constUser from './user/_constants'
 
 // cookieKeys defines key name of the store getter and mutation.
 // note: add prefix paths if the key is for scoped store module.
 const cookieKeys = [
+  `user/${_constUser.USER}`,
   _const.ACTIVE_TAB_KEY,
   _const.ACTIVE_TAB_ORDER,
   _const.APP_MENU_THEME,

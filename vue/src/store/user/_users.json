@@ -1,0 +1,50 @@
+[
+  {
+    "alias": "",
+    "email": "anonymous@abc.com",
+    "fullName": "Anonymous",
+    "initials": "",
+    "id": 0
+  },
+  {
+    "alias": "abc",
+    "fullName": "Alphabet",
+    "initials": "ABC",
+    "id": 200
+  },
+  {
+    "alias": "dev",
+    "email": "dev@dockerian.com",
+    "fullName": "Dockerian Developers",
+    "initials": "DEV",
+    "id": 100
+  },
+  {
+    "alias": "foobar",
+    "email": "foo@bar.com",
+    "fullName": "Foo Bar",
+    "initials": "FB",
+    "id": 1
+  },
+  {
+    "alias": "jbond",
+    "email": "james@007.com",
+    "fullName": "James Bond",
+    "initials": "JB",
+    "id": 1
+  },
+  {
+    "alias": "mytest",
+    "email": "mytest@unknown.org",
+    "fullName": "My Test",
+    "initials": "MyT",
+    "id": 2
+  },
+  {
+    "alias": "jason.zhuyx",
+    "email": "jason.zhuyx@gmail.com",
+    "fullName": "Jason Zhu",
+    "initials": "JZ",
+    "id": 23
+   }
+]
