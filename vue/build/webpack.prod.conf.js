@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const VueLoader = require('vue-loader')
 
 const env = process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'test'
   ? require('../config/test.env')
@@ -34,6 +35,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    new VueLoader.VueLoaderPlugin(),
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {

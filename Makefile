@@ -183,6 +183,18 @@ install:
 lint:
 	( cd $(JSF) && npm run lint )
 
+audit:
+	( cd $(JSF) && npm audit )
+
+audit-fix:
+	( cd $(JSF) && npm audit fix)
+
+ncu:
+	( cd $(JSF) && ncu )
+
+ncuu:
+	( cd $(JSF) && ncu -u )
+
 start run:
 	@echo ""
 ifndef DONT_RUN_DOCKER

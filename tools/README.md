@@ -76,6 +76,13 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   npm install -g node@next
   ```
 
+  For checking `npm` packages
+
+  ```
+  npm install -g npm-check-updates
+  ncu
+  ```
+
 
 <a name="install-js"><br/></a>
 ## Managing Node.js version
