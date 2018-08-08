@@ -21,6 +21,7 @@
           v-bind:data="searchOptions[`${key}`]"
           v-bind:element-id="`sign-in-field-${key}`"
           v-bind:placeholder="`input ${column.description}`"
+          v-bind:tabindex="-1"
           v-bind:transfer="false"
           v-model="signInUser[key]"
           v-on:on-search="onSearch(`${key}`)"
@@ -35,25 +36,31 @@
       {{ signInOkay ? '' : 'Please match user id/alias to the full name.' }}
     </div>
     <div class="sign-in-button">
-      <el-button type="primary" size="medium"
+      <Button
+        id="signIn"
+        type="primary"
         title="Sign in"
         v-bind:disabled="emptyOrSameUser"
         v-on:click="signIn"
         >
         Sign In {{ `${ anotherUser ? 'as another user' : '' }` }}
-      </el-button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import Element from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/en'
 import iView from 'iview'
+
 import * as _const from '@/store/user/_constants'
 import * as _constApp from '@/store/_constants'
 import * as helper from '@/helper/userVm'
 import { mapGetters } from 'vuex'
 
+Vue.use(Element, { locale })
 Vue.use(iView)
 
 export default {
@@ -97,7 +104,7 @@ export default {
   methods: {
     onCheck: function () {
       for (let key of Object.keys(this.signInUser)) {
-        this.signInUser[key] = String(this.signInUser[key]).trim()
+        this.signInUser[key] = String(this.signInUser[key] || '').trim()
       }
     },
     onSearch: function (key) {
