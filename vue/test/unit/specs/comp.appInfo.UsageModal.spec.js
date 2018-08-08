@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import iView from 'iview'
 import UsageModal from '@/components/appInfo/UsageModal'
 import store from '@/store'
@@ -14,7 +14,7 @@ localVue.use(Vuex)
 
 describe('appInfo/UsageModal.vue', () => {
   it('should render UsageModal contents', () => {
-    const wrapper = vt.shallow(UsageModal, {
+    const wrapper = vt.mount(UsageModal, {
       store,
       localVue,
       propsData: {

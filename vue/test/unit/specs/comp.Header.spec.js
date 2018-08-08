@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import Element from 'element-ui'
 import Header from '@/components/Header'
 import store from '@/store'
@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 describe('components/Header.vue', () => {
   it('should render Header component', () => {
-    const wrapper = vt.shallow(Header, {
+    const wrapper = vt.mount(Header, {
       store,
       localVue,
       propsData: {

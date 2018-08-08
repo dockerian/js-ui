@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import Blank from '@/components/app/Blank'
 import store from '@/store'
 

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import iView from 'iview'
 import Messages from '@/components/appInfo/Messages'
 import store from '@/store'

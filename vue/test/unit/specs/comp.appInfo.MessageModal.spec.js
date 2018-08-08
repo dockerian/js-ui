@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import MessageModal from '@/components/appInfo/MessageModal'
 import store from '@/store'
 

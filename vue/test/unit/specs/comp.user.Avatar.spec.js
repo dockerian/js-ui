@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import iView from 'iview'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import Avatar from '@/components/user/Avatar'
 import store from '@/store'
 

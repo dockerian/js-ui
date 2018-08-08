@@ -28,7 +28,7 @@
 
   ```
   import Vuex from 'vuex'
-  import * as vt from 'vue-test-utils'
+  import * as vt from '@vue/test-utils'
   import Foo from '@/components/Foo'
   import store from '@/store'
 
@@ -37,7 +37,7 @@
 
   describe('Foo.vue', () => {
     it('should render correct contents', () => {
-      const wrapper = vt.shallow(Footer, {store, localVue})
+      const wrapper = vt.mountMount(Footer, {store, localVue})
       const el = wrapper.find('#idSelector')
       console.log(el.text())
     })

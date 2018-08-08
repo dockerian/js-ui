@@ -13,6 +13,8 @@ describe('app/WS.vue', () => {
     let cmp = vt.mount(WS, {
       store,
       localVue,
+      propsData: {},
+      stubs: ['router-lik', 'router-view'],
       mocks: {
         $route: {
           $route: { query: {} },

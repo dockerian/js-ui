@@ -10,8 +10,22 @@ localVue.use(Vuex)
 
 describe('SettingsPane.vue', () => {
   it('should render SettingsPane contents', () => {
-    const wrapper = vt.shallow(SettingsPane, {store, localVue})
+    const wrapper = vt.shallow(SettingsPane, {
+      store,
+      stubs: ['router-lik', 'router-view'],
+      localVue
+    })
     const el = wrapper.find('h3')
     expect(el.text()).toBe('Color Theme and Appearance')
+
+    wrapper.vm.darkTheme = false
+    wrapper.vm.expanderOnRight = false
+    wrapper.vm.paginationPosition = false
+    wrapper.vm.progressChart = false
+
+    wrapper.vm.darkTheme = true
+    wrapper.vm.expanderOnRight = true
+    wrapper.vm.paginationPosition = true
+    wrapper.vm.progressChart = true
   })
 })

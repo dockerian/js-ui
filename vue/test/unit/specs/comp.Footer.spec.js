@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import Footer from '@/components/Footer'
 import store from '@/store'
 
@@ -13,7 +13,7 @@ beforeEach(() => {
 
 describe('Footer.vue', () => {
   it('should render correct contents', () => {
-    const wrapper = vt.shallow(Footer, {store, localVue})
+    const wrapper = vt.mount(Footer, {store, localVue})
     const el = wrapper.find('#footer')
     expect(el.text())
       .toContain('Dockerian')

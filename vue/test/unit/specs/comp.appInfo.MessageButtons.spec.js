@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import iView from 'iview'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import MessageButtons from '@/components/appInfo/MessageButtons'
 import store from '@/store'
 
@@ -18,7 +18,7 @@ afterAll(() => {
 
 describe('components/appInfo/MessageButtons.vue', () => {
   it('should render MessageButtons component', () => {
-    let cmp = vt.shallow(MessageButtons, {store, localVue})
+    let cmp = vt.mount(MessageButtons, {store, localVue})
     expect(cmp).not.toBeNull()
 
     cmp.vm.ackAll()

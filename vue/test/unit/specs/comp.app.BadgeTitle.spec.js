@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as vt from 'vue-test-utils'
+import * as vt from '@vue/test-utils'
 import Element from 'element-ui'
 import BadgeTitle from '@/components/app/BadgeTitle'
 import store from '@/store'
