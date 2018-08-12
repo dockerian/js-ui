@@ -2,6 +2,37 @@
 
 import * as kit from '@/utils/jsKits'
 
+describe('utils.jsKits', () => {
+  it('utils.jsKits.arrayContains', () => {
+    let arrayObj = [
+      0,
+      11,
+      222,
+      'aaaa',
+      'bbbbb',
+      ''
+    ]
+    let tests = [
+      { item: '', expected: true },
+      { item: 'aaaa', expected: true },
+      { item: 'aaaaa', expected: false },
+      { item: '  ', expected: false },
+      { item: [], expected: false },
+      { item: [1, 2, 3], expected: false },
+      { item: [11, 'aaaa'], expected: true },
+      { item: ['bbbb', 0, 222], expected: true },
+      { item: [11, 'aaaa', 0, 222, 'bbbbb', ''], expected: true },
+      { item: null, expected: false }
+    ]
+    for (let test of tests) {
+      let result1 = arrayObj.contains(test.item)
+      let result2 = kit.arrayContains(arrayObj, test.item)
+      expect(result1).toBe(test.expected)
+      expect(result1).toBe(result2)
+    }
+  })
+})
+
 describe('utils.jsKits.getPropByIdentifer', () => {
   it('should return undefined for non-object', () => {
     let tests = [

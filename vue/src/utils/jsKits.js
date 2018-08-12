@@ -1,5 +1,31 @@
 // utils/jsKits.js - JavaScript functions
 
+/* eslint no-extend-native: ["error", { "exceptions": ["Array"] }] */
+/**
+  @description check if this array contains a single item or a sub-array.
+  @param {object} item - either a single value or an array.
+
+  @return {boolean} true if this array contains item.
+*/
+Array.prototype.contains = function (item) {
+  let result = this.includes(item)
+  if (result === false && Array.isArray(item)) {
+    result = item.some(v => this.includes(v))
+  }
+  return result
+}
+
+/**
+  @description check if the array contains a single item or a sub-array.
+  @param {Array} arrayObj - An array object.
+  @param {object} item - either a single value or an array.
+
+  @return {boolean} true if the array contains item.
+*/
+export const arrayContains = (arrayObj, item) => {
+  return arrayObj.contains(item)
+}
+
 /**
   getPropByIdentifer returns an object property by a string identifier.
 
