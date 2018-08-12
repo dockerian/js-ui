@@ -332,12 +332,18 @@ describe('utils.message.Message', () => {
       let regexTsLocal = /(\d+):(\d+):(\d+) (AM|PM)/
       let matches = msg.datetimeLocal.match(regexTsLocal)
       let attrib = msg.getAttributes()
+      let hh = Number.parseInt(matches[1], 10)
+      let mm = Number.parseInt(matches[2], 10)
+      let ss = Number.parseInt(matches[3], 10)
       expect(matches).not.toBeNull()
       expect(matches.length).toBe(5)
-      expect(Number.parseInt(matches[1], 10)).toBeGreaterThanOrEqual(1)
-      expect(Number.parseInt(matches[1], 10)).toBeLessThanOrEqual(23)
-      expect(Number.parseInt(matches[2], 10)).toBeLessThanOrEqual(59)
-      expect(Number.parseInt(matches[3], 10)).toBeLessThanOrEqual(59)
+      expect(hh).toBeGreaterThanOrEqual(0)
+      expect(hh).toBeLessThanOrEqual(23)
+      expect(mm).toBeGreaterThanOrEqual(0)
+      expect(mm).toBeLessThanOrEqual(59)
+      expect(ss).toBeGreaterThanOrEqual(0)
+      expect(ss).toBeLessThanOrEqual(59)
+      expect(matches[4]).toBe(hh < 12 ? 'AM' : 'PM')
 
       expect(msg.type).toEqual(test.expected.type)
       expect(msg.important).toBe(test.expected.important)
@@ -355,6 +361,7 @@ describe('utils.message.Message', () => {
       let regexUUID4Matches = msg.uuid.match(regexUUID4)
       expect(regexUUID4Matches.length).toBe(6)
       expect(msg.uuid).not.toBe(uuid)
+      // reset uuid to make sure next UUID is different
       uuid = msg.uuid
     }
   })
