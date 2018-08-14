@@ -11,11 +11,11 @@
         v-bind:name="tab.key"
         v-bind:to="tab.route" router
         v-if="tab.visible">
-        <router-view class="perspective" name="perspective" />
         <!--
+        <router-view class="perspective" name="perspective" />
+        -->
         <component v-bind:is="tab.component">
         </component>
-        -->
       </TabPane>
       <Button type="text" icon="plus" shape="circle" size="small" slot="extra"
         v-bind:disabled="!allowMulti"
