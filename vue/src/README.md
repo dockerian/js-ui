@@ -244,7 +244,7 @@ Here is the project structure for config and settings.
           // updating on data sync event
         }
       },
-      unmounted: function () {
+      beforeDestroy: function () {
         this.$eventBus.$off(EVENT_DATA_SYNC, this.onUpdateAll)
       },
       mounted: function () {

@@ -84,6 +84,6 @@ export default {
   height: 100%; width: 100%;
   padding: 0px; margin: 0px;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: none;
 }
 </style>
