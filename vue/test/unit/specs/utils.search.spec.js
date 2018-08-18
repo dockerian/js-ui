@@ -73,7 +73,7 @@ describe('utils.search.addFilters', () => {
 
 describe('utils.search.checkFilterKeys', () => {
   it('should return filters without invalid keys', () => {
-    const keys1 = [ 'a', 'A', 'bb', 'Cc' ]
+    const keys1 = [ 'a', 'AA', 'Bcc', 'Cc' ]
     const keys2 = { a: ['a', 'aa'], c: [], do: '', key: ['foobar'] }
     const input = {
       a: 'a', b: 'bb', c: ['ccc'], do: ['do'], Do: ['dddd'], e: ['eeeee']

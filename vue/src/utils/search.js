@@ -45,13 +45,23 @@ export const checkFilterKeys = (filters, filterKeys) => {
   let results = _.cloneDeep(filters)
   let deleteKeys = []
   let keys = filterKeys instanceof Array ? filterKeys : Object.keys(filterKeys || {})
+
+  // sort in order to match the longest rather than shorter alias
+  keys.sort().reverse()
+  // console.log('keys:', JSON.stringify(keys))
+
   for (let key in results) {
     if (keys.indexOf(key) >= 0) continue
 
     let camelKey = str.camelize(key)
-    if (camelKey !== key && keys.indexOf(camelKey) >= 0) {
-      let others = results[camelKey] || []
-      results[camelKey] = [
+    let matchKey = keys.find(s => {
+      let sKey = s.toLowerCase()
+      return sKey === key.toLowerCase() || sKey === camelKey.toLowerCase()
+    })
+    let validKey = matchKey || keys.find(s => s.startsWith(camelKey))
+    if (validKey && validKey !== key) {
+      let others = results[validKey] || []
+      results[validKey] = [
         ...results[key],
         ...others
       ].sort()
@@ -330,9 +340,9 @@ export const mergeFilters = (filters1, filters2) => {
   parseFilters(`key1:value1 key2:"a test phase" value2`, 'key1')
 **/
 export const parseFilters = (
-  input, defaultKey = 'default', ignoreChars = ':?"&=') => {
+  input, defaultKey = 'default', ignoreChars = ':?&=') => {
   let filters = {}
-  let regex = /([0-9a-zA-Z-_.]+:)?("(.*?)"|[^ ]*)/
+  let regex = /([0-9a-zA-Z-_.]+:)?\s*("(.*?)"|'(.*?)'|`(.*?)`|[^ ]*)/
   let regrm = ignoreChars ? new RegExp(`[${ignoreChars}]`, 'g') : /"/g
   let text = typeof input === 'string' || input instanceof String ? input.trim() : ''
   let m = []
@@ -343,6 +353,9 @@ export const parseFilters = (
     let key = m[1] ? m[1].replace(/:/g, '') : defaultKey
     let val = m[2] ? m[2].replace(regrm, '').trim() : ''
     let set = filters[key]
+    // trim back-quotes, single-quotes, or double-quotes
+    val = val.replace(/^(['"`]?)(.*?)\1$/, '$2').trim()
+
     if (set instanceof Array) {
       if (set.indexOf(val) < 0) { // value not in filter key list
         set.push(val) // adding value to filter key list
