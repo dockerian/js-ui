@@ -6,7 +6,7 @@
   <div class="help-content">
     <v-markdown
       v-bind:breaks="false"
-      v-bind:source="usageAndHelp"
+      v-bind:source="content"
       >
     </v-markdown>
 
@@ -25,8 +25,8 @@
 <script>
 import Vue from 'vue'
 import iView from 'iview'
-import { mapGetters } from 'vuex'
 import * as _const from '@/store/_constants'
+import * as helper from '@/helper/vm'
 import VueMarkdown from 'vue-markdown'
 
 Vue.use(iView)
@@ -43,9 +43,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      usageAndHelp: _const.USAGE_AND_HELP
-    })
+    content: function () {
+      let content = helper.getHelpByPage(this)
+      return content
+    }
   },
   methods: {
   },

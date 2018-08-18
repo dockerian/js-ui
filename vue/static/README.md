@@ -17,7 +17,12 @@
   * [Contact](#contact)
 
 
-<a name="about"><br/></a>
+<!--Dev Note:
+In order to split the content, each section (## heading) should start with
+```<a id="${path}"``` (where `/${path}` is vm.$route.path)
+See getHelpByPage in '@helper/vm'.
+-->
+<a id="about" name="about"><br/></a>
 ## About
 
   JsUi Web Console is a demo project in use of Vue.js.
@@ -53,7 +58,7 @@
     mouse hovering (for about half second) to open Settings pane on the right,
     as a quicker and easier method than opening the full Settings page.
 
-<a name="p"><br/></a>
+<a id="p" name="p"><br/></a>
 ## Perspectives
 
   JsUi Web Console main workspace includes the following featured perspectives.
@@ -61,19 +66,31 @@
   - [Search](#p-search)
 
 
-<a name="p-hello"><br/></a>
+<a id="hello" name="p-hello"><br/></a>
 ### Hello World
 
+  * This simple multi-language "Hello World" perspective demonstrates some
+    basic bindings in Vue component on a drop-down list selection.
+
+  * The web UI provides a pre-defined languages list in view model allowing
+    user to select, although current implementation only support English title.
+
+  * As user selects a language, the perspective will show common greeting word for
+    specific language if available; otherwise, the greeting is shown "Hello" in
+    default language, English.
+
+  * In the case of non translated greeting in a pre-defined mapping with the
+    application, the default greeting word will be displayed "Hello" in dark red
+    color, with a small-print prompt at bottom-right corner.
+
+
+<a id="search" name="p-search"><br/></a>
+### Advanced Search
+
 <br/>&raquo; ***TBD***
 
 
-<a name="p-search"><br/></a>
-### Federated Search
-
-<br/>&raquo; ***TBD***
-
-
-<a name="options"><br/></a>
+<a id="settings" name="options"><br/></a>
 ## Settings
 
   Following items are available on Settings page to allow user to choose for
@@ -140,7 +157,7 @@
       progress chart on Usage and Help.
 
 
-<a name="appInfo"><br/></a>
+<a id="messages" name="appInfo"><br/></a>
 ## Message Board
 
   Message Board is the notification center to view and acknowledge system info,
@@ -181,7 +198,7 @@
       - **Copy**: copy message to clipboard.
 
 
-<a name="contact"><br/></a>
+<a id="contact" name="contact"><br/></a>
 ## Contact
 
 For any questions, please contact the [dev](mailto:jason.zhuyx@gmail.com).
@@ -189,7 +206,7 @@ For any questions, please contact the [dev](mailto:jason.zhuyx@gmail.com).
 
 <br/>
 <br/>
-<br/><div>
+<br/><div id="footer_logo">
 <a href="https://github.com/dockerian" style="text-decoration:none;"><img src="https://avatars.githubusercontent.com/u/22064108" style="border:0;height:50;width:50px;" height="50" alt="dockerian" border="0" title="Dockerian" align="right" valign="top" /></a>
 </div>
 

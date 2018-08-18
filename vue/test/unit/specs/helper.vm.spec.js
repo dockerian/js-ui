@@ -1,9 +1,10 @@
 // test/unit/specs/helper.vm.spec.js
 
 import * as _const from '@/store/appInfo/_constants'
+import * as _constApp from '@/store/_constants'
 import * as helper from '@/helper/vm'
-import Message from '@/utils/message'
 import clipboardCopy from 'clipboard-copy'
+import Message from '@/utils/message'
 
 jest.mock('clipboard-copy')
 
@@ -116,6 +117,29 @@ describe('helper/vm', () => {
     }
   })
 
+  it(`helper/vm :: copyURL`, () => {
+    let output
+    let vm = {
+      $Message: {
+        success: () => {
+          output = 'copied to clipboard'
+        }
+      }
+    }
+    let tests = [
+      { mock: false, expected: '' },
+      { mock: true, query: 'state=New', expected: 'copied to clipboard' }
+    ]
+
+    for (let test of tests) {
+      output = ''
+      clipboardCopy.mockImplementation(() => test.mock)
+      // console.log(JSON.stringify(clipboardCopy, null, 2))
+      helper.copyURL(vm, test.query)
+      expect(output).toBe(test.expected)
+    }
+  })
+
   it(`helper/vm :: getAlertType`, () => {
     let tests = [
       {
@@ -140,6 +164,66 @@ describe('helper/vm', () => {
     for (let test of tests) {
       let result = helper.getAlertType(test.msg)
       expect(result).toBe(test.expected)
+    }
+  })
+
+  it(`helper/vm :: getHelpByPage`, () => {
+    let rm = '<div class="rlink"><a href="#contents">TOC</a></div>'
+    let p1 = `<a id="p1" name="p1"></a>
+## Part 1
+part 1 content\n\ntest 1\n
+`
+    let p2 = `<a id="p2"></a>
+## Part 2
+part 2 content\ntest 2\n
+more content
+`
+    let help = `
+# Usage and Help
+
+<a name="toc"></a>
+## Content
+
+${p1}
+
+${p2}${rm}
+
+<a id="other"></a>
+`
+    let mockVm = {
+      $route: {
+        path: '/some/path'
+      },
+      $store: {
+        getters: {
+          [_constApp.USAGE_AND_HELP]: help
+        }
+      }
+    }
+    let tests = [
+      {
+        path: '/p1', expected: p1
+      },
+      {
+        path: '/p2', expected: p2
+      },
+      {
+        path: '/p3', expected: help
+      },
+      {
+        path: '', expected: help
+      },
+      {
+        path: undefined, expected: help
+      },
+      {
+        path: null, expected: help
+      }
+    ]
+    for (let test of tests) {
+      mockVm.$route.path = test.path
+      let result = helper.getHelpByPage(mockVm).trim()
+      expect(result).toBe(test.expected.trim())
     }
   })
 

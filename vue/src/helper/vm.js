@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import clipboardCopy from 'clipboard-copy'
 import * as _const from '@/store/appInfo/_constants'
+import * as _constApp from '@/store/_constants'
 import Message from '@/utils/message'
 
 /**
@@ -59,6 +60,21 @@ export const copyMessage = (vm, msg) => {
   }
 }
 
+export const copyURL = (vm, query) => {
+  let href = window && window.location ? window.location.href : ''
+  let parts = href.split('?')
+  let queryString = query || parts[1] || ''
+  console.log(queryString)
+  let url = parts[0] + (queryString ? `?${queryString}` : '')
+  let success = clipboardCopy(url)
+  if (success) {
+    let content = `Page URL '${url}' copied to clipboard.`
+    vm.$Message.success({content, duration: 5})
+    console.log(content)
+  }
+  return success
+}
+
 export const EventBus = new Vue()
 
 /**
@@ -82,6 +98,27 @@ export const getAlertType = (message) => {
       break
   }
   return type
+}
+
+/**
+  get usage and help content by page.
+**/
+export const getHelpByPage = (vm) => {
+  let help = vm.$store.getters[_constApp.USAGE_AND_HELP]
+  let path = vm.$route.path || ''
+  if (!path) return help
+
+  let pageId = path.replace(/\//g, '-').replace(/^-*(.+?)-*$/, '$1')
+  let regex = new RegExp(`(<a id="${pageId}"[^\\0]*?)<a id=`, 'gim')
+  let match = regex.exec(help)
+  let content = match ? match[1] : '' // matched content for page
+
+  if (content) {
+    // removing TOC hyperlink within specific page section
+    content = content.replace(/<div class="rlink".+?<\/div>/, '')
+  }
+
+  return content || help
 }
 
 /**
