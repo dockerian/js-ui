@@ -20,22 +20,26 @@ export const calcPercent = (start, end) => {
     moment(end).diff(start, 'days')) * 100)
 }
 
-const version = 'MVP'
 const project = config.settings.project
+const release = {
+  ...project.releases[0],
+  startDate: project.releases[0].startDate || project.startDate
+}
+const version = release.epic
 
 export const progress = {
   colorEnd: 'green',
   colorStart: 'red',
-  dateEnd: project.releases[version],
-  dateStart: project.startDate,
-  percent: calcPercent(project.startDate, project.releases[version]),
-  days: calcDays(project.startDate, project.releases[version]),
-  daysByNow: calcDaysByNow(project.startDate)
+  dateEnd: release.endDate,
+  dateStart: release.startDate,
+  percent: calcPercent(release.startDate, release.endDate),
+  days: calcDays(release.startDate, release.endDate),
+  daysByNow: calcDaysByNow(release.startDate)
 }
 
 const daysLeft = progress.days - progress.daysByNow
 const beOnLiveInfo = daysLeft < 0
-  ? `${-daysLeft} days ${version} live`
+  ? `${-daysLeft} days ${version} live <br/>since ${progress.dateEnd}`
   : `${project.name} ${version} on live`
 
 const progressInfo = daysLeft > 0

@@ -9,8 +9,8 @@
       stroke-linecap="round"
       >
       <div class="progress-info">
-        <h1>{{ progress }} %</h1>
-        <p>{{ progressInfo }}</p>
+        <h1>{{ progressPercent }} %</h1>
+        <p v-html="progressInfo"></p>
       </div>
     </Circle>
   </div>
@@ -19,44 +19,9 @@
 <script>
 import Vue from 'vue'
 import iView from 'iview'
-import moment from 'moment'
-import config from '@/config'
-import * as hc from '@/utils/htmlColor'
+import * as helper from '@/helper/progress'
 
 Vue.use(iView)
-
-const calcDays = (start, end) => {
-  return moment(end).diff(start, 'days')
-}
-const calcDaysByNow = (start) => {
-  let now = new Date()
-  return moment(now).diff(start, 'days')
-}
-const calcPercent = (start, end) => {
-  let now = new Date()
-  return Math.round(Math.min(1,
-    moment(now).diff(start, 'days') /
-    moment(end).diff(start, 'days')) * 100)
-}
-
-const version = 'MVP'
-const project = config.settings.project
-const progress = {
-  colorEnd: 'green',
-  colorStart: 'red',
-  dateEnd: project.releases[version],
-  dateStart: project.startDate,
-  percent: calcPercent(project.startDate, project.releases[version]),
-  days: calcDays(project.startDate, project.releases[version]),
-  daysByNow: calcDaysByNow(project.startDate)
-}
-const daysLeft = progress.days - progress.daysByNow
-const beOnLiveInfo = daysLeft < 0
-  ? `${-daysLeft} days ${version} live`
-  : `${project.name} ${version} on live`
-const progressInfo = daysLeft > 0
-  ? `${daysLeft} days to ${version} release`
-  : beOnLiveInfo
 
 export default {
   name: 'Progress',
@@ -66,10 +31,7 @@ export default {
   },
   data () {
     return {
-      percentage: 0,
-      percentColor: hc.getHslByPercent(0, progress.colorStart, progress.colorEnd),
-      progress: progress.percent,
-      progressInfo,
+      ...helper.progressVm,
       progressInterval: null,
       vpHeight: window.innerHeight,
       vpWidth: window.innerWidth
@@ -94,13 +56,9 @@ export default {
       this.vpWidth = e.currentTarget.innerWidth
     },
     progressFill: function () {
-      let x = Math.log10(1 + this.percentage / 10)
-      this.percentage += 0.5 * (1 + this.progress * x / 10)
-      if (this.percentage > this.progress) {
-        clearInterval(this.progressInterval)
-        this.percentage = this.progress
-      }
-      this.percentColor = hc.getHslByPercent(this.percentage)
+      let update = helper.progressUpdate(this.percentage, this.progressInterval)
+      this.percentColor = update.percentColor
+      this.percentage = update.percentage
     }
   },
   mounted: function () {
@@ -118,9 +76,12 @@ export default {
   line-height: 300%;
 }
 h1 {
-  font-size: 33pt;
+  font-size: 7vh;
+  padding-top: 0.5em;
 }
 p {
-  font-size: 21pt;
+  font-size: 3.5vh;
+  line-height: 1.5em;
+  padding: 1em 3em;
 }
 </style>
