@@ -16,6 +16,8 @@
   "scripts": {
     "build": "react-scripts build",
     "prestart": "npm install",
+    "dev": "npm run start",
+    "prod": "npm run start",
     "start": "react-scripts start",
     "lint": "eslint --ext=js --ext=jsx .",
     "pretest": "npm install && npm run lint",

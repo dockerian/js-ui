@@ -211,8 +211,11 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
-start-dev dev:
+start-dev run-dev dev:
 	( cd $(JSF) && npm run dev )
+
+start-prod run-prod prod:
+	( cd $(JSF) && npm run prod )
 
 # run/start targets for js frameworks
 ng ng-start start-ng:
@@ -283,7 +286,7 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
-test-coverage cover:
+test-coverage show cover:
 	@echo ""
 ifeq ("$(wildcard /.dockerenv)","")
 	@echo "--- Opening $(COVERAGE_REPORT)"

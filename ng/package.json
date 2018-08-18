@@ -5,6 +5,8 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --prod",
+    "dev": "npm run start",
+    "prod": "npm run start",
     "prestart": "npm install",
     "start": "ng serve --disable-host-check",
     "lint": "ng lint",
