@@ -9,6 +9,7 @@
   * [About](#about)
     - [Recommendations](#spec)
     - [Quick Start](#start)
+    - [Sign In](#signin)
   * [Perspectives](#p)
     - [HelloWorld](#p-hello)
     - [Search](#p-search)
@@ -57,6 +58,30 @@ See getHelpByPage in '@helper/vm'.
   * On the right side, the edge slider (in dark turquoise color) can sense the
     mouse hovering (for about half second) to open Settings pane on the right,
     as a quicker and easier method than opening the full Settings page.
+
+
+<a name="signin"><br/></a>
+### Sign-In
+
+  * JsUi perspectives require user to sign in before being able to access any
+    perspective page, while other pages, e.g. About, Message Board, and Settings
+    are always viewable.
+
+  * On start of the application, it is "Logged in as [anonymous]".
+    And perspective pages are blocked with "Please Sign In to access this perspective" message.
+
+  * Please use the <span class="btn">Sign In</span> button,
+    or click the person icon at top-right corner to open a Sign-In dialog form.
+
+  * Currently a Simplified Sign-In process is allowing user to input
+    user id (normally the email alias) and full name on Sign-In dialog form.
+
+  * As user typing, an auto-complete dropdown list will prompt if the input
+    matches any in a pre-defined list.
+
+  * Both user id and name must be matched to complete the Sign-In.
+
+
 
 <a id="p" name="p"><br/></a>
 ## Perspectives

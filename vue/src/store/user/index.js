@@ -7,6 +7,7 @@ import actions from './actions'
 
 // user state
 const initState = {
+  signInOpen: false,
   user: {
     alias: '',
     email: '',
@@ -29,6 +30,7 @@ const getters = {
   [_const.EMAIL] (state) { return state.user.email },
   [_const.FULL_NAME] (state) { return state.user.fullName },
   [_const.INITIALS] (state) { return state.user.initials },
+  [_const.SIGN_IN_OPEN] (state) { return state.user.signInOpen },
   [_const.USER_ID] (state) { return state.user.id },
   [_const.USER] (state) { return state.user },
   [_const.USERS_DATA] (state) { return state.usersById },
@@ -41,6 +43,7 @@ const mutations = {
   [_const.EMAIL] (state, v) { state.user.email = v },
   [_const.FULL_NAME] (state, v) { state.user.fullName = v },
   [_const.INITIALS] (state, v) { state.user.initials = v },
+  [_const.SIGN_IN_OPEN] (state, v) { state.signInOpen = v },
   [_const.USER_ID] (state, v) { state.user.id = v },
   [_const.USER] (state, v) {
     state.user = v

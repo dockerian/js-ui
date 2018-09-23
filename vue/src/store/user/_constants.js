@@ -13,4 +13,5 @@ export const USERS = 'USERS'
 // user action types
 export const GET_USERS = 'getUsers'
 export const SET_USERS = 'setUsersById'
+export const SIGN_IN_OPEN = 'signInOpen'
 export const SIGN_IN = 'signIn'

@@ -1,6 +1,6 @@
 <template>
   <div id="avatar">
-    <Poptip trigger="hover" placement="bottom-end" popper-class="sign-in-popup">
+    <Poptip trigger="hover" placement="bottom-end" popper-class="sign-in-popup" v-model="signInOpen">
       <v-avatar
         v-if="signedIn"
         :username="fullName"
@@ -13,7 +13,7 @@
         &nbsp;
       </Button>
       <div id="sign-in-popup" slot="content">
-        <v-sign-in />
+        <v-sign-in v-on:signedIn="signInOpen = false" />
       </div>
     </Poptip>
   </div>
@@ -51,7 +51,15 @@ export default {
       signedIn: _constApp.USER_SIGNED_IN,
       userId: `user/${_const.USER_ID}`,
       users: `user/${_const.USERS}`
-    })
+    }),
+    signInOpen: {
+      get: function () {
+        return this.$store.state.user.signInOpen
+      },
+      set: function (newValue) {
+        this.$store.commit(`user/${_const.SIGN_IN_OPEN}`, newValue)
+      }
+    }
   },
   methods: {
   },

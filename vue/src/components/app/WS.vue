@@ -14,7 +14,10 @@
         <!--
         <router-view class="perspective" name="perspective" />
         -->
-        <component v-bind:is="tab.component">
+
+        <v-auth-block v-if="!userSignedIn"></v-auth-block>
+
+        <component v-else v-bind:is="tab.component">
         </component>
       </TabPane>
       <Button type="text" icon="plus" shape="circle" size="small" slot="extra"
@@ -68,6 +71,7 @@ import * as appRoutes from '@/router/appRoutes'
 import * as appTab from '@/router/appPerspectives'
 import { messages } from '@/helper/appMessages'
 
+import AuthBlock from '@/components/user/AuthBlock'
 import appIconsMapper from '@/helper/appIcons'
 
 Vue.component('v-hello', appRoutes.HelloWorld)
@@ -81,6 +85,7 @@ const tabsOrderTip = messages.knownIssues.tabsOrder.replace(/\n\s+/g, '<br/>')
 export default {
   name: 'Workspace',
   components: {
+    'v-auth-block': AuthBlock
   },
   props: {
   },
@@ -107,6 +112,7 @@ export default {
       }
     },
     ...mapGetters({
+      userSignedIn: _const.USER_SIGNED_IN,
       activeTabOrder: _const.ACTIVE_TAB_ORDER,
       appTabs: _const.PERSPECTIVE_TABS
     })

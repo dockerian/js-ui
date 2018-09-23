@@ -9,22 +9,20 @@
           class="sign-in-field"
           size="large"
           type="password"
-          v-bind:name="key"
           v-bind:placeholder="`input ${column.description}`"
           v-model="signInUser[key]"
         ></Input>
         <AutoComplete v-else
           class="sign-in-field"
           size="large"
-          v-bind:name="key"
           v-bind:clearable="true"
-          v-bind:data="searchOptions[`${key}`]"
+          v-bind:data="searchOptions[key]"
           v-bind:element-id="`sign-in-field-${key}`"
           v-bind:placeholder="`input ${column.description}`"
           v-bind:tabindex="-1"
           v-bind:transfer="false"
           v-model="signInUser[key]"
-          v-on:on-search="onSearch(`${key}`)"
+          v-on:on-search="onSearch(key)"
           v-on:on-focus="onCheck"
           v-on:on-change="onCheck"
           v-on:on-blur="onCheck"
@@ -51,16 +49,12 @@
 
 <script>
 import Vue from 'vue'
-import Element from 'element-ui'
-import locale from 'element-ui/lib/locale/lang/en'
 import iView from 'iview'
-
 import * as _const from '@/store/user/_constants'
 import * as _constApp from '@/store/_constants'
 import * as helper from '@/helper/userVm'
 import { mapGetters } from 'vuex'
 
-Vue.use(Element, { locale })
 Vue.use(iView)
 
 export default {
@@ -71,7 +65,6 @@ export default {
   },
   data () {
     return {
-      input: '',
       columns: helper.columns,
       searchOptions: {},
       signInOkay: true,
@@ -113,6 +106,9 @@ export default {
     },
     signIn: async function () {
       this.signInOkay = await helper.signIn(this, this.signInUser)
+      if (this.signInOkay) {
+        this.$emit('signedIn')
+      }
     }
   },
   mounted: function () {

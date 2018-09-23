@@ -20,7 +20,7 @@ localVue.use(Vuex)
 
 describe('user/SignIn.vue', () => {
   it('should render User SignIn form', () => {
-    let el = vt.mount(SignIn, {
+    let el = vt.shallow(SignIn, {
       store,
       localVue,
       propsData: {
@@ -33,7 +33,7 @@ describe('user/SignIn.vue', () => {
   })
 
   it('onCheck should trim input values', () => {
-    let el = vt.mount(SignIn, {
+    let el = vt.shallow(SignIn, {
       store,
       localVue,
       mocks: {
@@ -55,6 +55,10 @@ describe('user/SignIn.vue', () => {
   it('async signIn on button clicked', async () => {
     let el = vt.mount(SignIn, {
       store,
+      stubs: {
+        'transition': vt.TransitionStub,
+        'transition-group': vt.TransitionGroupStub
+      },
       localVue,
       mocks: {
         $route: { query: {} },
@@ -70,7 +74,18 @@ describe('user/SignIn.vue', () => {
       }
     })
     helper.signIn = jest.fn((vm, s) => false)
-    await flushPromises()
+
+    const { getComputedStyle } = window
+    window.getComputedStyle = function getComputedStyleStub (el) {
+      return {
+        ...getComputedStyle(el),
+        transitionDelay: '',
+        transitionDuration: '',
+        animationDelay: '',
+        animationDuration: ''
+      }
+    }
+
     el.find('#signIn').trigger('click')
     await flushPromises()
     expect(el.vm.signInOkay).toBe(false)
