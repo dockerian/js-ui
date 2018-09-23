@@ -76,7 +76,7 @@ describe('utils.search.checkFilterKeys', () => {
     const keys1 = [ 'a', 'AA', 'Bcc', 'Cc' ]
     const keys2 = { a: ['a', 'aa'], c: [], do: '', key: ['foobar'] }
     const input = {
-      a: 'a', b: 'bb', c: ['ccc'], do: ['do'], Do: ['dddd'], e: ['eeeee']
+      a: 'a', bb: 'bb', c: ['ccc'], do: ['do'], Do: ['dddd'], e: ['eeeee']
     }
     const tests = [
       { filters: input, keys: keys1, expected: { a: 'a' } },

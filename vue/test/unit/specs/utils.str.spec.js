@@ -56,7 +56,7 @@ describe('utils.str.checkLookup', () => {
       }
     ]
     for (let test of tests) {
-      let result = str.checkLookup(test.s, msgTypes)
+      let result = str.checkLookup(test.s, msgTypes, true)
       expect(result).toEqual(test.expected)
     }
   })
@@ -102,6 +102,30 @@ describe('utils.str.checkLookup', () => {
       expect(result).toEqual(test.expected)
     }
   })
+})
+
+describe('utils.str.checkOrderBy', () => {
+  let columns = [
+    'domain', 'firstSeen', 'notes', 'lastSeen', 'pattern'
+  ]
+  let tests = [
+    {input: 'notes', keys: columns, expected: 'notes'},
+    {input: 'Pattern', keys: columns, expected: 'pattern'},
+    {input: 'firstseen desc', keys: columns, expected: 'firstSeen desc'},
+    {input: 'domain desc', keys: columns, expected: 'domain desc'},
+    {input: 'name asc', keys: columns, expected: ''},
+    {input: 'name desc', keys: columns, expected: ''},
+    {input: 'name', keys: columns, expected: ''},
+    {input: 'name', expected: ''},
+    {input: undefined, expected: ''},
+    {input: {}, expected: ''},
+    {input: '', keys: columns, expected: ''},
+    {input: '', expected: ''}
+  ]
+  for (let test of tests) {
+    let result = str.checkOrderBy(test.input, test.keys)
+    expect(result).toBe(test.expected)
+  }
 })
 
 describe('utils.str.clock', () => {

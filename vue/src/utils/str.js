@@ -23,6 +23,8 @@ export const camelize = (input) => {
 
   @param {String} s - a string of word/name
   @param {Array} dictionary - a lookup dictionary
+  @param {Boolean} returnKey - returning key if dictionary is not an Array;
+                               otherwise, return value.
 
   @return {String} - matched string in dictionary or empty ('')
 
@@ -32,13 +34,13 @@ export const camelize = (input) => {
 
   @example <caption>Object key/value</caption>
   // return 'warn'
-  checkLookup('warning', {info: 'Informational', warn: 'Warning'})
+  checkLookup('warning', {info: 'Informational', warn: 'Warning'}, true)
 
   @example <caption>Prefix lookup</caption>
   // return 'Rejected'
   checkLookup('reject', ['New', 'Approved', 'Rejected'])
 **/
-export const checkLookup = (s, dictionary) => {
+export const checkLookup = (s, dictionary, returnKey = false) => {
   if (typeof s !== 'string') return ''
   let ss = s.toLowerCase().trim()
   if (ss) {
@@ -48,7 +50,7 @@ export const checkLookup = (s, dictionary) => {
         let k = key.toLowerCase()
         let v = typeof item === 'string' ? item.toLowerCase() : ''
         if (k === s || (v && v.indexOf(ss) === 0)) {
-          return key
+          return returnKey ? key : item
         }
       }
       return ''
@@ -61,6 +63,25 @@ export const checkLookup = (s, dictionary) => {
     }
   }
   return ''
+}
+
+/**
+  checkOrderBy checks if the orderBy clause has valid column key.
+
+  @param {string} str - orderBy clause, in format of `<fieldName>[, desc]`.
+  @param {Array} columnKeys - valid column key names.
+
+  @return {string} - validated orderBy clause.
+**/
+export const checkOrderBy = (str, columnKeys) => {
+  if (typeof str !== 'string') return ''
+  let values = str.split(' ').filter(s => s !== '')
+  let col = checkLookup(values[0], columnKeys)
+  let val = String(values[1] || '').toLowerCase()
+  if (col && val === 'desc') {
+    col += ' desc'
+  }
+  return col
 }
 
 /**

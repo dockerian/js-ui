@@ -139,7 +139,7 @@ export const checkFilters = (filters, keyMap = {}, keyTypesLookup = null) => {
 
   @example
   // return 5
-  getQueryString({a: ['x','y','z'], b: [1,2]})
+  countFilters({a: ['x','y','z'], b: [1,2]})
 **/
 export const countFilters = (filters) => {
   let counts = 0

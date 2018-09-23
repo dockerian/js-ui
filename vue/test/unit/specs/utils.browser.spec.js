@@ -2,16 +2,19 @@
 
 import dateformat from 'dateformat'
 import download from 'downloadjs'
+import FileSaver from 'file-saver'
 import * as browser from '@/utils/browser'
 import * as json2csv from 'json2csv'
 
 jest.mock('dateformat')
 jest.mock('downloadjs')
+jest.mock('file-saver')
 jest.mock('json2csv')
 
 afterAll(() => {
   jest.unmock('dateformat')
   jest.unmock('downloadjs')
+  jest.unmock('file-saver')
   jest.unmock('json2csv')
 })
 
@@ -265,5 +268,13 @@ describe('utils.browser.exportFile', () => {
       expect(resultMimeType).toEqual(test.expected.mime)
       expect(result).toEqual(test.expected.result)
     }
+  })
+})
+
+describe('utils.browser.saveFile', () => {
+  it('should call the saveAs function', () => {
+    FileSaver.saveAs = jest.fn()
+    browser.saveFile('data.json', 'some test data')
+    expect(FileSaver.saveAs.mock.calls.length).toBe(1)
   })
 })

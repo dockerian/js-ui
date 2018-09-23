@@ -42,7 +42,7 @@ export default class Message {
     this.datetimeISO = dtNow.toISOString()
     this.datetimeLocal = dateformat(dtNow, 'HH:MM:ss TT')
     this.datetime = dateformat(dtNow, 'yyyy-mm-dd HH:MM:ss')
-    this.type = str.checkLookup(type, MessageTypes) || 'info'
+    this.type = str.checkLookup(type, MessageTypes, true) || 'info'
     this.important = typeof important === 'boolean' && important
     this.notAcknowledged = typeof notAcknowledged === 'boolean' && notAcknowledged
     this.successful = typeof successful === 'boolean' && successful

@@ -1,11 +1,11 @@
-<!-- FederatedSearch perspective :: Search -->
+<!-- Advanced Search perspective :: Search -->
 <template>
   <div id="fsearch">
     <div id="fsearch-img"></div>
     <div id="fsearch-div">
       <div id="fsearch-p">
         <!--NOTE: DEBUG only
-        <h1>Federated Search</h1>
+        <h1>Advanced Search</h1>
         <br/>...<br/>..<br/>...<br/>...<br/>...<br/>
         ..end...
         -->

@@ -3,6 +3,7 @@
 import * as json2csv from 'json2csv'
 import dateformat from 'dateformat'
 import download from 'downloadjs'
+import FileSaver from 'file-saver'
 
 // maximum view port size in [width, height]
 const MAXIMUM_VIEW_PORT_SIZE = [3840, 2400]
@@ -127,4 +128,15 @@ export const exportFile = function (data, exportOptions) {
   }
 
   return result
+}
+
+/**
+  Save a file per specific file name and content text.
+
+  @param {String} filename -  The name of the file to be downloaded.
+  @param {String} contentText - The content to be downloaded in the file.
+**/
+export const saveFile = function (filename, contentText) {
+  var blob = new Blob([contentText], {type: 'text/plain;charset=utf-8'})
+  FileSaver.saveAs(blob, filename)
 }
