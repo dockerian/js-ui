@@ -8,6 +8,9 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
 
   * [Dev Setup](#dev-setup)
   * [Installing Node.js](#install-node)
+  * [Managing Node.js version](#manage-node)
+    - [Upgrading Node.js](#upgrading-nodejs)
+    - [Audit Fix](#audit-fix)
   * [Initializing a JavaScript project](#install-js)
     - [AngularJS](#install-js-ng)
     - [ReactJS](#install-js-react)
@@ -84,10 +87,10 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   ```
 
 
-<a name="install-js"><br/></a>
+<a name="manage-node"><br/></a>
 ## Managing Node.js version
 
-  Upgrade Node.js -
+### Upgrade Node.js
 
   ```
   brew upgrade node  # Mac OS X
@@ -99,6 +102,21 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
 
   Alternatively to use Node Version Manager,
   aka [nvm](https://github.com/creationix/nvm).
+
+  FYI: update npm:
+
+  ```
+  npm install -g npm@latest
+  ```
+
+### Audit Fix
+
+  ```
+  npm audit
+  npm audit fix
+  npm audit fix --force  # CAUTION: this could cause compatibility issues
+  npm update
+  ```
 
 
 <a name="install-js"><br/></a>
