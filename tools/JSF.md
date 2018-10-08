@@ -587,6 +587,19 @@ Resources:
       deepCopy = (obj) => JSON.parse(JSON.stringify(obj))
       ```
 
+<a name=""><br/></a>
+### Code practise
+
+  * [ES6 Katas](http://es6katas.org/)
+    - http://tddbin.com/?635#?kata=es6/language/class/creation
+    - http://tddbin.com/?783#?kata=es6/language/spread/with-arrays
+    - http://tddbin.com/?838#?kata=es6/language/arrow-functions/basics
+    - http://tddbin.com/?857#?kata=es6/language/template-strings/basics
+    - http://tddbin.com/?57#?kata=es6/language/promise/basics
+    - http://tddbin.com/?885#?kata=es6/language/destructuring/array
+    - http://tddbin.com/?830#?kata=es6/language/destructuring/object
+  * [StoryBook Examples](https://storybook.js.org/examples/)
+
 
 <a name="study-notes"><br/></a>
 ## Study Notes
