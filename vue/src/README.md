@@ -11,6 +11,7 @@ See [User Guide](../static/README.md)
 ## Contents
 
   * [Layout](#ui)
+    - [High level design](#hld)
     - [Directory structure](#tree)
     - [Configuration and settings](#config)
     - [Components structures](#ui-layout)
@@ -24,6 +25,34 @@ See [User Guide](../static/README.md)
 
 <a name="ui"><br/></a>
 ## JsUi Vue UI Layout
+
+<a name="hld"><br/></a>
+### High Level Design
+
+  The [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
+  architectural pattern is used in this project with following components:
+
+  * model: store (vuex)
+  * view-model: script (.vue) and vm helpers
+  * view: template + style (.vue)
+
+  ```
+  ┌────────────────┲══════════┱─────────────┐
+  │ script (js/ts) ║ template ║ style (*ss) │ (.vue components)
+  └────────────────┺══════════┹─────────────┘
+    ┏━━━━━━━━━━━┓ ╔═════════════╗  ┌─────┐  ┌────────┐
+    ┃ vm helper ┃ ║ common (ui) ║  │ css │  │ assets │
+    ┗━━━━━━━━━━━┛ ╚═════════════╝  └─────┘  └────────┘
+  ┌──────────────┐ ┌───────┐ ┌────────┐ ┌───────────────┐        ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+  │ store (vuex) │ │ proxy │ │ router │ │ api (wrapper) ├┄┄┄┄┄┄┄┄┤ API services ┆
+  └──────────────┘ └───────┘ └────────┘ └───────────────┘        ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
+    ┌───────┐ ┌────────┐   ┌──────────────┐  ┌┈┈┈┈┈┈┈┈┐  ┌┈┈┈┈┈┈┈┐
+    │ utils │ │ config │   │ node_modules │  │ static │  ┊ tests ┊
+    └───────┘ └────────┘   └──────────────┘  └┈┈┈┈┈┈┈┈┘  └┈┈┈┈┈┈┈┘
+    ┌───────┐ ╭────────────────────────────────────────╮
+    │ build │ │ webpack (plugin/bundler/runner/loader) │
+    └───────┘ ╰────────────────────────────────────────╯
+  ```
 
 <a name="tree"><br/></a>
 ### Directory structure
