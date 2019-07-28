@@ -12,6 +12,6 @@ describe('appInfo/Links.vue', () => {
   it('should render Links contents', () => {
     const vm = vt.mount(Links, {store, localVue})
     expect(vm.find('#links h1').text())
-      .toMatch(/Vue\.js 2\.5\.\d+/)
+      .toMatch(/Vue\.js 2\.\d+\.\d+/)
   })
 })

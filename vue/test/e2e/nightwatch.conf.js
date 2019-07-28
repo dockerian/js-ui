@@ -1,6 +1,13 @@
 require('babel-register')
 var config = require('../../config')
 
+var fs = require('fs')
+var chromeDriver = require('chromedriver').path || {}
+var chromeDriverBinPath = '/usr/bin/chromedriver' // installed from, e.g. chromium-chromedriver
+var chromeDriverPath = fs.existsSync(chromeDriverBinPath) ? chromeDriverBinPath : chromeDriver
+
+console.log("[nightwatch] chromedriver:", chromeDriverPath)
+
 // http://nightwatchjs.org/gettingstarted#settings-file
 module.exports = {
   src_folders: ['test/e2e/specs'],
@@ -13,7 +20,10 @@ module.exports = {
     host: '127.0.0.1',
     port: 4444,
     cli_args: {
-      'webdriver.chrome.driver': require('chromedriver').path
+      // 'webdriver.chrome.driver': require('chromedriver').path
+      // In order to use inside docker container, chrome driver seems to be
+      // installed by, e.g. chromium-chromedriver, at `/usr/bin/chromedriver`.
+      'webdriver.chrome.driver': chromeDriverPath
     }
   },
 

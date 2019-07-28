@@ -7,6 +7,7 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
 ## Contents
 
   * [Dev Setup](#dev-setup)
+  * [Installing Java8](#install-java8)
   * [Installing Node.js](#install-node)
   * [Managing Node.js version](#manage-node)
     - [Upgrading Node.js](#upgrading-nodejs)
@@ -39,6 +40,22 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   - awk, egrep, find, grep, sort, tee, xargs, zip
   - Node.js and npm - see [Installing Node.js](#install-node)
   - JSON query tool: [jq](https://stedolan.github.io/jq/download/)
+
+
+
+<a name="install-java8"><br/></a>
+## Installing Java8
+
+  As of this moment the `e2e` test can only completely work with Java8. Please check the environment for the correct Java version:
+
+  ```
+  which java  # Displays path of java binary
+  echo $JAVA_HOME  # Displays path of java home base
+  echo $PATH
+  java -version
+  ```
+
+  If there is a different version of Java besides Java8, please do a Java installation (which allows different versions to coexist in the same system). Then ensure `$JAVA_HOME` is pointing to the correct version of Java (Java8) and the "$JAVA_HOME/bin" is in "$PATH" environment (also before any other Java installation).
 
 
 

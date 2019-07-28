@@ -11,6 +11,7 @@
     - [more about axios](#axios)
   - [coverage report](#coverage)
   - [e2e testing](#e2e)
+    - [ui test setup](#e2e-test-setup)
     - [ui test plan](#e2e-test-plan)
 
 
@@ -331,6 +332,17 @@
 
 <a name="e2e"><br/></a>
 ## End-to-end
+
+<a name="e2e-test-setup"></a>
+### UI Test Setup
+
+  Running e2e tests, e.g. `(cd vue; npm run e2e)`, on docker host can use `chromedriver` library as Vue bootstrap CLI provides (`npm install chromedriver`). However, inside docker container, the `chromedriver` won't work for an unknown reason. It is required to install `chromium-chromedriver` (see [Dockerfile]()). These changes can be found in [nightwatch configuration file](e2e/nightwatch.conf.js), where there is a check to see if the `chromium-chromedriver` (`usr/bin/chromedriver`) is installed - in order to use the binary path (likely in a docker container); otherwise, use the npm `chromedriver` library (on docker host).
+
+  More references
+  - https://www.freecodecamp.org/news/how-to-dockerize-your-end-to-end-acceptance-tests-dbb593acb8e0/
+  - https://medium.com/@adrian_lewis/top-5-most-rated-node-js-frameworks-for-end-to-end-web-testing-f8ebca4e5d44
+  - https://itnext.io/a-personal-review-of-automated-testing-tools-in-the-javascript-world-3c504fe6e05d
+
 
 <a name="e2e-test-plan"></a>
 ###  UI Test Plan

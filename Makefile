@@ -10,8 +10,8 @@ GITHUB_CORP := dockerian
 
 # Set docker variables
 DOCKER_USER := dockerian
-DOCKER_IMAG := $(PROJECT)
-DOCKER_TAGS := $(DOCKER_USER)/$(DOCKER_IMAG)
+DOCKER_NAME := $(PROJECT)
+DOCKER_IMAG := $(DOCKER_USER)/$(DOCKER_NAME)
 DOCKER_FILE ?= Dockerfile
 DOCKER_DENV := $(wildcard /.dockerenv)
 DOCKER_PATH := $(shell which docker)
@@ -55,7 +55,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "--- Checking for presence of required tools: $(SYSTOOLS)"
@@ -80,7 +81,6 @@ clean-cache clean:
 	@echo "Cleaning up cache and config data ..."
 	# find . -name coverage -type d -prune -exec rm -rf {} +
 	rm -rf .cache
-	rm -rf .vscode
 	@echo ""
 	@echo "- DONE: $@"
 
@@ -93,20 +93,30 @@ ifeq ("$(DOCKER_DENV)","")
 		$(shell docker ps -a|grep $(DOCKER_IMAG)|awk '{print $1}') \
 		2>/dev/null || true
 	docker rmi -f \
-		$(shell docker images -a|grep $(DOCKER_TAGS) 2>&1|awk '{print $1}') \
+		$(shell docker images -a|grep $(DOCKER_IMAG) 2>&1|awk '{print $1}') \
 		2>/dev/null || true
 endif
 	rm -rf docker_build.tee || true
 	@echo ""
 	@echo "Cleaning up test coverage data ..."
 	rm -rf $(COVERAGE)
+	# rm -rf vue/test/unit/coverage || true
+	# rm -rf react/coverage || true
+	# rm -rf ng/coverage || true
 	@echo ""
 	@echo "Cleaning up node_modules ..."
 	find . -name node_modules -type d | xargs rm -rf
 	npm cache clean --force || true
 	@echo ""
+	@echo "Cleaning up dist ..."
+	rm -rf vue/dist || true
+	rm -rf react/dist || true
+	rm -rf ng/dist || true
+	@echo ""
 	@echo "- DONE: $@"
 
+cloc:
+	( cd $(JSF); cloc --exclude-dir=reports,node_modules,dist,coverage * )
 
 # docker targets
 docker cmd: docker_build.tee
@@ -117,8 +127,9 @@ ifeq ("$(DOCKER_DENV)","")
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	$(MAKE_RUN) cmd
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
+	$(MAKE_RUN) $@
 else
 	@echo "env in the container:"
 	@echo "-----------------------------------------------------------------------"
@@ -132,12 +143,14 @@ docker_build.tee: $(DOCKER_FILE)
 	@echo ""
 ifeq ("$(DOCKER_DENV)","")
 	# make in a docker host environment
-	@echo `date +%Y-%m-%d:%H:%M:%S` "Building '$(DOCKER_TAGS)'"
+	@echo `date +%Y-%m-%d:%H:%M:%S` "Building '$(DOCKER_IMAG)'"
 	@echo "-----------------------------------------------------------------------"
-	docker build -f "$(DOCKER_FILE)" -t $(DOCKER_TAGS) . | tee docker_build.tee
+	DOCKER_FILE=$(DOCKER_FILE) \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
+	$(MAKE_RUN) docker | tee docker_build.tee
 	@echo "-----------------------------------------------------------------------"
 	@echo ""
-	docker images --all | grep -e 'REPOSITORY' -e '$(DOCKER_TAGS)'
+	docker images --all | grep -e 'REPOSITORY' -e '$(DOCKER_IMAG)'
 	@echo "......................................................................."
 	@echo "- DONE: {docker build}"
 	@echo ""
@@ -150,8 +163,8 @@ ifneq ("$(DOCKER_DENV)","")
 	@echo "Cannot commit inside the container"
 else
 	find . -name node_modules -type d -prune -exec rm -rf {} +
-	docker cp . $(DOCKER_IMAG):/src/js-ui/
-	docker commit $(DOCKER_IMAG) $(DOCKER_TAGS)
+	docker cp . $(DOCKER_IMAG):/src/$(PROJECT)/
+	docker commit $(DOCKER_IMAG) $(DOCKER_IMAG)
 endif
 	@echo ""
 	@echo "- DONE: $@"
@@ -164,8 +177,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run build ..."
@@ -174,14 +187,11 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
-cloc:
-	( cd $(JSF); cloc --exclude-dir=reports,node_modules,dist,coverage * )
-
 install:
-	( cd $(JSF) && npm install && npm update )
+	( cd $(JSF); npm install )
 
 lint:
-	( cd $(JSF) && npm run lint )
+	( cd $(JSF); npm run lint )
 
 audit:
 	( cd $(JSF) && npm audit )
@@ -201,8 +211,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run start/serve ..."
@@ -224,8 +234,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run test ..."
@@ -240,8 +250,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run test ..."
@@ -256,8 +266,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run test ..."
@@ -276,8 +286,8 @@ ifndef DONT_RUN_DOCKER
 	PROJECT_DIR="$(PWD)" \
 	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
 	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
-	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_IMAG) DOCKER_FILE="$(DOCKER_FILE)" \
-	DOCKER_PORT=$(DOCKER_PORT) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
 	$(MAKE_RUN) $@
 else
 	@echo "Run test ..."
@@ -286,7 +296,11 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
-test-coverage show cover:
+test-coverage cover: test
+	@echo ""
+	@echo "- DONE: $@"
+
+show:
 	@echo ""
 ifeq ("$(wildcard /.dockerenv)","")
 	@echo "--- Opening $(COVERAGE_REPORT)"
@@ -301,6 +315,8 @@ else
 	@echo ""
 	@echo "Cannot open test coverage in the container."
 endif
+	@echo ""
+	@echo "- DONE: $@"
 
 codecov: SHELL := /bin/bash
 codecov:

@@ -20,8 +20,10 @@ GITHUB_REPO="${GITHUB_REPO:-js-ui}"
 GITHUB_USER="${GITHUB_USER:-dockerian}"
 DOCKER_USER="${DOCKER_USER:-dockerian}"
 DOCKER_NAME="${DOCKER_NAME:-js-ui}"
-DOCKER_IMAG="${DOCKER_USER}/${DOCKER_NAME}"
+DOCKER_IMAG="${DOCKER_IMAG:-${DOCKER_USER}/${DOCKER_NAME}}"
+DOCKER_HOST_NAME="${DOCKER_HOST_NAME:-${DOCKER_NAME}}"
 DOCKER_PORT="${DOCKER_PORT:-8080}"
+DOCKER_PORT_TEST="8081"
 DOCKER_TAGS=$(docker images 2>&1|grep ${DOCKER_IMAG}|awk '{print $1;}')
 # detect if the process running inside the container
 DOCKER_PROC="$(cat /proc/1/cgroup 2>&1|grep -e "/docker/[0-9a-z]\{64\}"|head -1)"
@@ -39,27 +41,40 @@ function main() {
   if [[ "${DEBUG}" =~ (1|enable|on|true|yes) ]]; then DEBUG="1"; fi
 
   cd -P "${PROJECT_DIR}" && pwd
+  check_args || return
+  check_docker_image || return 0
+  docker_run
+}
 
+function check_args() {
   MAKE_ARGS="${ARGS:-test}"
   # get a list of make targets
   MAKE_LIST="$(make -qp|awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'|sort)"
   MAKE_BASH=""
   # checking target(s) from command line
   for target in ${MAKE_ARGS}; do
+    echo -e "\nChecking target: ${target} ..."
     t="`echo ${MAKE_LIST}|xargs -n1 echo|grep -e \"^${target}$\"`"
     if [[ ! -n "$t" ]]; then
       echo "Makefile does not have target: ${target}"
-      return
+      return 1
     elif [[ -e "/.dockerenv" ]] || [[ "${DOCKER_PROC}" != "" ]]; then
       if [[ "${target}" =~ (show) ]] || [[ "${target}" =~ (cover) ]]; then
         echo "Cannot open test coverage in the container."
         echo "See: cover/index.html"
-        return
+        return 2
       elif [[ "${target}" == "sql" ]]; then
         echo "Cannot start MySQLWorkbench in the container."
-        return
+        return 3
       fi
+    elif [[ "${target}" =~ (check|only|test) ]]; then
+      DOCKER_HOST_NAME="${DOCKER_HOST_NAME}-test"
+      DOCKER_PORT="${DOCKER_PORT_TEST}"
+      echo -e "\nUsing docker container: ${DOCKER_HOST_NAME}:${DOCKER_PORT}"
     elif [[ "${target}" == "cmd" ]]; then
+      if [[ "$(docker ps -q -f name=${DOCKER_NAME})" != "" ]]; then
+        DOCKER_EXEC=exec
+      fi
       MAKE_BASH="; /bin/bash"
     fi
   done
@@ -67,23 +82,36 @@ function main() {
   # run make directly if already inside the container
   if [[ -e "/.dockerenv" ]] || [[ "${DOCKER_PROC}" != "" ]]; then
     make ${MAKE_ARGS}
-    return
+    return 9
   fi
 
+  return 0
+}
+
+function check_docker_image() {
   # check existing docker image
+  DOCKER_IMAG_STATUS="not available"
   echo -e "\nChecking docker image [${DOCKER_IMAG}] for '${GITHUB_REPO}'"
   if [[ "${DOCKER_TAGS}" != "${DOCKER_IMAG}" ]]; then
     echo -e "\nBuilding docker image [${DOCKER_IMAG}] for '${GITHUB_REPO}'"
     echo "-----------------------------------------------------------------------"
-    docker build -t ${DOCKER_IMAG} .
+    docker build -f "${DOCKER_FILE}" -t ${DOCKER_IMAG} .
     echo "-----------------------------------------------------------------------"
+    DOCKER_IMAG_STATUS="ready"
+  else
+    DOCKER_IMAG_STATUS="up"
+  fi
+  if [[ "${MAKE_ARGS}" == "docker" ]]; then
+    echo -e "\nDocker image [${DOCKER_IMAG}] is ${DOCKER_IMAG_STATUS}.\n"
+    return 1
   fi
 
+  return 0
+}
+
+function docker_run() {
   # configure and start the container
-  CMD="docker run -it --rm
-    --hostname ${DOCKER_NAME}
-    --name ${DOCKER_NAME} --net="bridge"
-    --expose ${DOCKER_PORT} -p 0.0.0.0:${DOCKER_PORT}:${DOCKER_PORT}
+  CMD_OPT="-it
     -e DEBUG=${DEBUG}
     -e PROJECT="${DOCKER_NAME}"
     -e PROJECT_DIR="${SOURCE_PATH}"
@@ -91,24 +119,34 @@ function main() {
     -e AWS_ACCESS_KEY_ID
     -e AWS_DEFAULT_REGION
     -e AWS_SECRET_ACCESS_KEY
+    -e BUILD_ENV
     -e LOCAL_USER_ID=${LOCAL_USER_ID:-$(id -u)}
     -e LOCAL_GROUP_ID=${LOCAL_GROUP_ID:-$(id -g)}
     -e USER
     -e MYSQL_HOST
     -e MYSQL_PORT
     -e MYSQL_DATABASE
-    -e MYSQL_PASSWORD
     -e MYSQL_USERNAME
     -e S3_BUCKET
     -e S3_PREFIX
+    -e SOCKEYE_API_KEY
     -e VERBOSE=${VERBOSE}
-    -e JSF=${JSF}
     -e HOST=${HOST}
     -e PORT=${PORT}
+    -e JSF=${JSF}
+  "
+  CMD="docker run --rm ${CMD_OPT}
+    --hostname ${DOCKER_HOST_NAME}
+    --name ${DOCKER_HOST_NAME} --net="bridge"
+    --expose ${DOCKER_PORT} -p 0.0.0.0:${DOCKER_PORT}:${DOCKER_PORT}
     -v "${PWD}":${SOURCE_PATH}
     ${DOCKER_IMAG}"
 
-  echo -e "\nRunning 'make ${MAKE_ARGS}' in docker container"
+  if [[ "${DOCKER_EXEC}" == "exec" ]]; then
+    CMD="docker exec ${CMD_OPT} ${DOCKER_HOST_NAME} /bin/bash"
+  fi
+
+  echo -e "\nRunning 'make ${MAKE_ARGS}' in docker container ${DOCKER_HOST_NAME}:${DOCKER_PORT}"
   if [[ "${DEBUG}" == "1" ]]; then
     echo "${CMD} bash -c \"make ${MAKE_ARGS} ${MAKE_BASH}\""
   fi
@@ -145,7 +183,18 @@ function log_trace() {
 
   if [[ "${err_name}" == "ERROR" ]] || [[ "${err_name}" == "FATAL" ]]; then
     HAS_ERROR="true"
+    echo ''
+    echo '                                                      \\\^|^///  '
+    echo '                                                     \\  - -  // '
+    echo '                                                      (  @ @  )  '
+    echo '----------------------------------------------------oOOo-(_)-oOOo-----'
     echo -e "\n${err_name}: ${err_text}" >&2
+    echo '                                                            Oooo '
+    echo '-----------------------------------------------------oooO---(   )-----'
+    echo '                                                     (   )   ) / '
+    echo '                                                      \ (   (_/  '
+    echo '                                                       \_)       '
+    echo ''
     exit ${err_code}
   else
     echo -e "\n${err_name}: ${err_text}"
