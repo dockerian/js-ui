@@ -7,7 +7,7 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoader = require('vue-loader')
@@ -46,7 +46,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       parallel: true
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
+    new MiniCSSExtractPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
@@ -85,34 +85,53 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks (module) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        )
+    module.exports = {
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            vendor: {
+              chunks: 'initial',
+              test: path.resolve(__dirname, 'node_modules'),
+              name: 'vendor',
+              enforce: true
+            }
+          }
+        }
       }
-    }),
+    },
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
+    module.exports = {
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              chunks: 'manifest',
+              minChunks: Infinity,
+              name: 'commons',
+              enforce: true
+            }
+          }
+        }
+      }
+    },
     // This instance extracts shared chunks from code splitted chunks and bundles them
     // in a separate chunk, similar to the vendor chunk
     // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    }),
+    module.exports = {
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              chunks: 'initial',
+              async: 'vendor-async',
+              children: true,
+              mincChunks: 3,
+            }
+          }
+        }
+      }
+    },
 
     // copy custom static assets
     new CopyWebpackPlugin([
