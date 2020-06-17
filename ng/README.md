@@ -1,22 +1,6 @@
-# js-ui
+# Js-Ui (AngularJS)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
-
-## Dev Setup
-
-  Per security vulnerabilities report on github.com, run the following steps to
-  upgrade angular CLI to v6.2.3, as well as fix audit issues.
-
-  ```
-  npm audit
-  npm audit fix
-  npm audit fix --force
-  npm update
-  ng update @angular/cli --migrate-only --from=1.7.4
-  npm install --save-dev @angular/cli@v6.2.3
-  npm audit
-  ```
-
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
 
 ## Development server
 
@@ -28,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
