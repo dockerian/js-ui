@@ -1,17 +1,7 @@
 {
-  "name": "js-ui",
+  "name": "js-ui-react",
   "version": "0.1.0",
   "private": true,
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "node": true
-    }
-  },
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
-  },
   "scripts": {
     "build": "react-scripts build",
     "prestart": "npm install",
@@ -22,15 +12,62 @@
     "pretest": "npm install && npm run lint",
     "unit": "npm run lint && npm run test",
     "test": "CI=true react-scripts test --coverage --env=jsdom",
+    "e2e": "cd e2e && jest",
     "eject": "react-scripts eject"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": "react-app"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/serviceWorker.js",
+      "!**/index.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 75,
+        "lines": 80,
+        "statements": 80
+      },
+      "./src/App.js": {
+        "lines": 100
+      }
+    }
+  },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-loader": "^7.1.5",
-    "eslint": "^5.6.1",
-    "eslint-loader": "^2.1.1",
-    "react-scripts": "^1.1.5",
-    "webpack": "^4.20.2"
+    "eslint": "^6.8.0",
+    "jest-puppeteer": "^4.4.0",
+    "puppeteer": "^4.0.0"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/expect-puppeteer": "^4.4.3",
+    "@types/jest-environment-puppeteer": "^4.3.1",
+    "@types/puppeteer": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
   }
 }

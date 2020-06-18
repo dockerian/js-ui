@@ -6,8 +6,16 @@ class AppNote extends Component {
     return (
       <div id="appNote">
         <p className="app-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.js</code> and save to reload.
         </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </div>
     );
   }
