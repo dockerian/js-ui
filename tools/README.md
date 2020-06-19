@@ -16,7 +16,7 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
     - [AngularJS](#install-js-ng)
     - [ReactJS](#install-js-react)
     - [VueJS](#install-js-vue)
-  * [JavaScript Library/Frameworks](./JSF.md)
+  * [JavaScript Library/Frameworks](../misc/JSF.md)
   * [Build, test, and run the project](#build-test-run)
   * [Dockerization](#docker)
 
@@ -142,7 +142,7 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   Dockerian JsUi project starts prototyping web UI consoles with the following
   3 major JavaScript library/frameworks.
 
-  See [here](../JSF.md) for tech stack options.
+  See [here](../misc/JSF.md) for tech stack options.
 
 <a name="install-js-ng"></a>
 ### Angular CLI
