@@ -132,6 +132,21 @@ export const contactToHTML = (contact) => {
 }
 
 /**
+  convert an object to JSON string.
+
+  @param {Object} obj - object to be converted.
+  @param space - A String or Number object that's used for JSON.stringify method.
+
+  @return {String} - Formatted JSON string.
+**/
+export const jsonStringify = (obj, space) => {
+  var allKeys = []
+  JSON.stringify(obj, function (k, v) { allKeys.push(k); return v })
+  allKeys.sort()
+  return JSON.stringify(obj, allKeys, space)
+}
+
+/**
   parseDate returns ISO or locale date in format of 'yyyy-mm-dd HH:MM:SS',
   or '' if input is not a valid date.
 

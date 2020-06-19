@@ -164,6 +164,39 @@ describe('utils.str.contactToHTML', () => {
   })
 })
 
+describe('utils.str.jsonStringify', () => {
+  it('should return a JSON string', () => {
+    let tests = [{
+      input: [{'y': 'z', 'x': 1}, {'a': {'h': 4, 'z': 3, 'm': {'s': 'test', 'a': 2}}, 'd': 2, 'y': 'yyy', 'c': 1, 22: 222, '1a': '11a'}],
+      expected: '[{"x":1,"y":"z"},{"1a":"11a","22":222,"a":{"h":4,"m":{"a":2,"s":"test"},"z":3},"c":1,"d":2,"y":"yyy"}]'
+    }, {
+      input: {'a': 9, 'b': 3, '_': 'None'},
+      expected: '{"_":"None","a":9,"b":3}'
+    }, {
+      input: {'a': 9, 'b': 3, '_': 'None'}, space: 2, expected: `{
+  "_": "None",
+  "a": 9,
+  "b": 3
+}`
+    }, {
+      input: -3.14, expected: '-3.14'
+    }, {
+      input: 123, expected: '123'
+    }, {
+      input: [''], expected: '[""]'
+    }, {
+      input: {}, expected: '{}'
+    }, {
+      input: '', expected: '""'
+    }]
+    for (let test of tests) {
+      let result = str.jsonStringify(test.input, test.space)
+      expect(result).toBe(test.expected)
+    }
+    expect(str.jsonStringify()).toBe(undefined)
+  })
+})
+
 describe('utils.str.parseDateTime', () => {
   it('should return a normalized datetime string', () => {
     const dtJan = new Date('1/16/2017')
