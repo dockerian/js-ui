@@ -1,5 +1,5 @@
 /build/
 /config/
+/coverage/
 /dist/
 /*.js
-/test/unit/coverage/

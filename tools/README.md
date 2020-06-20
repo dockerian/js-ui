@@ -218,7 +218,7 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
   vue --version  # or `vue -V`, and use `npm up -g vue-cli` to upgrade
 
   export JSF=vue
-  vue init webpack js-ui && mv js-ui $JSF  # or keep `js-ui` as a project folder
+  vue create js-ui && mv js-ui $JSF  # or keep `js-ui` as a project folder
   cd $JSF && npm start  # which runs `npm run dev` by default
   ```
   **Note**:

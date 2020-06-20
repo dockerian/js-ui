@@ -2,22 +2,22 @@
 
 // appIcons maps app key/names to iView icons
 const appIcons = {
-  about: 'information-circled', // ios-star-outline
-  check: 'checkmark', // 'arrow-expand'
-  default: 'leaf',
-  demo: 'grid',
-  home: 'home',
-  links: 'link',
-  message_board: 'more', // chatbubble-working, paper-airplane
-  move_backward: 'arrow-left-b',
-  move_forward: 'arrow-right-b',
-  nav: 'navicon',
-  perspectives: 'aperture',
-  rules: 'lock-combination', // arrow-expand
-  search: 'search',
-  settings: 'gear-a', // gear-b, ios-gear
-  usage_and_help: 'help-circled',
-  usage: 'help-circled'
+  about: 'md-information-circle', // ios-star-outline
+  check: 'md-checkmark', // checkmark-round
+  default: 'ios-leaf',
+  demo: 'md-apps',
+  home: 'md-home',
+  links: 'md-link',
+  message_board: 'ios-more', // md-chatbubble, md-paper-plane
+  move_backward: 'md-arrow-dropleft',
+  move_forward: 'md-arrow-dropright',
+  nav: 'navicon', // navicon-round
+  perspectives: 'md-aperture',
+  rules: 'md-lock', // md-calculator
+  search: 'md-search',
+  settings: 'md-settings', // md-options, ios-settings
+  usage_and_help: 'md-help-circle',
+  usage: 'md-help-circle'
 }
 
 // appIconsMapper returns an iView icon by name

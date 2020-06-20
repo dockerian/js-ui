@@ -1,18 +1,29 @@
 .DS_Store
 node_modules/
 /dist/
+/tests/e2e/reports/
+/tests/unit/coverage/
+/coverage/
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+chromedriver.log
+geckodriver.log
 npm-debug.log*
+pnpm-debug.log*
+selenium-debug.log
 yarn-debug.log*
 yarn-error.log*
-/test/unit/coverage/
-/test/e2e/reports/
-selenium-debug.log
 
 # Editor directories and files
 .idea
 .vscode
 *.log
-*.suo
 *.ntvs*
 *.njsproj
 *.sln
+*.suo
+*.sw?

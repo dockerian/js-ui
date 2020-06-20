@@ -23,8 +23,8 @@ const PAGE_OFFSET_LIMIT = Math.min(1000000, Math.max(100, parseInt(env.PAGE_OFFS
 // page size limit: [5, 1000], default: 500
 const PAGE_SIZE_LIMIT = Math.min(1000, Math.max(5, parseInt(env.PAGE_SIZE_LIMIT) || 500))
 
-const runtime = process.env === 'production' ? 'prod' : (
-  process.env === 'testing' ? 'test' : 'dev'
+const runtime = process.env.NODE_ENV === 'production' ? 'prod' : (
+  process.env.NODE_ENV === 'testing' ? 'test' : 'dev'
 )
 
 const settings = {

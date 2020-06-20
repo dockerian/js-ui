@@ -13,7 +13,7 @@
       class-name="msg-count-notAck"
       v-bind:count="countNotAck"
       >
-      <Icon type="more" size="27" color="lightgray"
+      <Icon type="ios-more" size="27" color="lightgray"
         v-bind:title="`${countNotAck}/${countErrors} acknowledgeable/error messages`"
       />&nbsp;
     </Badge>
@@ -29,7 +29,6 @@
       </v-message-buttons>
     </div>
   </h1>
-</div>
 </template>
 
 <script>
@@ -38,15 +37,13 @@ import iView from 'iview'
 import { mapGetters } from 'vuex'
 import * as _const from '@/store/appInfo/_constants'
 import MessageButtons from '@/components/appInfo/MessageButtons'
-import Messages from '@/components/appInfo/Messages'
 
 Vue.use(iView)
 
 export default {
   name: 'MessageHeader',
   components: {
-    'v-message-buttons': MessageButtons,
-    'v-messages': Messages
+    'v-message-buttons': MessageButtons
   },
   props: {
   },
@@ -65,7 +62,7 @@ export default {
     ackAll: function () {
       this.$store.dispatch(`appInfo/${_const.ACK_ALL}`)
     },
-    clearAll: function (message) {
+    clearAll: function () {
       this.$store.dispatch(`appInfo/${_const.CLEAR}`)
     }
   },

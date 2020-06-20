@@ -32,14 +32,14 @@ SYSTOOLS := awk egrep find grep jq node npm rm sort tee xargs zip
 # set to docker/host hybrid script
 MAKE_RUN := tools/run.sh
 # set coverage report
-COVERAGE := $(JSF)/test/unit/coverage
+COVERAGE := $(JSF)/coverage
 COVERAGE_REPORT := $(JSF)/test/unit/coverage/lcov-report/index.html
 # set debug mode
 DEBUG ?= 1
 
 ifeq ("$(JSF)","vue")
-	COVERAGE := $(JSF)/test/unit/coverage
-	COVERAGE_REPORT := $(JSF)/test/unit/coverage/lcov-report/index.html
+	COVERAGE := $(JSF)/coverage
+	COVERAGE_REPORT := $(JSF)/coverage/lcov-report/index.html
 else ifeq ("$(JSF)","react")
 	COVERAGE := $(JSF)/coverage
 	COVERAGE_REPORT := $(JSF)/coverage/lcov-report/index.html
@@ -117,6 +117,10 @@ endif
 
 cloc:
 	( cd $(JSF); cloc --exclude-dir=reports,node_modules,dist,coverage * )
+
+codecov: SHELL := /bin/bash
+codecov:
+	bash <(curl -s https://codecov.io/bash) -t 3c3b0812-0def-4cfb-8c84-208057b84815
 
 # docker targets
 docker cmd: docker_build.tee
@@ -317,7 +321,3 @@ else
 endif
 	@echo ""
 	@echo "- DONE: $@"
-
-codecov: SHELL := /bin/bash
-codecov:
-	bash <(curl -s https://codecov.io/bash) -t 3c3b0812-0def-4cfb-8c84-208057b84815

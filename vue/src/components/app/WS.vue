@@ -10,15 +10,16 @@
         v-bind:label="tab.title"
         v-bind:name="tab.key"
         v-bind:to="tab.route" router
-        v-if="tab.visible">
+        >
         <!--
         <router-view class="perspective" name="perspective" />
         -->
-
+        <div v-if="tab.visible">
         <v-auth-block v-if="!userSignedIn"></v-auth-block>
 
         <component v-else v-bind:is="tab.component">
         </component>
+        </div>
       </TabPane>
       <Button type="text" icon="plus" shape="circle" size="small" slot="extra"
         v-bind:disabled="!allowMulti"
@@ -119,6 +120,7 @@ export default {
   },
   methods: {
     addTab: function () {
+      // eslint-disable-next-line
       console.log('adding tab by user')
       appTab.openNewTab(this.selectedTab, this.$store)
     },

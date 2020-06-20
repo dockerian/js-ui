@@ -28,7 +28,7 @@ export default {
     }
   },
   methods: {
-    clearFilter: function (event, name) {
+    clearFilter: function () {
       this.$emit('clearFilter', {
         [this.filterName]: this.filterValue
       })

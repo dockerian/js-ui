@@ -3,6 +3,9 @@
 **/node_modules/
 **/test/e2e/reports/
 **/test/unit/coverage/
+**/tests/e2e/reports/
+**/tests/unit/coverage/
+**/coverage/
 tmp/
 
 # Logs

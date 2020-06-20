@@ -4,7 +4,7 @@
       <v-progress></v-progress>
       <div id="circle-closer">
         <Poptip trigger="hover" placement="left-end">
-          <Icon color="gold" type="help-circled" size="35"></Icon>
+          <Icon color="gold" type="md-help-circle" size="35"></Icon>
           <div slot="content">
             <div id="tip">
               <span @click="showHelp" style="cursor:pointer">
@@ -34,7 +34,7 @@ import { mapGetters } from 'vuex'
 import * as _const from '@/store/_constants'
 import Progress from '@/components/app/Progress'
 import UsageContents from '@/components/appInfo/UsageContents'
-import VueMarkdown from 'vue-markdown'
+// import VueMarkdown from 'vue-markdown'
 import config from '@/config'
 
 Vue.use(iView)
@@ -43,7 +43,7 @@ export default {
   name: 'Usage',
   components: {
     'v-usage-contents': UsageContents,
-    'v-markdown': VueMarkdown,
+    // 'v-markdown': VueMarkdown,
     'v-progress': Progress
   },
   props: {

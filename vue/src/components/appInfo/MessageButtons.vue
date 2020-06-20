@@ -48,7 +48,7 @@ export default {
     ackAll: function () {
       this.$store.dispatch(`appInfo/${_const.ACK_ALL}`)
     },
-    clearAll: function (message) {
+    clearAll: function () {
       this.$store.dispatch(`appInfo/${_const.CLEAR}`)
       let content = 'Important and not-acknowledged messages remain.'
       this.$Message.success({content, duration: 5})

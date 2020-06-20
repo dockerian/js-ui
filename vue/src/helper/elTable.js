@@ -5,7 +5,7 @@
 
   @see http://element.eleme.io/#/en-US/component/table#table-attributes
 **/
-export const cellStyle = ({ row, column, rowIndex, columnIndex }) => {
+export const cellStyle = ({ column }) => {
   let nowrap = {
     'white-space': 'nowrap'
   }
@@ -34,15 +34,17 @@ export const cellStyle = ({ row, column, rowIndex, columnIndex }) => {
 
   @see http://element.eleme.io/#/en-US/component/table#table-column-attributes
 **/
+/* eslint-disable-next-line */
 export const cellFormatter = (row, column, cellValue) => {
   switch (column.columnKey) {
     case 'created':
     case 'firstSeen':
     case 'lastSeen':
     case 'modified':
-    case 'updated':
+    case 'updated': {
       let newValue = cellValue || ''
       return newValue.substr(0, 10)
+    }
     default:
       break
   }

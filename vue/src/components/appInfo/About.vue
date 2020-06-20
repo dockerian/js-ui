@@ -45,6 +45,9 @@
     </div>
     -->
     <p>&starf;</p>
+    <!--
+    <v-links/>
+    -->
   </div>
 </template>
 
@@ -64,6 +67,7 @@ const project = config.settings.project
 export default {
   name: 'About',
   components: {
+    /* eslint-disable-next-line */
     'v-links': appRoutes.Links,
     'v-mailto': Mailto
   },

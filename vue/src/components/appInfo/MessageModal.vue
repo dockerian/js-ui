@@ -62,7 +62,6 @@ import { mapGetters } from 'vuex'
 import * as _constApp from '@/store/_constants'
 import * as _const from '@/store/appInfo/_constants'
 import MessageButtons from '@/components/appInfo/MessageButtons'
-import MessageHeader from '@/components/appInfo/MessageHeader'
 import Messages from '@/components/appInfo/Messages'
 
 Vue.use(Element, { locale })
@@ -72,7 +71,7 @@ export default {
   name: 'MessageModal',
   components: {
     'v-message-buttons': MessageButtons,
-    'v-message-header': MessageHeader,
+    // 'v-message-header': MessageHeader,
     'v-messages': Messages
   },
   props: {

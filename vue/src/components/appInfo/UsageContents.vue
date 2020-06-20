@@ -11,7 +11,7 @@
     </v-markdown>
 
     <div class="footer-notes">
-      <Icon type="star" size="11" />
+      <Icon type="md-star" size="11" />
       Powered by
       <a href="https://www.npmjs.com/package/vue-markdown" target="_blank">
         vue-markdown

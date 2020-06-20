@@ -20,7 +20,7 @@
       <Button
         type="text" class="btn-msg" title="MessageBoard"
         v-on:click="openMessages">
-        <Icon type="android-notifications" size="23" color="lightslategray">
+        <Icon type="md-notifications" size="23" color="lightslategray">
         </Icon>
         <Badge
           v-if="allowModal"
@@ -40,14 +40,17 @@
         title="Usage and Help"
         v-bind:disabled="$route.path === '/usage'"
         v-on:click="usageVisible = true">
-        <Icon type="help-circled" size="21" color="lightslategray">
+        <Icon type="md-help-circle" size="21" color="lightslategray">
         </Icon>
       </Button>
       <Button class="btn-about" type="text"
         title="About"
         v-bind:disabled="$route.path === '/about'"
+        v-bind:ghost="$route.path === '/about'"
         v-on:click="aboutVisible = true">
-        <Icon type="information-circled" size="21" color="lightslategray">
+        <Icon
+          type="md-information-circle" size="21"
+          color="lightslategray">
         </Icon>
       </Button>
     </div>
@@ -165,15 +168,15 @@ export default {
 }
 .btn-about {
   cursor: pointer;
-  margin: 3px 7px 0px 1px; padding: 0px;
+  margin: 0px 7px 0px 3px; padding: 0px;
 }
 .btn-help {
   cursor: pointer;
-  margin: 3px 3px 0px 1px; padding: 0px;
+  margin: 0px 3px 0px 3px; padding: 0px;
 }
 .btn-msg {
   cursor: pointer;
-  margin: 2px 15px 0px 0px; padding: 0px;
+  margin: 0px 15px 0px 3px; padding: 0px;
 }
 .message {
   cursor: default;

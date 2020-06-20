@@ -127,7 +127,7 @@ export default {
       this.$emit('clearFilter', filter)
       this.focusFilterSearch()
     },
-    focusFilterSearch: function (event) {
+    focusFilterSearch: function () {
       this.$refs.filterSearchInline.focus()
     },
     onCommit: function () {

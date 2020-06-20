@@ -9,10 +9,10 @@
       v-bind:show-icon="true"
       v-bind:key="msg.uuid"
       >
-      <Icon v-if="msg.important" type="paper-airplane" slot="icon" />
-      <Icon v-if="msg.type === 'debug'" type="star" color="dimgray" slot="icon" />
-      <Icon v-if="msg.type === 'fatal'" type="android-warning" slot="icon" />
-      <Icon v-if="msg.notAcknowledged" type="flag" color="palevioletred" slot="icon" />
+      <Icon v-if="msg.important" type="md-paper-plane" slot="icon" />
+      <Icon v-if="msg.type === 'debug'" type="md-star" color="dimgray" slot="icon" />
+      <Icon v-if="msg.type === 'fatal'" type="md-warning" slot="icon" />
+      <Icon v-if="msg.notAcknowledged" type="md-flag" color="palevioletred" slot="icon" />
       <div
         class="msg-title"
         v-bind:title="index"

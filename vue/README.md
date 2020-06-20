@@ -16,32 +16,55 @@
 <a name="build"><br/></a>
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
+```
 
+### Compiles and hot-reloads for development
+
+```bash
 # serve with hot reload at localhost:8080
-npm run dev
+npm run serve
+```
 
-# build for production with minification
+### Compiles and minifies for production
+
+```bash
 npm run build
+```
 
-# build for production and view the bundle analyzer report
-npm run build --report
+### Lints and fixes files
 
-# run unit tests
-npm run unit
+```bash
+npm run lint
+```
 
-# run e2e tests
-npm run e2e
+### Run your unit tests
 
-# run all tests
+```bash
+npm run test:unit
+```
+
+### Run your end-to-end tests
+
+```bash
+npm run test:e2e
+```
+
+### Run all tests
+
+```bash
 npm test
 ```
 
 
 <a name="ide"><br/></a>
 ## Debug and test with IDE
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Visual Studio Code
 

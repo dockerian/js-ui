@@ -36,7 +36,7 @@ const actions = {
     }
   },
 
-  async [_const.USAGE_AND_HELP] (store, v) {
+  async [_const.USAGE_AND_HELP] (store) {
     let content = await docsApi.getFile(config.doc)
     store.commit(_const.USAGE_AND_HELP, content)
     return content
