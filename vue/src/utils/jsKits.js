@@ -27,6 +27,22 @@ export const arrayContains = (arrayObj, item) => {
 }
 
 /**
+  @description replacer function for JSON.stringify.
+*/
+export const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return
+      }
+      seen.add(value)
+    }
+    return value
+  }
+}
+
+/**
   getPropByIdentifer returns an object property by a string identifier.
 
   @param {Object} obj - an Object.

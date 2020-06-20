@@ -33,6 +33,20 @@ describe('utils.jsKits', () => {
   })
 })
 
+describe('utils.getCircularReplacer', () => {
+  it('should remove circular reference', () => {
+    let o1 = { key: 'value', otherData: 123 };
+    o1.myself = o1;
+    let tests =[{
+      obj: o1, expected: '{"key":"value","otherData":123}'
+    }]
+    for (let test of tests) {
+      let result = JSON.stringify(test.obj, kit.getCircularReplacer())
+      expect(result).toBe(test.expected)
+    }
+  })
+})
+
 describe('utils.jsKits.getPropByIdentifer', () => {
   it('should return undefined for non-object', () => {
     let tests = [
