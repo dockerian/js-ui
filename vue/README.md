@@ -6,7 +6,7 @@
 <br/><a name="contents"></a>
 ## Contents
 
-  - [User Guide](static/README.md)
+  - [User Guide](public/static/README.md)
   - [Design in Vue.js](src/README.md)
   - [Build Setup](#build)
   - [Using IDE](#ide)

@@ -5,7 +5,7 @@
 
 > Dockerian JsUi Vue.js - designer's notes
 
-See [User Guide](../static/README.md)
+See [User Guide](../public/static/README.md)
 
 <br/><a name="contents"></a>
 ## Contents

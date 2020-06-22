@@ -7,14 +7,15 @@
   "scripts": {
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix",
-    "dev": "npm run serve --mode development",
-    "e2e": "vue-cli-service test:e2e --headless",
+    "dev": "npm run serve",
+    "e2e": "npm run test:e2e",
+    "pretest": "npm install && npm run lint",
     "prod": "NODE_ENV=production npm run serve",
     "serve": "vue-cli-service serve",
     "start": "npm run serve",
     "start:test": "NODE_ENV=test npm run serve",
-    "test:unit": "vue-cli-service test:unit --coverage",
-    "test:e2e": "vue-cli-service test:e2e --headless",
+    "test:unit": "NODE_ENV=test vue-cli-service test:unit --coverage",
+    "test:e2e": "NODE_ENV=test vue-cli-service test:e2e --headless",
     "test": "npm run test:unit && npm run test:e2e",
     "unit": "npm run test:unit"
   },
@@ -62,6 +63,7 @@
     "geckodriver": "^1.19.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "selenium-server": "^3.141.59",
     "vue-template-compiler": "^2.6.11"
   }
 }

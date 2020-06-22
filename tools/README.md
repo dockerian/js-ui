@@ -266,6 +266,43 @@ This is to document setup and tools for [js-ui](../README.md) (Dockerian JsUi) p
 <br/><a name="docker"><br/></a>
 ## Dockerization
 
+### Docker context
+
+* Alpine
+  - Url: https://alpinelinux.org/
+  - Shorty: Its very small.
+  - Packagemanger: apk
+  - Shells: /bin/sh
+  - Size: Few MBs - current tag needs 2.7MB
+
+* Jessie aka Debian 8
+  - Url: https://wiki.debian.org/DebianJessie
+  - Shorty: All what you need, but LTS is running out. Click me for details
+  - Package manager: apt
+  - Shells: /bin/bash and many more
+  - Size: Round about 50MB
+
+* Stretch aka Debian 9
+  - Url: https://wiki.debian.org/DebianStretch
+  - Shorty: All what you need
+  - Package manager: apt
+  - Shells: /bin/bash, many more
+  - Size: Round about 40MB
+
+* Buster aka Debian 10
+  - Url: https://wiki.debian.org/DebianBuster
+  - Shorty: All what you need, but newer
+  - Package manager: apt
+  - Shells: /bin/bash and many more
+  - Size: Round about 50MB
+
+* Ubuntu based on debain
+  - Url: https://wiki.debian.org/DebianBuster
+  - Shorty: All what you need - and some more
+  - Packagemanager: apt
+  - Shells: /bin/bash and more
+  - Size: Round about 25MB
+
 ### Install Docker
 
   See

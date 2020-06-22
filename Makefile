@@ -280,10 +280,26 @@ endif
 	@echo ""
 	@echo "- DONE: $@"
 
+# testing targets
 qt: lint
 	( cd $(JSF); npm run unit )
 
-# testing targets
+e2e:
+	@echo ""
+ifndef DONT_RUN_DOCKER
+	PROJECT_DIR="$(PWD)" \
+	JSF=$(JSF) HOST=$(HOST) PORT=$(PORT) \
+	GITHUB_USER=$(GITHUB_CORP) GITHUB_REPO=$(GITHUB_REPO) \
+	DOCKER_USER=$(DOCKER_USER) DOCKER_NAME=$(DOCKER_NAME) DOCKER_FILE="$(DOCKER_FILE)" \
+	DOCKER_IMAG=$(DOCKER_IMAG) DOCKER_PORT=$(DOCKER_PORT) \
+	$(MAKE_RUN) $@
+else
+	@echo "Run e2e test ..."
+	cd "$(JSF)" && npm run e2e
+endif
+	@echo ""
+	@echo "- DONE: $@"
+
 test:
 	@echo ""
 ifndef DONT_RUN_DOCKER

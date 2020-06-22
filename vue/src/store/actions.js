@@ -38,6 +38,7 @@ const actions = {
 
   async [_const.USAGE_AND_HELP] (store) {
     let content = await docsApi.getFile(config.doc)
+    console.log('loading user guide from', config.doc)
     store.commit(_const.USAGE_AND_HELP, content)
     return content
   },

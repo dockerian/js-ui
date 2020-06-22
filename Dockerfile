@@ -1,4 +1,4 @@
-ARG NODE_VERSION=10.16.0
+ARG NODE_VERSION=14.4.0
 
 # NOTE: `ARG`s are reset after `FROM`
 FROM node:$NODE_VERSION-alpine
@@ -17,7 +17,7 @@ RUN apk update \
     dumb-init \
     chromium \
     chromium-chromedriver \
-    openjdk8-jre \
+    openjdk11-jre \
  && java -version && echo `which java` \
  && rm -rf /var/lib/apt/lists/* \
  && rm /bin/sh && ln -sf /bin/bash /bin/sh \
