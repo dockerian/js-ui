@@ -541,7 +541,7 @@ Resources:
       - https://dmitripavlutin.com/when-not-to-use-arrow-functions-in-javascript
       - arrow function and scope
 
-        ```
+        ```js
         var foo = 'global'
         const obj = {
           foo: 'instance',
@@ -608,11 +608,27 @@ Resources:
 ### async/await vs promise
 
   * history: callback -> promise -> generator -> async/await
+
+  * callback version
+
+    ```js
+    function loadScript(src, onLoad, onError) {
+      let script = document.createElement('script');
+      script.src = src;
+      script.onerror = () => onError(new Error(`Script load error for ${src}`));
+      script.onload = () => onLoad(null, script);
+      document.head.append(script);
+    }
+
+    loadScript('foo.js', console.log, console.error)
+    ```
+
   * promise version
 
-    ```
-    var fs = require('fs')
-    var readFile = function (fileName){
+    ```js
+    const fs = require('fs')
+    const readFile = function (fileName){
+      // returning a Thenable object
       return new Promise(function (resolve, reject){
         fs.readFile(fileName, function(error, data){
           if (error) reject(error)
@@ -620,10 +636,33 @@ Resources:
         })
       })
     }
+    // readFile starts with "pending" state
+    readFile('foo.txt').then(
+      data => console.log(data), // "fullfilled" state
+      error => console.error(error) // "rejected" state
+    )
     ```
+    a promise delay function:
+
+    ```js
+    function delay(ms, cancel = Promise.reject()) {
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(resolve, ms)
+        const no_op = () => timer
+        cancel.then(() => {
+          clearTimeout(timer)
+          reject(new Error('Cancelled'))
+        }, no_op)
+      }
+    }
+    const cancel = shouldCancel ? Promise.resolve(): Promise.reject()
+    delay(500, cancel).then(() => alert('args'))
+    ```
+    See [cancellable promise](https://github.com/ericelliott/speculation).
+
   * generator version
 
-    ```
+    ```js
     var gen = function* (){
       var f1 = yield readFile('/etc/fstab')
       var f2 = yield readFile('/etc/shells')
@@ -631,9 +670,10 @@ Resources:
       console.log(f2.toString())
     }
     ```
+
   * async/await
 
-    ```
+    ```js
     var asyncReadFile = async function (){
       var f1 = await readFile('/etc/fstab')
       var f2 = await readFile('/etc/shells')
@@ -641,9 +681,11 @@ Resources:
       console.log(f2.toString())
     }
     ```
+    **NOTE**: aync/await can replace promise chain but cannot replace `promise.all` (`promise.allSettled`, nor `promose.race`).
+
   * catching reject
 
-    ```
+    ```js
     async function fn() {
       try {
         await aFuncReturnsPromise();
@@ -654,16 +696,25 @@ Resources:
     ```
     Alternatively
 
-    ```
+    ```js
     async function asyncFn() {
       await aFuncReturnsPromise().catch(function (err){
         console.log(err)
       })
     }
     ```
+    And the promise with (recommended pattern) catch:
+
+    ```js
+    doAction()
+      .then(handleSuccess)
+      .catch(handleError)
+      // will catch from either doAction or handleSuccess
+    ```
+
   * forEach vs for
 
-    ```
+    ```js
     async function dbFuc(db) {
       let data = [{}, {}, {}] // some data
       // key `async` is required to use with `await`
@@ -674,7 +725,7 @@ Resources:
     ```
     use `Promise.all` instead
 
-    ```
+    ```js
     async function dbFuc(db) {
       let data = [{}, {}, {}] // some data
       let promises = data.map((req) => db.post(req))
@@ -684,7 +735,7 @@ Resources:
     ```
     Alternatively,
 
-    ```
+    ```javascript
     async function dbFuc(db) {
       let data = [{}, {}, {}] // some data
       let promises = data.map((req) => db.post(req));
@@ -697,14 +748,19 @@ Resources:
     ```
     Otherwise, without concurrency
 
-    ```
+    ```javascript
     async function dbFuc(db) {
       let data = [{}, {}, {}] // some data
       for (let req of data) {
         await db.post(req);
       }
     }
-    ```
+    ````
+
+  * see
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+    - https://javascript.info/async
+
 
 <a name="debug"><br/></a>
 ### debugging
@@ -744,10 +800,10 @@ Resources:
 
 |Pattern      | Usage |Example|
 |:------------|:-----:|:------|
-|createClass  |deprecated|<code>var MyComp = React.createClass({<br/>&nbsp;&nbsp;render: function(){<br/>&nbsp;&nbsp;&nbsp;return (&lt;div&gt;{this.props.name}&lt;/div&gt;);<br/>&nbsp;&nbsp;}<br/>&nbsp;});</code>
-|ES6 class    |with `this`|<code>class MyComp extends React.Component {<br/>&nbsp;&nbsp;constructor(props) {super(props);}<br/>&nbsp;&nbsp;render() {<br/>&nbsp;&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;{this.props.name}&lt;/div&gt;<br/>&nbsp;&nbsp;&nbsp;);<br/>&nbsp;&nbsp;}<br/>&nbsp;}</code>|
-|createElement|w/o JSX|<code>const MyElem = (props) => <br/>&nbsp;&nbsp;React.createElement(<br/>&nbsp;&nbsp;&nbsp;'div', null, \`{props.name}\`<br/>&nbsp;&nbsp;)<br/>&nbsp;const MyComp = React.createFactory(MyElem)</code>|
-|Stateless    |with JSX|<code>const MyComp = (props) => (<br/>&nbsp;&nbsp;&lt;div&gt;{props.name}&lt;/div&gt;<br/>&nbsp;)<br/>&nbsp;const MyComponent = (props) => {<br/>&nbsp;&nbsp;let v = props.version + ".0";<br/>&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&lt;div&gt;{props.name} {v}&lt;/div&gt;<br/>&nbsp;&nbsp;)<br/>&nbsp;)</code>|
+|createClass  |deprecated|<pre>var MyComp = React.createClass({<br/>&nbsp;&nbsp;render: function(){<br/>&nbsp;&nbsp;&nbsp;&nbsp;return (&lt;div&gt;{this.props.name}&lt;/div&gt;);<br/>&nbsp;&nbsp;}<br/>});</pre>
+|ES6 class    |with `this`|<pre>class MyComp extends React.Component {<br/>&nbsp;&nbsp;constructor(props) {super(props);}<br/>&nbsp;&nbsp;render() {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;{this.props.name}&lt;/div&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;);<br/>&nbsp;&nbsp;}<br/>}</pre>|
+|createElement|w/o JSX|<pre>const MyElem = (props) => React.createElement('div', null, {props.name})<br/>const MyComp = React.createFactory(MyElem)</pre>|
+|Stateless    |with JSX|<pre>const MyComp = (props) => (<br/>&nbsp;&nbsp;&lt;div&gt;{props.name}&lt;/div&gt;<br/>)<br/>const MyComponent = (props) => {<br/>&nbsp;&nbsp;let v = props.version + ".0";<br/>&nbsp;&nbsp;return (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;{props.name} {v}&lt;/div&gt;<br/>&nbsp;&nbsp;)<br/>)</pre>|
 
   **Note**:
   - Always use stateless function unless you need to use react's life cycle methods, refs or state.
@@ -775,7 +831,7 @@ Resources:
     - `:class="o"` eval to `Object.keys(o).reduce((s, v) => o[v] ? s+' '+v : s)`
     - `:class="[a, b]"` map to values of `a` and `b` in data properties
     - `:style="{color: dataProp}"` eval to `style="color:dataPropValue"`
-    - `:style="[styleObj1 styleObj2]"` combines style objects
+    - `:style="[styleObj1 styleObj2]"` combines style objects"
 
   * data vs props
     - parent component defines `propName` key in `data`
@@ -902,7 +958,7 @@ Resources:
       - [React for the Visual Learner](https://leanpub.com/reactjsforthevisuallearner/)
       - [UI and React](https://leanpub.com/ui-react)
       - [A quick learning path summary](https://medium.com/front-end-hacking/my-path-until-now-into-react-a-learning-path-5d0303b7ffc1)
-        - [Beginer's Guide](https://egghead.io/courses/the-beginner-s-guide-to-reactjs)
+        - [Beginer Guide](https://egghead.io/courses/the-beginner-s-guide-to-reactjs)
         - [React Enlightenment](https://www.reactenlightenment.com/)
         - [React Patterns](https://reactpatterns.com/)
         - [React.js at Medium](https://medium.com/tag/reactjs)
@@ -951,3 +1007,8 @@ Resources:
     - https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
     - https://blog.envylabs.com/getting-started-with-webpack-2-ed2b86c68783
     - https://survivejs.com/webpack/foreword/
+
+
+<br/>
+
+&raquo; Back to <a href="#contents">Contents</a> &laquo;
