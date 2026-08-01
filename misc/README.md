@@ -8,6 +8,7 @@
 
   * [Primitive values](#primitive)
   * [JavaScript Library/Frameworks](./JSF.md)
+  * [Defer Features](./defer.md)
   * [Throtting](#throttling)
 
 
